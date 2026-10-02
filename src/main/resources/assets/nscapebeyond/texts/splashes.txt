@@ -1,0 +1,5 @@
+# Lines starting with # and blank lines are ignored
+Welcome to the Nullscape!
+Welcome to your Prison.
+Beyond the Void.
+Thmrite was here.
