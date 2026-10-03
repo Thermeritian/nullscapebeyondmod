@@ -1,5 +1,11 @@
 {
   "screen.nscapebeyond.flash_warning.title": "WARNING: Flashing Lights",
   "screen.nscapebeyond.flash_warning.body": "Nullscape Beyond is a mod that contains flashing lights and rapidly changing visuals that may trigger seizures in people with photosensitive epilepsy. A Photosensitive option is available in the mod's configuration file or inside the mod configuration tab. Player discretion is advised.",
-  "screen.nscapebeyond.flash_warning.continue": "I understand, continue"
+  "screen.nscapebeyond.flash_warning.continue": "I understand, continue",
+
+  "attribute.name.nscapebeyond.max_air_jumps": "Max Air Jumps",
+  "attribute.name.nscapebeyond.air_jump_strength": "Air Jump Strength",
+  "attribute.name.nscapebeyond.dash_strength": "Dash Strength",
+  "attribute.name.nscapebeyond.dash_cooldown": "Dash Cooldown",
+  "attribute.name.nscapebeyond.air_control": "Air Control"
 }

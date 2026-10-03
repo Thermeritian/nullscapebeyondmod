@@ -1,5 +1,6 @@
 package net.thmrite.nullscapebeyond;
 
+import net.thmrite.nullscapebeyond.movement.ModAttributes;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -39,6 +40,7 @@ public class NullscapeBeyond {
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
 
         ModSounds.SOUNDS.register(modEventBus);
+        ModAttributes.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
