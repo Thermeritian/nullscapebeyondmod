@@ -1,5 +1,5 @@
 {
   "screen.nscapebeyond.flash_warning.title": "WARNING: Flashing Lights",
-  "screen.nscapebeyond.flash_warning.body": "This mod contains flashing lights and rapidly changing visuals that may trigger seizures in people with photosensitive epilepsy. Player discretion is advised.",
+  "screen.nscapebeyond.flash_warning.body": "Nullscape Beyond is a mod that contains flashing lights and rapidly changing visuals that may trigger seizures in people with photosensitive epilepsy. A Photosensitive option is available in the mod's configuration file or inside the mod configuration tab. Player discretion is advised.",
   "screen.nscapebeyond.flash_warning.continue": "I understand, continue"
 }

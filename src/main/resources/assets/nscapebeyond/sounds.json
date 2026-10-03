@@ -1,0 +1,5 @@
+{
+  "menu.hover":  { "sounds": [ "nscapebeyond:menu/hover" ] },
+  "menu.click":  { "sounds": [ "nscapebeyond:menu/click" ] },
+  "menu.return": { "sounds": [ "nscapebeyond:menu/back" ] }
+}

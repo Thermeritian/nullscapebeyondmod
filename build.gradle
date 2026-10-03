@@ -27,6 +27,7 @@ sourceSets.main.resources {
 }
 
 repositories {
+    mavenCentral()
     // Add here additional repositories if required by some of the dependencies below.
     exclusiveContent {
         forRepository {
@@ -38,6 +39,24 @@ repositories {
         filter {
             includeGroup "maven.modrinth"
         }
+    }
+
+    maven {
+        name = 'GeckoLib'
+        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content { includeGroup 'software.bernie.geckolib' }
+    }
+
+    maven {
+        name = 'Wispforest'
+        url = 'https://maven.wispforest.io/releases/'
+        content { includeGroupAndSubgroups 'io.wispforest' }
+    }
+
+    maven {
+        name = 'Su5ed'
+        url = 'https://maven.su5ed.dev/releases'
+        content { includeGroup 'org.sinytra.forgified-fabric-api' }
     }
 }
 
@@ -129,10 +148,13 @@ configurations {
 
 dependencies {
     //localRuntime "maven.modrinth:sodium:mc1.21.1-0.8.13-neoforge"
+
     localRuntime "maven.modrinth:immediatelyfast:1.6.14+1.21.1-neoforge"
     localRuntime "maven.modrinth:lithium:mc1.21.1-0.15.4-neoforge"
     localRuntime "maven.modrinth:ferrite-core:7.0.3-neoforge"
 
+    implementation "software.bernie.geckolib:geckolib-neoforge-1.21.1:4.9.3"
+    implementation "io.wispforest:accessories-neoforge:1.1.0-beta.53+1.21.1"
 
 }
 

@@ -18,7 +18,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
-@EventBusSubscriber(modid = NullscapeBeyond.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+@EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
 public class ClientEvents {
 
     //Warning
@@ -37,7 +37,6 @@ public class ClientEvents {
     private static final ResourceLocation SPLASHES =
             ResourceLocation.fromNamespaceAndPath(NullscapeBeyond.MODID, "texts/splashes.txt");
     private static final RandomSource RANDOM = RandomSource.create();
-
     @SubscribeEvent
     public static void onTitleInit(ScreenEvent.Init.Pre event) {
         // Only set it if nothing is set yet, so window resizes keep the same splash
@@ -48,7 +47,6 @@ public class ClientEvents {
             }
         }
     }
-
     private static List<String> loadSplashes() {
         Optional<Resource> resource = Minecraft.getInstance().getResourceManager().getResource(SPLASHES);
         if (resource.isEmpty()) {
