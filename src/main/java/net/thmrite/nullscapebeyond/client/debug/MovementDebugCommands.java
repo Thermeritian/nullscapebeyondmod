@@ -13,13 +13,7 @@ import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.client.movement.MovementHandler;
 
-/**
- * /nsb movement          toggles the HUD
- * /nsb movement dump     prints a snapshot to chat
- * /nsb movement reset    resets the runtime state (air jumps, cooldowns...)
- *
- * To change values, use vanilla: /attribute @s nscapebeyond:max_air_jumps base set 2
- */
+
 @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
 public final class MovementDebugCommands {
     private MovementDebugCommands() {}

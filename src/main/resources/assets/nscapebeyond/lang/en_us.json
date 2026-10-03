@@ -4,8 +4,13 @@
   "screen.nscapebeyond.flash_warning.continue": "I understand, continue",
 
   "attribute.name.nscapebeyond.max_air_jumps": "Max Air Jumps",
-  "attribute.name.nscapebeyond.air_jump_strength": "Air Jump Strength",
   "attribute.name.nscapebeyond.dash_strength": "Dash Strength",
   "attribute.name.nscapebeyond.dash_cooldown": "Dash Cooldown",
-  "attribute.name.nscapebeyond.air_control": "Air Control"
+  "attribute.name.nscapebeyond.air_control": "Air Control",
+  "attribute.name.nscapebeyond.air_jump_strength": "Air Jump Strength",
+
+
+  "attribute.name.nscapebeyond.ground_max_speed": "Ground Max Speed",
+  "attribute.name.nscapebeyond.ground_acceleration": "Ground Acceleration",
+  "attribute.name.nscapebeyond.ground_turn_speed": "Ground Turn Speed"
 }

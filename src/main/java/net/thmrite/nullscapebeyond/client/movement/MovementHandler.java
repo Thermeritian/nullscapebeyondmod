@@ -7,16 +7,24 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
+import net.neoforged.neoforge.client.event.MovementInputUpdateEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
 /**
- * Central loop: updates the state, then runs every registered ability.
- * Runs on PlayerTickEvent.Pre so velocity changes apply within the same tick.
+ * Central loop: updates the state, then runs controllers and abilities.
+ *  - PlayerTickEvent.Pre: state update, controller.tick, abilities (velocity changes apply this tick).
+ *  - MovementInputUpdateEvent: controller.onInput, with the current tick's input.
  */
 @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
 public final class MovementHandler {
     public static final MovementState STATE = new MovementState();
+
+    /** Passive controllers: run every tick, before abilities, so abilities can override them. */
+    private static final List<MovementController> CONTROLLERS = List.of(
+            new GroundControlController(),
+            new AirControlController()
+    );
 
     /** Add new abilities here. Order matters when two abilities touch the same velocity. */
     private static final List<MovementAbility> ABILITIES = List.of(
@@ -25,23 +33,37 @@ public final class MovementHandler {
 
     private MovementHandler() {}
 
+    private static boolean isSuppressed(LocalPlayer player) {
+        return player.isSpectator()
+                || player.getAbilities().flying
+                || player.isFallFlying();
+    }
+
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Pre event) {
         if (!(event.getEntity() instanceof LocalPlayer player)) return;
 
         STATE.update(player);
 
-        boolean suppressed = player.isSpectator()
-                || player.getAbilities().flying
-                || player.isFallFlying();
-
-        if (!suppressed) {
+        if (!isSuppressed(player)) {
+            for (MovementController controller : CONTROLLERS) {
+                controller.tick(player, STATE);
+            }
             for (MovementAbility ability : ABILITIES) {
                 ability.tick(player, STATE);
             }
         }
 
         STATE.endTick(player);
+    }
+
+    @SubscribeEvent
+    public static void onMovementInput(MovementInputUpdateEvent event) {
+        if (!(event.getEntity() instanceof LocalPlayer player) || isSuppressed(player)) return;
+
+        for (MovementController controller : CONTROLLERS) {
+            controller.onInput(player, STATE, event.getInput());
+        }
     }
 
     @SubscribeEvent
