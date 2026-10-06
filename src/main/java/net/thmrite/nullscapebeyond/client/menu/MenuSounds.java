@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.client;
+package net.thmrite.nullscapebeyond.client.menu;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -18,7 +18,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
-import net.thmrite.nullscapebeyond.ModSounds;
+import net.thmrite.nullscapebeyond.registry.ModSounds;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
 @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
@@ -41,7 +41,6 @@ public class MenuSounds {
         return SimpleSoundInstance.forUI(event, 1.0F);
     }
 
-    // ---- Click: swap the shared vanilla click sound, menu only ----
     @SubscribeEvent
     public static void onPlaySound(PlaySoundEvent event) {
         SoundInstance sound = event.getSound();

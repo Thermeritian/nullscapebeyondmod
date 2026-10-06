@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "amount": 1,
+  "operation": "set",
+  "order": 50,
+  "icon": "nscapebeyond:gui/slot/head"
+}

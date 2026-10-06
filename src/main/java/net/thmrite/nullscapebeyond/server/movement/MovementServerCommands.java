@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.server;
+package net.thmrite.nullscapebeyond.server.movement;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,7 +20,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
-import net.thmrite.nullscapebeyond.movement.ModAttributes;
+import net.thmrite.nullscapebeyond.attribute.ModAttributes;
 
 @EventBusSubscriber(modid = NullscapeBeyond.MODID)
 public final class MovementServerCommands {

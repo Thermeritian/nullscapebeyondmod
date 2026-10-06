@@ -3,7 +3,7 @@ package net.thmrite.nullscapebeyond.client.movement;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import net.thmrite.nullscapebeyond.movement.ModAttributes;
+import net.thmrite.nullscapebeyond.attribute.ModAttributes;
 
 public final class AirControlController implements MovementController {
 

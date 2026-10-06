@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "amount": 0,
+  "operation": "set",
+  "order": 10,
+  "icon": "nscapebeyond:gui/slot/extra"
+}

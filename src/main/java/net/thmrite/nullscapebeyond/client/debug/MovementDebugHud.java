@@ -22,7 +22,7 @@ import net.thmrite.nullscapebeyond.client.movement.AirControlController;
 import net.thmrite.nullscapebeyond.client.movement.GroundControlController;
 import net.thmrite.nullscapebeyond.client.movement.MovementHandler;
 import net.thmrite.nullscapebeyond.client.movement.MovementState;
-import net.thmrite.nullscapebeyond.movement.ModAttributes;
+import net.thmrite.nullscapebeyond.attribute.ModAttributes;
 
 /**
  * Right-aligned panel with live movement values, grouped in sections.

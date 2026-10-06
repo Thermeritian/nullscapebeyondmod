@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "amount": 1,
+  "operation": "set",
+  "order": 40,
+  "icon": "nscapebeyond:gui/slot/chest"
+}

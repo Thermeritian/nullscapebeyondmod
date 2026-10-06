@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.client;
+package net.thmrite.nullscapebeyond.client.menu;
 
 import java.util.List;
 

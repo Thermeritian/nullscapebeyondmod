@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "order": 10,
+  "slots": ["head", "torso", "legs", "feet", "extra"],
+  "icon": "nscapebeyond:gui/group/any"
+}

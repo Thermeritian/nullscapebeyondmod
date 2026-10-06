@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.movement;
+package net.thmrite.nullscapebeyond.server.movement;
 
 import java.util.List;
 

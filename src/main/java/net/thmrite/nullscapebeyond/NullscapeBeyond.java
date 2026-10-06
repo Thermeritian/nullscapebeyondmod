@@ -1,6 +1,10 @@
 package net.thmrite.nullscapebeyond;
 
-import net.thmrite.nullscapebeyond.movement.ModAttributes;
+import net.thmrite.nullscapebeyond.attribute.ClassAttributes;
+import net.thmrite.nullscapebeyond.attribute.ModAttributes;
+import net.thmrite.nullscapebeyond.client.ModKeybinds;
+import net.thmrite.nullscapebeyond.registry.ModItems;
+import net.thmrite.nullscapebeyond.registry.ModSounds;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -33,13 +37,11 @@ public class NullscapeBeyond {
         modEventBus.addListener(this::commonSetup);
 
         NeoForge.EVENT_BUS.register(this);
-
-        // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
-        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
-
         ModSounds.SOUNDS.register(modEventBus);
+        ModItems.ITEMS.register(modEventBus);
+        ClassAttributes.ATTRIBUTES.register(modEventBus);
         ModAttributes.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);

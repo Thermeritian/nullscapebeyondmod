@@ -1,5 +1,13 @@
 {
   "menu.hover":  { "sounds": [ "nscapebeyond:menu/hover" ] },
   "menu.click":  { "sounds": [ "nscapebeyond:menu/click" ] },
-  "menu.return": { "sounds": [ "nscapebeyond:menu/back" ] }
+  "menu.return": { "sounds": [ "nscapebeyond:menu/back" ] },
+
+  "generic_jump": { "sounds" : [ "nscapebeyond:movement/genericextrajump" ] },
+  "generic_extrajump": { "sounds" : [ "nscapebeyond:movement/genericjump" ] },
+  "generic_land": { "sounds" : [ "nscapebeyond:movement/genericland" ] },
+
+  "charger_charge": { "sounds" : [ "nscapebeyond:class/charger/charge" ] },
+  "charger_brake": { "sounds" : [ "nscapebeyond:class/charger/brake" ] },
+  "charger_bonk": { "sounds" : [ "nscapebeyond:class/charger/bonk" ] }
 }
