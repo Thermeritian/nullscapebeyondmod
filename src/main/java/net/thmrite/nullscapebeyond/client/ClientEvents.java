@@ -27,7 +27,7 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void onScreenOpening(ScreenEvent.Opening event) {
-        if (!warningShown && event.getNewScreen() instanceof TitleScreen) {
+        if (!warningShown && ClientConfig.SHOW_FLASH_WARNING.get() && event.getNewScreen() instanceof TitleScreen) {
             warningShown = true;
             event.setNewScreen(new FlashWarningScreen(event.getNewScreen()));
         }

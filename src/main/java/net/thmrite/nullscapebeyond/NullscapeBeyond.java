@@ -44,7 +44,6 @@ public class NullscapeBeyond {
         ClassAttributes.ATTRIBUTES.register(modEventBus);
         ModAttributes.register(modEventBus);
 
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

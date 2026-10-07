@@ -3,6 +3,19 @@
   "screen.nscapebeyond.flash_warning.body": "Nullscape Beyond is a mod that contains flashing lights and rapidly changing visuals that may trigger seizures in people with photosensitive epilepsy. A Photosensitive option is available in the mod's configuration file or inside the mod configuration tab. Player discretion is advised.",
   "screen.nscapebeyond.flash_warning.continue": "I understand, continue",
 
+  "config.nscapebeyond.title": "Nullscape Beyond Settings",
+  "config.nscapebeyond.category.credits": "Credits",
+  "config.nscapebeyond.category.accessibility": "Accessibility",
+  "config.nscapebeyond.category.visual": "Visual",
+  "config.nscapebeyond.category.sound": "Sound",
+  "config.nscapebeyond.credits.text": "Nullscape Beyond\n\nMod Author: Thmrite \nOriginal by: MartWaterimp \nMusic by:  DIGITAL DESCENDANT",
+  "config.nscapebeyond.accessibility.photosensitive": "Photosensitive Mode",
+  "config.nscapebeyond.accessibility.photosensitive.tooltip": "Reduces or removes flashing and rapid visual effects.",
+  "config.nscapebeyond.accessibility.flash_warning": "Startup Flash Warning",
+  "config.nscapebeyond.visual.empty": "No visual options yet.",
+  "config.nscapebeyond.sound.soundtrack_volume": "Soundtrack Volume: %s%%",
+  "config.nscapebeyond.sound.menu_sounds": "Custom Menu Sounds",
+
   "nscapebeyond:gui/slot/head": "Head",
   "nscapebeyond:gui/slot/torso": "Torso",
   "nscapebeyond:gui/slot/legs": "Legs",
@@ -59,6 +72,23 @@
   "tooltip.nscapebeyond.slot.feet": "Feet",
   "tooltip.nscapebeyond.slot.extra": "Extra",
   "tooltip.nscapebeyond.footer": "NullscapeBeyond",
+
+
   "item.nscapebeyond.charger_boots.flavor": "graaahhh",
-  "item.nscapebeyond.charger_boots.desc": "Hold %1$s to charge. Press %1$s mid air to perform a quick drop.\nHold %2$s to create a platform for airborne charging.\nCauses knockback against entities on impact."
+  "item.nscapebeyond.charger_boots.desc": "Hold %1$s to charge. Press %1$s mid air to perform a quick drop.\nHold %2$s to create a platform for airborne charging.\nCauses knockback against entities on impact.",
+
+  "item.nscapebeyond.diver_helmet.flavor": "bonk!",
+  "item.nscapebeyond.diver_helmet.desc": "Tap %1$s to dive. Causes damage against entities on impact. \nPressing %2$s  does a longer dive. You can jump out of dives.",
+
+  "item.nscapebeyond.wanted_hat.flavor": "desperado",
+  "item.nscapebeyond.wanted_hat.desc": "Tap %1$s to parry. Parrying has a small window. Holding %1$s after a successful parry grants a vertical boost.\n Hold %2$s to activate a cloak, consumes stamina.",
+
+  "item.nscapebeyond.glider_kit.flavor": "skies' the limit",
+  "item.nscapebeyond.glider_kit.desc": "Hold %1$s mid-air to glide. Aim with the camera or directional keys. Hitting an entity while gliding at high speeds does mutual damage. Has a dedicated stamina bar.",
+
+  "item.nscapebeyond.spirit_necklace.flavor": "a ghost?",
+  "item.nscapebeyond.spirit_necklace.desc": "Press %1$s to leave your body behind. Grants enhanced mobility outside your body. Press %1$s again to teleport back. \nPress %2$s to leave a catapulting body, launching you back when pressing %1$s depending on the distance. \nTeleporting grants invincibility frames.",
+
+  "item.nscapebeyond.grappler_loom.flavor": "like parkour",
+  "item.nscapebeyond.grappler_loom.desc": "a"
 }

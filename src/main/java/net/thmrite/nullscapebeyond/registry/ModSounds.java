@@ -11,6 +11,8 @@ public class ModSounds {
     public static final DeferredRegister<SoundEvent> SOUNDS =
             DeferredRegister.create(Registries.SOUND_EVENT, NullscapeBeyond.MODID);
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> SOUNDTRACK_MENU = register("soundtrack.menu");
+
     public static final DeferredHolder<SoundEvent, SoundEvent> MENU_HOVER = register("menu.hover");
     public static final DeferredHolder<SoundEvent, SoundEvent> MENU_CLICK = register("menu.click");
     public static final DeferredHolder<SoundEvent, SoundEvent> MENU_RETURN = register("menu.return");

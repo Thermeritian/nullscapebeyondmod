@@ -19,7 +19,7 @@ import net.thmrite.nullscapebeyond.accessory.classaccessory.ChargerBoots;
 import net.thmrite.nullscapebeyond.attribute.ClassAttributes;
 import net.thmrite.nullscapebeyond.registry.ModSounds;
 
-@EventBusSubscriber(modid = NullscapeBeyond.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = NullscapeBeyond.MODID)
 public final class ChargerNetwork {
     private static final Map<Player, Map<Integer, Long>> LAST_KNOCK = new WeakHashMap<>();
 

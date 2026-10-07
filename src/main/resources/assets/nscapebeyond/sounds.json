@@ -1,13 +1,20 @@
 {
+  "soundtrack.menu": {
+    "sounds": [
+      { "name": "nscapebeyond:music/menu/title_screen", "stream": true },
+      { "name": "nscapebeyond:music/menu/voidbound", "stream": true }
+    ]
+  },
+
   "menu.hover":  { "sounds": [ "nscapebeyond:menu/hover" ] },
   "menu.click":  { "sounds": [ "nscapebeyond:menu/click" ] },
   "menu.return": { "sounds": [ "nscapebeyond:menu/back" ] },
 
-  "generic_jump": { "sounds" : [ "nscapebeyond:movement/genericextrajump" ] },
-  "generic_extrajump": { "sounds" : [ "nscapebeyond:movement/genericjump" ] },
-  "generic_land": { "sounds" : [ "nscapebeyond:movement/genericland" ] },
+  "generic_jump":  { "sounds": [ "nscapebeyond:movement/genericjump" ] },
+  "generic_extrajump":  { "sounds": [ "nscapebeyond:movement/genericextrajump" ] },
+  "generic_land": { "sounds": [ "nscapebeyond:class/charger/genericland" ] },
 
-  "charger_charge": { "sounds" : [ "nscapebeyond:class/charger/charge" ] },
-  "charger_brake": { "sounds" : [ "nscapebeyond:class/charger/brake" ] },
-  "charger_bonk": { "sounds" : [ "nscapebeyond:class/charger/bonk" ] }
+  "charger_charge":  { "sounds": [ "nscapebeyond:class/charger/charge" ] },
+  "charger_brake":  { "sounds": [ "nscapebeyond:class/charger/brake" ] },
+  "charger_bonk": { "sounds": [ "nscapebeyond:class/charger/bonk" ] }
 }

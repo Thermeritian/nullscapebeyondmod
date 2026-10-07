@@ -18,6 +18,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
+import net.thmrite.nullscapebeyond.client.ClientConfig;
 import net.thmrite.nullscapebeyond.registry.ModSounds;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
@@ -34,7 +35,7 @@ public class MenuSounds {
 
     /** "Main menu" = no world loaded. In a world, everything stays vanilla. */
     private static boolean inMenu() {
-        return Minecraft.getInstance().level == null;
+        return Minecraft.getInstance().level == null && ClientConfig.MENU_SOUNDS.get();
     }
 
     private static SoundInstance ui(SoundEvent event) {
