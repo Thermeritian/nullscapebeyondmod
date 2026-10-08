@@ -12,6 +12,7 @@ import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactori
 import net.neoforged.neoforge.client.event.RenderTooltipEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.accessory.TooltipAccessory;
+import net.thmrite.nullscapebeyond.client.ClientConfig;
 import net.thmrite.nullscapebeyond.registry.AccessoryTooltipData;
 
 public final class TooltipEvents {
@@ -20,7 +21,7 @@ public final class TooltipEvents {
     public static final class Game {
         @SubscribeEvent
         public static void gather(RenderTooltipEvent.GatherComponents event) {
-            if (!(event.getItemStack().getItem() instanceof TooltipAccessory)) return;
+            if (!(event.getItemStack().getItem() instanceof TooltipAccessory) || (!ClientConfig.CUSTOM_ACCESSORY_TOOLTIP.get())) return;
             var elements = event.getTooltipElements();
             elements.clear(); // also drops the Accessories mod's own lines; we show the slot ourselves
             elements.add(Either.<FormattedText, TooltipComponent>right(new AccessoryTooltipData(event.getItemStack())));

@@ -11,22 +11,15 @@ import net.neoforged.neoforge.client.event.MovementInputUpdateEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
-/**
- * Central loop: updates the state, then runs controllers and abilities.
- *  - PlayerTickEvent.Pre: state update, controller.tick, abilities (velocity changes apply this tick).
- *  - MovementInputUpdateEvent: controller.onInput, with the current tick's input.
- */
 @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
 public final class MovementHandler {
     public static final MovementState STATE = new MovementState();
 
-    /** Passive controllers: run every tick, before abilities, so abilities can override them. */
     private static final List<MovementController> CONTROLLERS = List.of(
             new GroundControlController(),
             new AirControlController()
     );
 
-    /** Add new abilities here. Order matters when two abilities touch the same velocity. */
     private static final List<MovementAbility> ABILITIES = List.of(
             new DoubleJumpAbility()
     );
@@ -71,7 +64,6 @@ public final class MovementHandler {
         STATE.reset();
     }
 
-    /** Fires when the local player is replaced (respawn, dimension change). */
     @SubscribeEvent
     public static void onPlayerClone(ClientPlayerNetworkEvent.Clone event) {
         STATE.reset();

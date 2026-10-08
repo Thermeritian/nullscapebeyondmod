@@ -17,6 +17,7 @@ public class ModConfigScreen extends ConfigPageScreen {
         page(1, "accessibility", AccessibilityScreen::new);
         page(2, "visual", VisualScreen::new);
         page(3, "sound", SoundScreen::new);
+        page(4, "controls", ControlsScreen::new);
     }
 
     private void page(int row, String key, Function<Screen, Screen> factory) {

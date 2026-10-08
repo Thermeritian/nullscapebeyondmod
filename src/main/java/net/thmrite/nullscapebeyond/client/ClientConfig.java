@@ -9,6 +9,7 @@ public class ClientConfig {
     public static final ModConfigSpec.BooleanValue SHOW_FLASH_WARNING;
     public static final ModConfigSpec.DoubleValue SOUNDTRACK_VOLUME;
     public static final ModConfigSpec.BooleanValue MENU_SOUNDS;
+    public static final ModConfigSpec.BooleanValue CUSTOM_ACCESSORY_TOOLTIP;
     public static final ModConfigSpec SPEC;
 
     static {
@@ -21,6 +22,12 @@ public class ClientConfig {
                 .define("showFlashWarning", true);
         BUILDER.pop();
 
+        BUILDER.push("visual");
+        CUSTOM_ACCESSORY_TOOLTIP = BUILDER
+                .comment("Use the mod's custom accessory tooltip instead of the vanilla one")
+                .define("customAccessoryTooltip", true);
+        BUILDER.pop();
+
         BUILDER.push("sound");
         SOUNDTRACK_VOLUME = BUILDER
                 .comment("Volume of the mod's soundtrack (independent from Minecraft's Music slider)")
@@ -29,6 +36,8 @@ public class ClientConfig {
                 .comment("Use the mod's custom hover/click/return sounds in the main menu")
                 .define("menuSounds", true);
         BUILDER.pop();
+
+
 
         SPEC = BUILDER.build();
     }

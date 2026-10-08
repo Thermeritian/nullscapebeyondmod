@@ -17,14 +17,7 @@ import net.thmrite.nullscapebeyond.accessory.TooltipAccessory;
 import net.thmrite.nullscapebeyond.client.ModKeybinds;
 import net.thmrite.nullscapebeyond.registry.AccessoryTooltipData;
 
-/**
- * Layout (top to bottom):
- *   NAME (accent colour)  flavour (small, gray, italic)
- *   Slot: X
- *   ------------------------------------------------
- *   [viewport]  description (wrapped)
- *   FOOTER (mod name, italic blue)
- */
+
 public final class AccessoryTooltipComponent implements ClientTooltipComponent {
     private static final int PREVIEW_W = 44, PREVIEW_H = 64, GAP = 6, TEXT_W = 140;
     private static final float FLAVOR_SCALE = 0.75f;
@@ -84,15 +77,14 @@ public final class AccessoryTooltipComponent implements ClientTooltipComponent {
         int slotY = y + lh + 3;
         g.drawString(font, slotLine, x, slotY, 0xFFFFFFFF, true);
 
-        // Separator
+        // Separtor
         int sepY = slotY + lh + 4;
         g.fill(x, sepY, x + width, sepY + 1, 0xFFFFFFFF);
 
-        // Body: viewport + description
         int by = sepY + 1 + 5;
         LivingEntity preview = PreviewDummy.get(stack, accessory.tooltipSlot());
         if (preview != null) {
-            // Same trick as the inventory screen: the dummy looks at the real cursor (GUI-scaled coordinates).
+            // inventory screen ==> the dummy looks at the real cursor.
             Minecraft mc = Minecraft.getInstance();
             double mouseX = mc.mouseHandler.xpos() * mc.getWindow().getGuiScaledWidth() / mc.getWindow().getScreenWidth();
             double mouseY = mc.mouseHandler.ypos() * mc.getWindow().getGuiScaledHeight() / mc.getWindow().getScreenHeight();
@@ -104,7 +96,7 @@ public final class AccessoryTooltipComponent implements ClientTooltipComponent {
             g.drawString(font, description.get(i), tx, by + i * lh, 0xFFFFFFFF, true);
         }
 
-        // Footer
+        // Footer to make it more pleasant :pensive:
         g.drawString(font, footer, x, by + bodyHeight + 5, 0xFFFFFFFF, true);
     }
 }
