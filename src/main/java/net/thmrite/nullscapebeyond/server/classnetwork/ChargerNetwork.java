@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import java.util.UUID;
+
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -17,11 +20,14 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.accessory.classaccessory.ChargerBoots;
 import net.thmrite.nullscapebeyond.attribute.ClassAttributes;
+import net.thmrite.nullscapebeyond.entity.ChargerPlatformEntity;
+import net.thmrite.nullscapebeyond.registry.ModEntities;
 import net.thmrite.nullscapebeyond.registry.ModSounds;
 
 @EventBusSubscriber(modid = NullscapeBeyond.MODID)
 public final class ChargerNetwork {
     private static final Map<Player, Map<Integer, Long>> LAST_KNOCK = new WeakHashMap<>();
+    private static final Map<UUID, ChargerPlatformEntity> PLATFORMS = new HashMap<>();
 
     @SubscribeEvent
     public static void register(RegisterPayloadHandlersEvent event) {
@@ -33,8 +39,14 @@ public final class ChargerNetwork {
             if (!(ctx.player() instanceof ServerPlayer sp) || !ChargerBoots.isEquipped(sp)) return;
             switch (msg.kind()) {
                 case START -> sound(sp, ModSounds.CHARGER_CHARGE.get());
-                case BRAKE -> sound(sp, ModSounds.CHARGER_BRAKE.get());
+                case BRAKE -> {
+                    sound(sp, ModSounds.CHARGER_BRAKE.get());
+                    endPlatform(sp);
+                }
+                case PLATFORM_START -> startPlatform(sp, msg.value());
+                case PLATFORM_END -> endPlatform(sp);
                 case BONK -> {
+                    endPlatform(sp);
                     sound(sp, ModSounds.CHARGER_BONK.get());
                     double res = ClassAttributes.BONK_RESISTANCE.of(sp);
                     double dmg = ClassAttributes.BONK_DAMAGE.of(sp) * (1.0 - res);
@@ -43,6 +55,21 @@ public final class ChargerNetwork {
                 case KNOCK -> knock(sp, msg);
             }
         });
+    }
+
+    private static void startPlatform(ServerPlayer sp, float y) {
+        endPlatform(sp);
+        ChargerPlatformEntity platform = new ChargerPlatformEntity(ModEntities.CHARGER_PLATFORM.get(), sp.level());
+        platform.setOwner(sp);
+        // Do not trust the client with an arbitrary height
+        platform.setPos(sp.getX(), Mth.clamp(y, sp.getY() - 3.0, sp.getY() + 1.0), sp.getZ());
+        sp.serverLevel().addFreshEntity(platform);
+        PLATFORMS.put(sp.getUUID(), platform);
+    }
+
+    private static void endPlatform(ServerPlayer sp) {
+        ChargerPlatformEntity old = PLATFORMS.remove(sp.getUUID());
+        if (old != null && !old.isRemoved()) old.discard();
     }
 
     /** Plays to everyone except the sender (the sender already played it locally). */
@@ -55,7 +82,7 @@ public final class ChargerNetwork {
         if (!(ent instanceof LivingEntity target) || !target.isAlive() || sp.distanceToSqr(target) > 25) return;
 
         double chargeSpeed = ClassAttributes.CHARGE_SPEED.of(sp);
-        double speed = Math.min(msg.speed(), chargeSpeed * 1.5); // clamp what the client claims
+        double speed = Math.min(msg.value(), chargeSpeed * 1.5); // clamp what the client claims
         if (speed < ClassAttributes.KNOCK_MIN_SPEED.of(sp) * 0.9) return;
 
         long now = sp.level().getGameTime();

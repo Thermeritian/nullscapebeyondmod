@@ -3,7 +3,6 @@ package net.thmrite.nullscapebeyond.client.classcontrol;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -35,6 +34,7 @@ public final class ChargerController {
     private static boolean staminaInit, prevAbility, prevAlt;
     private static int platformTicks, regenDelay, bonkTicks;
     private static double groundY;
+    private static boolean sentPlatform;
     private static final Map<Integer, Integer> knockCooldowns = new HashMap<>();
 
     /** True while the stamina bar should replace the XP bar. */
@@ -149,15 +149,14 @@ public final class ChargerController {
 
         double rad = heading * Mth.DEG_TO_RAD;
         double dy = p.getDeltaMovement().y;
-        boolean grounded = p.onGround();
+
+        boolean grounded = p.onGround() || !p.level().noCollision(p, p.getBoundingBox().move(0, -0.05, 0));
         platformActive = false;
         if (grounded) {
             groundY = p.getY();
             platformTicks = (int) ClassAttributes.PLATFORM_DURATION.of(p);
         } else if (alt && platformTicks > 0) {
-            // The platform behaves like ground at the height where the player left it:
-            // snap back up to that height (leaving a ledge drops you a hair), count as grounded so vanilla
-            // step-up works on small edges, and cancel fall damage.
+
             if (p.getY() < groundY) p.setPos(p.getX(), groundY, p.getZ());
             p.setOnGround(true);
             p.resetFallDistance();
@@ -166,14 +165,23 @@ public final class ChargerController {
             platformActive = true;
         }
 
+        if (platformActive != sentPlatform) {
+            sentPlatform = platformActive;
+            send(platformActive ? ChargerEventPayload.Kind.PLATFORM_START : ChargerEventPayload.Kind.PLATFORM_END,
+                    0, (float) groundY);
+        }
+
         p.setDeltaMovement(-Mth.sin((float) rad) * speed, dy, Mth.cos((float) rad) * speed);
         lastCommandedSpeed = speed;
     }
 
     private static void stopCharge(LocalPlayer p, boolean brake) {
-        stopLocal(p, ModSounds.CHARGER_CHARGE.get());
         charging = false;
         platformActive = false;
+        if (sentPlatform) {
+            sentPlatform = false;
+            send(ChargerEventPayload.Kind.PLATFORM_END, 0, 0);
+        }
         cooldown = (int) ClassAttributes.CLASS_COOLDOWN.of(p);
         regenDelay = (int) ClassAttributes.STAMINA_REGEN_DELAY.of(p);
         if (brake) {
@@ -229,15 +237,12 @@ public final class ChargerController {
         speed = lastCommandedSpeed = 0;
         cooldown = platformTicks = regenDelay = bonkTicks = 0;
         staminaInit = false;
+        sentPlatform = false;
         knockCooldowns.clear();
     }
 
     private static void playLocal(LocalPlayer p, SoundEvent sound) {
         p.level().playLocalSound(p.getX(), p.getY(), p.getZ(), sound, SoundSource.PLAYERS, 1.0f, 1.0f, false);
-    }
-
-    private static void stopLocal(LocalPlayer p, SoundEvent sound) {
-        Minecraft.getInstance().getSoundManager().stop(sound.getLocation(), SoundSource.PLAYERS);
     }
 
     private static void send(ChargerEventPayload.Kind kind, int targetId, float spd) {
