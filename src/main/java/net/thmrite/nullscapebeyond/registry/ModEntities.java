@@ -8,6 +8,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
 import net.thmrite.nullscapebeyond.entity.ChargerPlatformEntity;
+import net.thmrite.nullscapebeyond.entity.MartEntity;
+import net.thmrite.nullscapebeyond.entity.WaterJoltEntity;
 
 public final class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES =
@@ -23,6 +25,25 @@ public final class ModEntities {
                     .noSave()
                     .fireImmune()
                     .build("charger_platform"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<MartEntity>> MART =
+            ENTITIES.register("mart", () -> EntityType.Builder
+                    .<MartEntity>of(MartEntity::new, MobCategory.CREATURE)
+                    .sized(0.8f, 0.8f)
+                    .eyeHeight(0.5f)
+                    .clientTrackingRange(10)
+                    .build("mart"));
+
+    // Tiny hitbox, 1-tick updates so the client follows the bolt smoothly.
+    public static final DeferredHolder<EntityType<?>, EntityType<WaterJoltEntity>> WATER_JOLT =
+            ENTITIES.register("water_jolt", () -> EntityType.Builder
+                    .<WaterJoltEntity>of(WaterJoltEntity::new, MobCategory.MISC)
+                    .sized(0.3f, 0.3f)
+                    .clientTrackingRange(4)
+                    .updateInterval(1)
+                    .noSave()
+                    .fireImmune()
+                    .build("water_jolt"));
 
     private ModEntities() {}
 }

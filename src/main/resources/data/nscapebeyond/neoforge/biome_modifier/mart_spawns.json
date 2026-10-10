@@ -1,0 +1,5 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#minecraft:is_river",
+  "spawners": { "type": "nscapebeyond:mart", "weight": 10, "minCount": 2, "maxCount": 4 }
+}

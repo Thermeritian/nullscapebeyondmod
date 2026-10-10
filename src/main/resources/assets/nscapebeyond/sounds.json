@@ -23,5 +23,18 @@
     "nscapebeyond:item/shield/bash_2",
     "nscapebeyond:item/shield/bash_3",
     "nscapebeyond:item/shield/bash_4"
+  ] },
+
+  "entity.mart.merge": { "sounds": ["nscapebeyond:entity/mart/mart_merge"] },
+  "entity.mart.death": { "sounds": ["nscapebeyond:entity/mart/mart_death"] },
+  "entity.mart.shoot": { "sounds": [
+    "nscapebeyond:entity/mart/mart_shoot_1",
+    "nscapebeyond:entity/mart/mart_shoot_2",
+    "nscapebeyond:entity/mart/mart_shoot_3"
+  ] },
+  "entity.water_jolt.hit": { "sounds": [
+    "nscapebeyond:entity/water_jolt/water_jolt_hit_1",
+    "nscapebeyond:entity/water_jolt/water_jolt_hit_2",
+    "nscapebeyond:entity/water_jolt/water_jolt_hit_3"
   ] }
 }

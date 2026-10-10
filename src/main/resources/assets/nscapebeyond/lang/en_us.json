@@ -43,6 +43,7 @@
   "attribute.name.nscapebeyond.ground_acceleration": "Ground Acceleration",
   "attribute.name.nscapebeyond.ground_turn_speed": "Ground Turn Speed",
 
+
   "item.nscapebeyond.charger_boots": "Charger Boots",
   "attribute.name.nscapebeyond.class_cooldown": "Class Cooldown",
   "attribute.name.nscapebeyond.class_stamina_max": "Class Stamina",
@@ -72,8 +73,6 @@
   "attribute.name.nscapebeyond.shield_bash_upward": "Shield Bash Upward Boost",
   "attribute.name.nscapebeyond.shield_bash_durability": "Shield Bash Durability Damage",
   "attribute.name.nscapebeyond.shield_bash_freeze": "Shield Bash Freeze Time",
-
-
   "attribute.name.nscapebeyond.max_extra_slots": "Max Extra Slots",
 
   "tooltip.nscapebeyond.slot": "Slot: %s",
@@ -84,6 +83,14 @@
   "tooltip.nscapebeyond.slot.extra": "Extra",
   "tooltip.nscapebeyond.footer": "NullscapeBeyond",
 
+
+  "entity.nscapebeyond.mart": "Mart",
+  "entity.nscapebeyond.water_jolt": "Water Jolt",
+
+  "item.nscapebeyond.mart_spawn_egg": "Mart Spawn Egg",
+  "item.nscapebeyond.mart_bucket": "Bucket of Mart",
+
+  "message.nscapebeyond.mart.full": "Mart can't hold any more water",
 
   "item.nscapebeyond.charger_boots.flavor": "graaahhh",
   "item.nscapebeyond.charger_boots.desc": "Hold %1$s to charge. Press %1$s mid air to perform a quick drop.\nHold %2$s to create a platform for airborne charging.\nCauses knockback against entities on impact.",
