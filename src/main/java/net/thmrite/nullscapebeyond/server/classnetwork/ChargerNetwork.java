@@ -10,9 +10,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -52,7 +54,10 @@ public final class ChargerNetwork {
                     double dmg = ClassAttributes.BONK_DAMAGE.of(sp) * (1.0 - res);
                     if (dmg > 0) sp.hurt(sp.damageSources().flyIntoWall(), (float) dmg);
                 }
-                case KNOCK -> knock(sp, msg);
+                case KNOCK -> hit(sp, msg, false);
+                case SHIELD_BASH -> {
+                    if (sp.isBlocking()) hit(sp, msg, true);
+                }
             }
         });
     }
@@ -77,7 +82,12 @@ public final class ChargerNetwork {
         sp.level().playSound(sp, sp.getX(), sp.getY(), sp.getZ(), event, SoundSource.PLAYERS, 1.0f, 1.0f);
     }
 
-    private static void knock(ServerPlayer sp, ChargerEventPayload msg) {
+    /**
+     * Charge impact on an entity. bash = the charger is blocking with a shield (any shield that declares
+     * NeoForge's SHIELD_BLOCK ability, since that is what isBlocking() checks): big damage, big knockback
+     * (held back during a short freeze), and heavy durability damage to the shield.
+     */
+    private static void hit(ServerPlayer sp, ChargerEventPayload msg, boolean bash) {
         Entity ent = sp.level().getEntity(msg.targetId());
         if (!(ent instanceof LivingEntity target) || !target.isAlive() || sp.distanceToSqr(target) > 25) return;
 
@@ -91,14 +101,36 @@ public final class ChargerNetwork {
         if (last != null && now - last < ClassAttributes.KNOCK_HIT_COOLDOWN.of(sp)) return;
         map.put(target.getId(), now);
 
-        double dmg = ClassAttributes.KNOCK_DAMAGE.of(sp);
+        double dmg = bash ? ClassAttributes.SHIELD_BASH_DAMAGE.of(sp) : ClassAttributes.KNOCK_DAMAGE.of(sp);
+        double base = bash ? ClassAttributes.SHIELD_BASH_KNOCKBACK.of(sp) : ClassAttributes.KNOCK_STRENGTH.of(sp);
+        double up = bash ? ClassAttributes.SHIELD_BASH_UPWARD.of(sp) : ClassAttributes.KNOCK_UPWARD.of(sp);
+        double strength = base * (speed / chargeSpeed);
+        double dx = sp.getX() - target.getX();
+        double dz = sp.getZ() - target.getZ();
+
         if (dmg > 0) target.hurt(sp.damageSources().playerAttack(sp), (float) dmg);
 
-        double strength = ClassAttributes.KNOCK_STRENGTH.of(sp) * (speed / chargeSpeed);
-        // LivingEntity.knockback pushes AWAY from the (x, z) vector, so pass the vector towards the charger.
-        target.knockback(strength, sp.getX() - target.getX(), sp.getZ() - target.getZ());
-        target.setDeltaMovement(target.getDeltaMovement().add(0, ClassAttributes.KNOCK_UPWARD.of(sp), 0));
-        target.hurtMarked = true;
+        if (!bash) {
+            BashFreeze.launch(target, strength, dx, dz, up);
+            return;
+        }
+
+        // Shield bash extras
+        InteractionHand hand = sp.getUsedItemHand();
+        ItemStack shield = sp.getItemInHand(hand);
+        int wear = (int) ClassAttributes.SHIELD_BASH_DURABILITY.of(sp);
+        if (wear > 0 && shield.isDamageableItem()) {
+            shield.hurtAndBreak(wear, sp, LivingEntity.getSlotForHand(hand));
+        }
+        sp.level().playSound(sp, target.getX(), target.getY(), target.getZ(),
+                ModSounds.SHIELD_BASH.get(), SoundSource.PLAYERS, 1.2f, 1.0f);
+
+        int freeze = (int) ClassAttributes.SHIELD_BASH_FREEZE.of(sp);
+        if (freeze > 0 && target.isAlive()) {
+            BashFreeze.start(target, freeze, strength, dx, dz, up);
+        } else {
+            BashFreeze.launch(target, strength, dx, dz, up);
+        }
     }
 
     private ChargerNetwork() {}

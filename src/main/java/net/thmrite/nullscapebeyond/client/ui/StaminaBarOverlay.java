@@ -37,7 +37,7 @@ public final class StaminaBarOverlay {
         int w = (int) (frac * 182);
         if (w > 0) {
             if (ChargerController.charging) {
-                g.fill(x, y, x + w, y + 5, 0xFFFFFFFF); // white while charging
+                g.fill(x, y, x + w, y + 5, 0xFFFFFFFF);
             } else {
                 g.setColor(1.0f, 0.85f, 0.1f, 1.0f); // yellow while recovering
                 g.blitSprite(FG, 182, 5, 0, 0, x, y, w, 5);

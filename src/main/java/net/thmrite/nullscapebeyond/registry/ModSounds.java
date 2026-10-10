@@ -25,6 +25,8 @@ public class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> CHARGER_BRAKE  = register("charger_brake");
     public static final DeferredHolder<SoundEvent, SoundEvent> CHARGER_BONK   = register("charger_bonk");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> SHIELD_BASH    = register("shield_bash");
+
 
     private static DeferredHolder<SoundEvent, SoundEvent> register(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(

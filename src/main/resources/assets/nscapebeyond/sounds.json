@@ -16,5 +16,12 @@
 
   "charger_charge":  { "sounds": [ "nscapebeyond:class/charger/charge" ] },
   "charger_brake":  { "sounds": [ "nscapebeyond:class/charger/brake" ] },
-  "charger_bonk": { "sounds": [ "nscapebeyond:class/charger/bonk" ] }
+  "charger_bonk": { "sounds": [ "nscapebeyond:class/charger/bonk" ] },
+
+  "shield_bash": { "sounds": [
+    "nscapebeyond:item/shield/bash_1",
+    "nscapebeyond:item/shield/bash_2",
+    "nscapebeyond:item/shield/bash_3",
+    "nscapebeyond:item/shield/bash_4"
+  ] }
 }

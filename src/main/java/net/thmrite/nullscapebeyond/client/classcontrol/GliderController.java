@@ -1,4 +1,10 @@
 package net.thmrite.nullscapebeyond.client.classcontrol;
 
-public class GliderController {
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.thmrite.nullscapebeyond.NullscapeBeyond;
+
+//@EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
+public final class GliderController {
+    public static boolean hasClass, gliding;
 }

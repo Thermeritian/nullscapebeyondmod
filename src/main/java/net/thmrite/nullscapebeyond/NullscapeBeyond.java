@@ -6,6 +6,7 @@ import net.thmrite.nullscapebeyond.client.ModKeybinds;
 import net.thmrite.nullscapebeyond.registry.ModEntities;
 import net.thmrite.nullscapebeyond.registry.ModItems;
 import net.thmrite.nullscapebeyond.registry.ModSounds;
+import net.thmrite.nullscapebeyond.registry.ModTags;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;

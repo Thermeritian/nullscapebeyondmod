@@ -48,12 +48,14 @@
   "attribute.name.nscapebeyond.class_stamina_max": "Class Stamina",
   "attribute.name.nscapebeyond.class_stamina_regen": "Class Stamina Regen",
   "attribute.name.nscapebeyond.class_stamina_regen_delay": "Class Stamina Regen Delay",
+
   "attribute.name.nscapebeyond.charge_speed": "Charge Speed",
   "attribute.name.nscapebeyond.charge_acceleration": "Charge Acceleration",
   "attribute.name.nscapebeyond.charge_turn_speed": "Charge Turn Speed",
   "attribute.name.nscapebeyond.charge_stamina_cost": "Charge Stamina Cost",
   "attribute.name.nscapebeyond.charge_platform_duration": "Charge Platform Duration",
   "attribute.name.nscapebeyond.charge_quickdrop_speed": "Quickdrop Speed",
+  "attribute.name.nscapebeyond.charge_water_skip_ratio": "Water Skip Speed Ratio",
   "attribute.name.nscapebeyond.bonk_min_speed": "Bonk Minimum Speed",
   "attribute.name.nscapebeyond.bonk_knockback": "Bonk Knockback",
   "attribute.name.nscapebeyond.bonk_exponent": "Bonk Exponent",
@@ -65,6 +67,13 @@
   "attribute.name.nscapebeyond.knock_damage": "Knock Damage",
   "attribute.name.nscapebeyond.knock_upward": "Knock Upward Boost",
   "attribute.name.nscapebeyond.knock_hit_cooldown": "Knock Hit Cooldown",
+  "attribute.name.nscapebeyond.shield_bash_damage": "Shield Bash Damage",
+  "attribute.name.nscapebeyond.shield_bash_knockback": "Shield Bash Knockback",
+  "attribute.name.nscapebeyond.shield_bash_upward": "Shield Bash Upward Boost",
+  "attribute.name.nscapebeyond.shield_bash_durability": "Shield Bash Durability Damage",
+  "attribute.name.nscapebeyond.shield_bash_freeze": "Shield Bash Freeze Time",
+
+
   "attribute.name.nscapebeyond.max_extra_slots": "Max Extra Slots",
 
   "tooltip.nscapebeyond.slot": "Slot: %s",

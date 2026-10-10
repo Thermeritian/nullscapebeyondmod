@@ -1,9 +1,0 @@
-{
-  "music.menu": {
-    "replace": true,
-    "sounds": [
-      { "name": "nscapebeyond:music/menu/title_screen", "stream": true },
-      { "name": "nscapebeyond:music/menu/voidbound", "stream": true }
-    ]
-  }
-}

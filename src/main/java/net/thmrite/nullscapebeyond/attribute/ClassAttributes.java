@@ -29,6 +29,7 @@ public final class ClassAttributes {
     public static final String CHARGER = "CHARGER";
     public static final String BONK = "BONK";
     public static final String KNOCK = "KNOCK";
+    public static final String SHIELD = "SHIELD";
     public static final String ACCESSORIES = "ACCESSORIES"; // not a CLASS attribute
 
     public record Entry(String id, String section, String label, double def,
@@ -51,17 +52,30 @@ public final class ClassAttributes {
     public static final Entry CHARGE_STAMINA_COST  = reg(CHARGER, "charge_stamina_cost",  "Charge Stamina (/t)",  1.5,  0,     100);
     public static final Entry PLATFORM_DURATION    = reg(CHARGER, "charge_platform_duration", "Platform Time (t)", 20,   0,     400);
     public static final Entry QUICKDROP_SPEED      = reg(CHARGER, "charge_quickdrop_speed", "Quickdrop (b/t)",    1.2,  0,     5);
+    public static final Entry WATER_SKIP_RATIO     = reg(CHARGER, "charge_water_skip_ratio", "Water Skip Speed (0-1)", 0.97, 0,    1);
+
+    //Bonking
     public static final Entry BONK_MIN_SPEED       = reg(BONK,    "bonk_min_speed",       "Bonk Min Speed (b/t)", 0.5,  0,     5);
     public static final Entry BONK_KNOCKBACK       = reg(BONK,    "bonk_knockback",       "Bonk Knockback",       0.4,  0,     5);
     public static final Entry BONK_EXPONENT        = reg(BONK,    "bonk_exponent",        "Bonk Exponent",        2.0,  0,     5);
     public static final Entry BONK_MAX_KNOCKBACK   = reg(BONK,    "bonk_max_knockback",   "Bonk Max Knockback",   2.0,  0,     10);
     public static final Entry BONK_RESISTANCE      = reg(BONK,    "bonk_resistance",      "Bonk Resist (0-1)",    0.0,  0,     1);
     public static final Entry BONK_DAMAGE          = reg(BONK,    "bonk_damage",          "Bonk Damage",          0.0,  0,     40);
+
+    //Knock
     public static final Entry KNOCK_MIN_SPEED      = reg(KNOCK,   "knock_min_speed",      "Knock Min Speed (b/t)", 0.4, 0,     5);
     public static final Entry KNOCK_STRENGTH       = reg(KNOCK,   "knock_strength",       "Knock Strength",       1.2,  0,     10);
     public static final Entry KNOCK_DAMAGE         = reg(KNOCK,   "knock_damage",         "Knock Damage",         0.0,  0,     100);
     public static final Entry KNOCK_UPWARD         = reg(KNOCK,   "knock_upward",         "Knock Upward",         0.15, 0,     2);
     public static final Entry KNOCK_HIT_COOLDOWN   = reg(KNOCK,   "knock_hit_cooldown",   "Knock Hit CD (t)",     10,   0,     200);
+
+    // ---- Shield bash (charging while blocking with a shield) -----------------------------
+    public static final Entry SHIELD_BASH_DAMAGE   = reg(SHIELD,  "shield_bash_damage",   "Bash Damage",          10.0, 0,     200);
+    public static final Entry SHIELD_BASH_KNOCKBACK = reg(SHIELD, "shield_bash_knockback", "Bash Knockback",     2.5,  0,     20);
+    public static final Entry SHIELD_BASH_DURABILITY = reg(SHIELD, "shield_bash_durability", "Bash Durability Dmg", 25,   0,     1000);
+    public static final Entry SHIELD_BASH_FREEZE   = reg(SHIELD,  "shield_bash_freeze",   "Bash Freeze (t)",      6,    0,     40);
+    public static final Entry SHIELD_BASH_UPWARD   = reg(SHIELD,  "shield_bash_upward",   "Bash Upward",          0.35, 0,     2);
+
 
     // ---- Accessory slots ----------------------------------------------------------------
     public static final Entry MAX_EXTRA_SLOTS      = reg(ACCESSORIES, "max_extra_slots",  "Max Extra Slots",      2,    0,     16);
@@ -86,11 +100,6 @@ public final class ClassAttributes {
         }
     }
 
-    /**
-     * Restores every CLASS attribute to its default base value.
-     * Existing players keep their saved base values, so this is also how you pick up
-     * changed defaults after editing the numbers above.
-     */
     public static void resetToDefaults(Player player, boolean clearModifiers) {
         for (Entry e : ENTRIES) {
             if (e.section().equals(ACCESSORIES)) continue;

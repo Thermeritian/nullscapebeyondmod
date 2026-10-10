@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.unknown",
+        "texture_width": 64,
+        "texture_height": 64,
+        "visible_bounds_width": 2,
+        "visible_bounds_height": 2.5,
+        "visible_bounds_offset": [0, 0.75, 0]
+      },
+      "bones": [
+        {
+          "name": "bipedBody",
+          "pivot": [0, 24, 0]
+        },
+        {
+          "name": "armorBody",
+          "parent": "bipedBody",
+          "pivot": [0, 24, 0]
+        },
+        {
+          "name": "shark_tail",
+          "parent": "armorBody",
+          "pivot": [0, 14, -1.3],
+          "cubes": [
+            {"origin": [-2, 11.6, -8.1], "size": [4, 4, 7], "pivot": [0, 13.6, -2.1], "rotation": [20, 0, 0], "uv": [0, 0]},
+            {"origin": [-1.1, 10.23755, -6.5203], "size": [2, 5, 4], "inflate": -0.3, "pivot": [-0.6, 13.73755, -5.5203], "rotation": [80, 0, 0], "uv": [22, 0]}
+          ]
+        },
+        {
+          "name": "bone",
+          "parent": "shark_tail",
+          "pivot": [0, 11.6, -7.1],
+          "cubes": [
+            {"origin": [-2, 9.57691, -11.58308], "size": [4, 4, 5], "inflate": -0.2, "uv": [0, 11]},
+            {"origin": [-1.1, 7.05304, -11.41133], "size": [2, 6, 3], "inflate": -0.3, "pivot": [-0.1, 10.05304, -9.41133], "rotation": [127.5, 0, 0], "uv": [24, 20]}
+          ]
+        },
+        {
+          "name": "bone2",
+          "parent": "bone",
+          "pivot": [-0.6, 11.55535, -10.99372],
+          "cubes": [
+            {"origin": [-1.6, 9.55535, -15.69372], "size": [3, 4, 5], "inflate": -0.3, "pivot": [-0.6, 11.55535, -10.99372], "rotation": [-10, 0, 0], "uv": [18, 11]},
+            {"origin": [-1.1, 11.73755, -16.8203], "size": [2, 6, 4], "inflate": -0.3, "pivot": [-0.6, 13.23755, -14.8203], "rotation": [12.5, 0, 0], "uv": [12, 20]},
+            {"origin": [-1.1, 9.73755, -16.8203], "size": [2, 6, 4], "inflate": -0.4, "pivot": [-0.6, 11.23755, -14.8203], "rotation": [125, 0, 0], "uv": [0, 20]}
+          ]
+        }
+      ]
+    }
+  ]
+}

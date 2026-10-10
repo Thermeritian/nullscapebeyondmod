@@ -1,0 +1,43 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
+			},
+			"bones": [
+				{
+					"name": "Platform",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-6, -2.7, -6], "size": [12, 3, 12], "inflate": -0.5, "uv": [0, 18]}
+					]
+				},
+				{
+					"name": "triangles",
+					"parent": "Platform",
+					"pivot": [0, -2, 0],
+					"cubes": [
+						{"origin": [-12.0706, 0.65328, -6.5], "size": [9, 0, 13], "pivot": [-7.5706, 0.65328, 0], "rotation": [0, -90, 22.5], "uv": [0, 33]},
+						{"origin": [-4.5, 0.65328, -14.0706], "size": [9, 0, 13], "pivot": [0, 0.65328, -7.5706], "rotation": [-157.5, 0, -180], "uv": [0, 33]},
+						{"origin": [3.0706, 0.65328, -6.5], "size": [9, 0, 13], "pivot": [7.5706, 0.65328, 0], "rotation": [0, 90, -22.5], "uv": [0, 33]},
+						{"origin": [-4.5, 0.65328, 1.0706], "size": [9, 0, 13], "pivot": [0, 0.65328, 7.5706], "rotation": [22.5, 0, 0], "uv": [0, 33]}
+					]
+				},
+				{
+					"name": "ring",
+					"parent": "Platform",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-9, -1.2, -9], "size": [18, 0, 18], "uv": [0, 0]}
+					]
+				}
+			]
+		}
+	]
+}

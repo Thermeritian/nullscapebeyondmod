@@ -10,13 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.accessory.ExtraSlotSync;
 
-/**
- * A throwaway copy of the local player (same skin, no armor) wearing ONLY the hovered accessory,
- * so the tooltip viewport always shows the accessory, whatever the real player has equipped.
- * Never added to the world.
- */
 final class PreviewDummy {
-    /** false = preview the real local player instead of a dummy (fallback if dummy equipping misbehaves). */
     static final boolean USE_DUMMY = true;
 
     private static RemotePlayer dummy;
@@ -40,7 +34,6 @@ final class PreviewDummy {
         return dummy;
     }
 
-    /** The dummy is never ticked by the game, so advance its age ourselves; this drives the idle arm sway. */
     static void tick() {
         if (dummy != null) dummy.tickCount++;
     }

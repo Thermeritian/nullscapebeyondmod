@@ -11,7 +11,7 @@ import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
 public record ChargerEventPayload(Kind kind, int targetId, float value) implements CustomPacketPayload {
 
-    public enum Kind { START, BRAKE, BONK, KNOCK, PLATFORM_START, PLATFORM_END }
+    public enum Kind { START, BRAKE, BONK, KNOCK, PLATFORM_START, PLATFORM_END, SHIELD_BASH }
 
     public static final CustomPacketPayload.Type<ChargerEventPayload> TYPE =
             new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(NullscapeBeyond.MODID, "charger_event"));

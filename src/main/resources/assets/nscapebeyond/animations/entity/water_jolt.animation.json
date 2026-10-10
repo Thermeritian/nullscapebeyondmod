@@ -1,0 +1,119 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"idle": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"Tail": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 5, 0]
+						},
+						"0.25": {
+							"vector": [0, -5, 0],
+							"easing": "easeInBack"
+						},
+						"0.5": {
+							"vector": [0, 5, 0],
+							"easing": "easeInBack"
+						},
+						"0.75": {
+							"vector": [0, -5, 0],
+							"easing": "easeInBack"
+						},
+						"1.0": {
+							"vector": [0, 5, 0],
+							"easing": "easeInBack"
+						}
+					}
+				},
+				"Block": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, -360]
+						}
+					}
+				}
+			}
+		},
+		"hit": {
+			"animation_length": 0.25,
+			"bones": {
+				"Water_Jolt": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [0, 0, -4]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.25": {
+							"vector": [1, 1, 0.4]
+						}
+					}
+				},
+				"Tail": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.0417": {
+							"vector": [0, 0, -4],
+							"easing": "easeInCirc"
+						},
+						"0.125": {
+							"vector": [0, 0, -5]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.0833": {
+							"vector": [1, 1, 0.7],
+							"easing": "easeInCirc"
+						},
+						"0.125": {
+							"vector": [1, 1, 0.5]
+						}
+					}
+				},
+				"Block": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.0417": {
+							"vector": [0, 0, -4],
+							"easing": "easeInBack"
+						},
+						"0.1667": {
+							"vector": [0, 0, -5]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.0417": {
+							"vector": [1, 1, 0.4],
+							"easing": "easeInBack"
+						},
+						"0.1667": {
+							"vector": [1, 1, 0.3]
+						}
+					}
+				}
+			}
+		}
+	}
+}

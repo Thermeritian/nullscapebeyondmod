@@ -11,16 +11,13 @@ import net.minecraft.world.phys.Vec3;
 import net.thmrite.nullscapebeyond.attribute.ModAttributes;
 
 public final class GroundControlController implements MovementController {
-    /** Vanilla scales raw input by this factor every tick. */
     private static final double INPUT_SCALE = 0.98;
 
-    /** Multiplier from vanilla modifiers (sprint, speed/slowness effects) on the movement speed. */
     public static double speedFactor(LocalPlayer player) {
         double base = player.getAttribute(Attributes.MOVEMENT_SPEED).getBaseValue();
         return base > 1.0E-6 ? player.getSpeed() / base : 1.0;
     }
 
-    /** Run cap in blocks/tick, vanilla modifiers included (e.g. x1.3 while sprinting). */
     public static double effectiveMaxSpeedPerTick(LocalPlayer player) {
         return player.getAttributeValue(ModAttributes.GROUND_MAX_SPEED) / 20.0 * speedFactor(player);
     }
