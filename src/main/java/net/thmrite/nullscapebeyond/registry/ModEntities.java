@@ -26,6 +26,8 @@ public final class ModEntities {
                     .fireImmune()
                     .build("charger_platform"));
 
+    // Base size is for scale 1.0 (empty, unmerged). Water level and merging scale it via the SCALE attribute.
+    // Adjust to match mart.geo.json.
     public static final DeferredHolder<EntityType<?>, EntityType<MartEntity>> MART =
             ENTITIES.register("mart", () -> EntityType.Builder
                     .<MartEntity>of(MartEntity::new, MobCategory.CREATURE)

@@ -19,6 +19,7 @@ import net.thmrite.nullscapebeyond.entity.MartEntity;
 import net.thmrite.nullscapebeyond.registry.ModEntities;
 import net.thmrite.nullscapebeyond.registry.ModItems;
 
+/** "Mart-in-a-bucket": stores water level, health, owner and custom name in item components. */
 public class MartBucketItem extends Item {
     public static final String TAG_WATER = "Water";
     public static final String TAG_HEALTH = "Health";

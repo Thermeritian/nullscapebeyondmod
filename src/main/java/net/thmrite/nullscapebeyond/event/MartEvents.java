@@ -18,10 +18,11 @@ import net.thmrite.nullscapebeyond.client.renderer.WaterJoltRenderer;
 import net.thmrite.nullscapebeyond.entity.MartEntity;
 import net.thmrite.nullscapebeyond.registry.ModEntities;
 
+/** Mart-related event hooks. If you already have a client/mod event class, move the methods there. */
 public final class MartEvents {
     private MartEvents() {}
 
-    @EventBusSubscriber(modid = NullscapeBeyond.MODID, bus = EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = NullscapeBeyond.MODID)
     public static class ModBus {
         @SubscribeEvent
         public static void onAttributes(EntityAttributeCreationEvent event) {
@@ -36,7 +37,7 @@ public final class MartEvents {
         }
     }
 
-    @EventBusSubscriber(modid = NullscapeBeyond.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
     public static class ClientBus {
         @SubscribeEvent
         public static void onRenderers(EntityRenderersEvent.RegisterRenderers event) {
