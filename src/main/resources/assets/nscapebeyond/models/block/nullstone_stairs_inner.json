@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "nscapebeyond:block/nullstone_top",
+    "side": "nscapebeyond:block/nullstone_side",
+    "top": "nscapebeyond:block/nullstone_top"
+  }
+}
