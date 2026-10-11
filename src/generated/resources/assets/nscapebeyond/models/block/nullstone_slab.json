@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "nscapebeyond:block/nullstone_top",
-    "side": "nscapebeyond:block/nullstone_side",
-    "top": "nscapebeyond:block/nullstone_top"
-  }
-}

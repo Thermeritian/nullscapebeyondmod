@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "nscapebeyond:block/tile_bottom",
-    "side": "nscapebeyond:block/tile_side",
-    "top": "nscapebeyond:block/tile_top"
-  }
-}
