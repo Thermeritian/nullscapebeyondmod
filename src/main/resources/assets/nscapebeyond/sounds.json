@@ -18,6 +18,35 @@
   "charger_brake":  { "sounds": [ "nscapebeyond:class/charger/brake" ] },
   "charger_bonk": { "sounds": [ "nscapebeyond:class/charger/bonk" ] },
 
+  "block.tile.walk": { "sounds": [
+    "nscapebeyond:block/tile/tile_walk1", "nscapebeyond:block/tile/tile_walk2", "nscapebeyond:block/tile/tile_walk3",
+    "nscapebeyond:block/tile/tile_walk4", "nscapebeyond:block/tile/tile_walk5", "nscapebeyond:block/tile/tile_walk6",
+    "nscapebeyond:block/tile/tile_walk7", "nscapebeyond:block/tile/tile_walk8", "nscapebeyond:block/tile/tile_walk9",
+    "nscapebeyond:block/tile/tile_walk10", "nscapebeyond:block/tile/tile_walk11"
+  ] },
+  "block.tile.run": { "sounds": [
+    "nscapebeyond:block/tile/tile_run1", "nscapebeyond:block/tile/tile_run2", "nscapebeyond:block/tile/tile_run3",
+    "nscapebeyond:block/tile/tile_run4", "nscapebeyond:block/tile/tile_run5", "nscapebeyond:block/tile/tile_run6",
+    "nscapebeyond:block/tile/tile_run7", "nscapebeyond:block/tile/tile_run8", "nscapebeyond:block/tile/tile_run9",
+    "nscapebeyond:block/tile/tile_run10", "nscapebeyond:block/tile/tile_run11"
+  ] },
+  "block.nullstone.walk": { "sounds": [
+    "nscapebeyond:block/nullstone/nullstone_walk1", "nscapebeyond:block/nullstone/nullstone_walk2",
+    "nscapebeyond:block/nullstone/nullstone_walk3", "nscapebeyond:block/nullstone/nullstone_walk4",
+    "nscapebeyond:block/nullstone/nullstone_walk5", "nscapebeyond:block/nullstone/nullstone_walk6",
+    "nscapebeyond:block/nullstone/nullstone_walk7", "nscapebeyond:block/nullstone/nullstone_walk8",
+    "nscapebeyond:block/nullstone/nullstone_walk9", "nscapebeyond:block/nullstone/nullstone_walk10",
+    "nscapebeyond:block/nullstone/nullstone_walk11"
+  ] },
+  "block.nullstone.run": { "sounds": [
+    "nscapebeyond:block/nullstone/nullstone_run1", "nscapebeyond:block/nullstone/nullstone_run2",
+    "nscapebeyond:block/nullstone/nullstone_run3", "nscapebeyond:block/nullstone/nullstone_run4",
+    "nscapebeyond:block/nullstone/nullstone_run5", "nscapebeyond:block/nullstone/nullstone_run6",
+    "nscapebeyond:block/nullstone/nullstone_run7", "nscapebeyond:block/nullstone/nullstone_run8",
+    "nscapebeyond:block/nullstone/nullstone_run9", "nscapebeyond:block/nullstone/nullstone_run10",
+    "nscapebeyond:block/nullstone/nullstone_run11"
+  ] },
+
   "shield_bash": { "sounds": [
     "nscapebeyond:item/shield/bash_1",
     "nscapebeyond:item/shield/bash_2",

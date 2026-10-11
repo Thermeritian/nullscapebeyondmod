@@ -21,5 +21,7 @@ public final class ModItems {
     public static final DeferredItem<MartBucketItem> MART_BUCKET =
             ITEMS.register("mart_bucket", () -> new MartBucketItem(new Item.Properties().stacksTo(1)));
 
+
+
     private ModItems() {}
 }

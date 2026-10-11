@@ -18,6 +18,14 @@
   "config.nscapebeyond.visual.accessory_tooltip": "Custom Accessory Tooltip",
   "config.nscapebeyond.visual.accessory_tooltip.tooltip": "Show the mod's styled tooltip for accessories instead of the vanilla one.",
 
+  "block.nscapebeyond.tile": "Tile",
+  "block.nscapebeyond.tile_slab": "Tile Slab",
+  "block.nscapebeyond.tile_stairs": "Tile Stairs",
+  "block.nscapebeyond.nullstone": "Nullstone",
+  "block.nscapebeyond.nullstone_slab": "Nullstone Slab",
+  "block.nscapebeyond.nullstone_stairs": "Nullstone Stairs",
+  "block.nscapebeyond.spawn": "Spawn",
+
   "nscapebeyond:gui/slot/head": "Head",
   "nscapebeyond:gui/slot/torso": "Torso",
   "nscapebeyond:gui/slot/legs": "Legs",

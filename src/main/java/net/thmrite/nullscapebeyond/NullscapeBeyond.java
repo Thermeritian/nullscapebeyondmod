@@ -3,10 +3,7 @@ package net.thmrite.nullscapebeyond;
 import net.thmrite.nullscapebeyond.attribute.ClassAttributes;
 import net.thmrite.nullscapebeyond.attribute.ModAttributes;
 import net.thmrite.nullscapebeyond.client.ModKeybinds;
-import net.thmrite.nullscapebeyond.registry.ModEntities;
-import net.thmrite.nullscapebeyond.registry.ModItems;
-import net.thmrite.nullscapebeyond.registry.ModSounds;
-import net.thmrite.nullscapebeyond.registry.ModTags;
+import net.thmrite.nullscapebeyond.registry.*;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -42,8 +39,12 @@ public class NullscapeBeyond {
         modEventBus.addListener(this::addCreative);
 
         ModSounds.SOUNDS.register(modEventBus);
+        ModBlockSounds.SOUND_EVENTS.register(modEventBus);
+        ModBlocks.BLOCKS.register(modEventBus);
+        ModBlocks.BLOCK_ITEMS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         ModEntities.ENTITIES.register(modEventBus);
+
         ClassAttributes.ATTRIBUTES.register(modEventBus);
         ModAttributes.register(modEventBus);
 
