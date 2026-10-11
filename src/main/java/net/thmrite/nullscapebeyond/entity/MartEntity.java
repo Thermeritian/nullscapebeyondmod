@@ -57,7 +57,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.item.MartBucketItem;
@@ -82,7 +81,7 @@ import java.util.Objects;
 public class MartEntity extends TamableAnimal implements GeoEntity {
 
     // ---- Tuning ---------------------------------------------------------------------------
-    public static final int MAX_WATER = 20;
+    public static final int MAX_WATER = 10;
     public static final int MAX_MERGE = 4;
     public static final int BUCKET_WATER = 5;   // water bucket <-> 5 units
     public static final int BOTTLE_WATER = 2;   // water bottle <-> 2 units
@@ -98,7 +97,7 @@ public class MartEntity extends TamableAnimal implements GeoEntity {
     public static final float FIRE_DAMAGE_MULTIPLIER = 2.0f;
     public static final float WATER_HEALTH_PER_UNIT = 1.0f;
     public static final float MERGE_HEALTH_PER_MEMBER = 6.0f;
-    public static final float WATER_SCALE_PER_UNIT = 0.1f;
+    public static final float WATER_SCALE_PER_UNIT = 0.04f;
     public static final float MERGE_SCALE_PER_MEMBER = 0.3f;
     public static final float MERGE_DAMAGE_PER_MEMBER = 1.5f;
     public static final double BASE_SPEED = 0.4;        // speed at scale 1.0 (was 0.3)
