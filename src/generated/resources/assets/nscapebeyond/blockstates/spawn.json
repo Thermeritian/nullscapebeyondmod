@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "pattern=00": {
+      "model": "nscapebeyond:block/spawn_00"
+    },
+    "pattern=01": {
+      "model": "nscapebeyond:block/spawn_01"
+    },
+    "pattern=02": {
+      "model": "nscapebeyond:block/spawn_02"
+    },
+    "pattern=10": {
+      "model": "nscapebeyond:block/spawn_10"
+    },
+    "pattern=11": {
+      "model": "nscapebeyond:block/spawn_11"
+    },
+    "pattern=12": {
+      "model": "nscapebeyond:block/spawn_12"
+    },
+    "pattern=20": {
+      "model": "nscapebeyond:block/spawn_20"
+    },
+    "pattern=21": {
+      "model": "nscapebeyond:block/spawn_21"
+    },
+    "pattern=22": {
+      "model": "nscapebeyond:block/spawn_22"
+    },
+    "pattern=default": {
+      "model": "nscapebeyond:block/spawn"
+    }
+  }
+}
