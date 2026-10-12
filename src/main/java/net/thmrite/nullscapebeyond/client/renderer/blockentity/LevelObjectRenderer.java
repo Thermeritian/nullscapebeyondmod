@@ -1,8 +1,10 @@
-package net.thmrite.nullscapebeyond.client.renderer;
+package net.thmrite.nullscapebeyond.client.renderer.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
+import net.minecraft.client.player.LocalPlayer;
+import net.thmrite.nullscapebeyond.registry.ModBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -19,17 +21,21 @@ import net.thmrite.nullscapebeyond.block.LevelObjectBlock.Mode;
 import net.thmrite.nullscapebeyond.block.entity.LevelObjectBlockEntity;
 import net.thmrite.nullscapebeyond.block.entity.LevelObjectBlockEntity.Phase;
 
+
+
 public class LevelObjectRenderer implements BlockEntityRenderer<LevelObjectBlockEntity> {
     private static final ResourceLocation GIFT = tex("gift/gift");
     private static final ResourceLocation GOLDEN_GIFT = tex("golden_gift/golden_gift");
     private static final ResourceLocation TRIPMINE = tex("tripmine/tripmine");
     private static final ResourceLocation EXPLOSION = tex("tripmine/explosion");
 
+    private static final ResourceLocation BARRIER = ResourceLocation.withDefaultNamespace("textures/item/barrier.png");
+
     private static final int FRAMES = 4;
     private static final float IDLE_TICKS_PER_FRAME = 3.0F;
     private static final float ARMED_TICKS_PER_FRAME = 1.0F;   // faster once the tripmine is armed
-    private static final float MIN_IDLE_TICKS = 40.0F;         // random pause between plays
-    private static final float MAX_IDLE_TICKS = 160.0F;
+    private static final float MIN_FRAME_TICKS = 2.0F;    // 0.1 s
+    private static final float MAX_FRAME_TICKS = 10.0F;   // 0.5 s
     private static final float EXPLOSION_TICKS_PER_FRAME = 1.0F;
 
     public LevelObjectRenderer(BlockEntityRendererProvider.Context context) {}
@@ -45,7 +51,15 @@ public class LevelObjectRenderer implements BlockEntityRenderer<LevelObjectBlock
         if (level == null) return;
         BlockState state = be.getBlockState();
         Mode mode = state.getValue(LevelObjectBlock.MODE);
-        if (mode == Mode.NONE || state.getValue(LevelObjectBlock.COLLECTED)) return;
+
+        if (state.getValue(LevelObjectBlock.COLLECTED)) return;
+        if (mode == Mode.NONE) {
+            LocalPlayer player = Minecraft.getInstance().player;
+            if (player != null && player.isHolding(ModBlocks.LEVEL_OBJET_ITEM.get())) {
+                draw(pose, buffers, BARRIER, 0.75F, 0, 0, 1, 1);
+            }
+            return;
+        }
 
         float t = level.getGameTime() + partialTick;
 
@@ -74,20 +88,21 @@ public class LevelObjectRenderer implements BlockEntityRenderer<LevelObjectBlock
     }
 
     /** Plays the 4 frames, then waits a random interval before playing again. */
+    /** Endless loop; every frame lasts a random time between MIN and MAX before moving to the next. */
     private static int idleFrame(LevelObjectBlockEntity be, Level level, float t) {
-        float duration = FRAMES * IDLE_TICKS_PER_FRAME;
         if (!be.animInit) {
             be.animInit = true;
-            be.animStart = -1000.0F;
-            be.nextAnim = t + level.random.nextFloat() * MAX_IDLE_TICKS;
+            be.animFrame = level.random.nextInt(FRAMES);   // desync objects from each other
+            be.nextFrameSwitch = t + randomFrameTicks(level);
+        } else if (t >= be.nextFrameSwitch || be.nextFrameSwitch - t > MAX_FRAME_TICKS) {
+            be.animFrame = (be.animFrame + 1) % FRAMES;
+            be.nextFrameSwitch = t + randomFrameTicks(level);
         }
-        if (t >= be.nextAnim) {
-            be.animStart = t;
-            be.nextAnim = t + duration + MIN_IDLE_TICKS
-                    + level.random.nextFloat() * (MAX_IDLE_TICKS - MIN_IDLE_TICKS);
-        }
-        float elapsed = t - be.animStart;
-        return elapsed >= 0.0F && elapsed < duration ? (int) (elapsed / IDLE_TICKS_PER_FRAME) : 0;
+        return be.animFrame;
+    }
+
+    private static float randomFrameTicks(Level level) {
+        return MIN_FRAME_TICKS + level.random.nextFloat() * (MAX_FRAME_TICKS - MIN_FRAME_TICKS);
     }
 
     private static void draw(PoseStack pose, MultiBufferSource buffers, ResourceLocation texture,

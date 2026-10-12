@@ -15,7 +15,7 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.client.renderer.ChargerBootsRenderer;
 import net.thmrite.nullscapebeyond.client.renderer.ChargerPlatformRenderer;
-import net.thmrite.nullscapebeyond.client.renderer.LevelObjectRenderer;
+import net.thmrite.nullscapebeyond.client.renderer.blockentity.LevelObjectRenderer;
 import net.thmrite.nullscapebeyond.registry.ModBlockEntities;
 import net.thmrite.nullscapebeyond.registry.ModBlocks;
 import net.thmrite.nullscapebeyond.registry.ModEntities;

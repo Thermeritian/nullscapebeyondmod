@@ -20,8 +20,8 @@ public class LevelObjectBlockEntity extends BlockEntity {
 
     // Client-only idle animation state (never saved or synced).
     public boolean animInit;
-    public float animStart;
-    public float nextAnim;
+    public int animFrame;
+    public float nextFrameSwitch;
 
     public LevelObjectBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.LEVEL_OBJECT.get(), pos, state);
