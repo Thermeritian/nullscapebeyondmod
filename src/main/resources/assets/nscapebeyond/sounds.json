@@ -50,7 +50,9 @@
   "block.gift.collect": { "sounds": [ "nscapebeyond:block/gift/gift_collect" ] },
   "block.golden_gift.collect": { "sounds": [ "nscapebeyond:block/golden_gift/golden_gift_collect" ] },
   "block.tripmine.activate": { "sounds": [ "nscapebeyond:block/tripmine/tripmine_activate" ] },
-  "block.tripmine.detonate": { "sounds": [ "nscapebeyond:block/tripmine/tripmine_detonate" ] },
+  "block.tripmine.detonate": { "sounds": [
+    { "name": "nscapebeyond:block/tripmine/tripmine_detonate", "attenuation_distance": 10 }
+  ] },
 
   "shield_bash": { "sounds": [
     "nscapebeyond:item/shield/bash_1",

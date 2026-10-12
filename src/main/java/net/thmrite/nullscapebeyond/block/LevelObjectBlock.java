@@ -138,7 +138,7 @@ public class LevelObjectBlock extends Block implements EntityBlock {
     private void detonate(ServerLevel level, BlockPos pos, LevelObjectBlockEntity be) {
         be.setPhase(Phase.EXPLODING, level.getGameTime());
         level.scheduleTick(pos, this, EXPLOSION_TICKS);
-        level.playSound(null, pos, ModBlockSounds.TRIPMINE_DETONATE.get(), SoundSource.BLOCKS, 4.0F, 1.0F);
+        level.playSound(null, pos, ModBlockSounds.TRIPMINE_DETONATE.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
 
         Vec3 center = Vec3.atCenterOf(pos);
         double r2 = EXPLOSION_RADIUS * EXPLOSION_RADIUS;
