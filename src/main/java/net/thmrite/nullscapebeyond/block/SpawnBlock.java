@@ -101,6 +101,7 @@ public class SpawnBlock extends FootstepBlock {
         return Pattern.of(origin.getZ() - minZ, origin.getX() - minX);
     }
 
+    //3x3 matrix for the spawn block
     public enum Pattern implements StringRepresentable {
         DEFAULT("default"),
         C00("00"), C01("01"), C02("02"),
