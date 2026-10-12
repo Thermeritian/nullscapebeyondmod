@@ -25,6 +25,7 @@
   "block.nscapebeyond.nullstone_slab": "Nullstone Slab",
   "block.nscapebeyond.nullstone_stairs": "Nullstone Stairs",
   "block.nscapebeyond.spawn": "Spawn",
+  "block.nscapebeyond.level_objet": "Level Object",
 
   "nscapebeyond:gui/slot/head": "Head",
   "nscapebeyond:gui/slot/torso": "Torso",

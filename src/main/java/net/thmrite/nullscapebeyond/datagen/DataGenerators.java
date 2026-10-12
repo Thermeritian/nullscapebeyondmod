@@ -6,7 +6,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
-@EventBusSubscriber(modid = NullscapeBeyond.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = NullscapeBeyond.MODID)
 public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {

@@ -69,5 +69,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
             builder.partialState().with(SpawnBlock.PATTERN, pattern)
                     .modelForState().modelFile(model).addModel();
         }
+
+        //Level Block
+        // ---- Level object: invisible block, barrier icon in inventory ----
+        ModelFile levelObjectModel = models().getBuilder("level_objet")
+                .texture("particle", mcLoc("item/barrier"));
+        simpleBlock(ModBlocks.LEVEL_OBJET.get(), levelObjectModel);
+        itemModels().withExistingParent("level_objet", "minecraft:item/generated")
+                .texture("layer0", mcLoc("item/barrier"));
     }
 }

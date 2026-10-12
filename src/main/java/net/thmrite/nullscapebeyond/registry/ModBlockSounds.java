@@ -17,10 +17,25 @@ public final class ModBlockSounds {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
             DeferredRegister.create(Registries.SOUND_EVENT, NullscapeBeyond.MODID);
 
+    //BLOCKS
+    //TILE
     public static final DeferredHolder<SoundEvent, SoundEvent> TILE_WALK = register("block.tile.walk");
     public static final DeferredHolder<SoundEvent, SoundEvent> TILE_RUN = register("block.tile.run");
+
+    //NULLSTONE
     public static final DeferredHolder<SoundEvent, SoundEvent> NULLSTONE_WALK = register("block.nullstone.walk");
     public static final DeferredHolder<SoundEvent, SoundEvent> NULLSTONE_RUN = register("block.nullstone.run");
+
+    //BLOCK ENTITIES
+    //GIFT
+    public static final DeferredHolder<SoundEvent, SoundEvent> GIFT_COLLECT = register("block.gift.collect");
+
+    //GOLDEN GIFTS
+    public static final DeferredHolder<SoundEvent, SoundEvent> GOLDEN_GIFT_COLLECT = register("block.golden_gift.collect");
+
+    //TRIPMINES
+    public static final DeferredHolder<SoundEvent, SoundEvent> TRIPMINE_ACTIVATE = register("block.tripmine.activate");
+    public static final DeferredHolder<SoundEvent, SoundEvent> TRIPMINE_DETONATE = register("block.tripmine.detonate");
 
     public static final FootstepSounds TILE = create(TILE_WALK, TILE_RUN);
     public static final FootstepSounds NULLSTONE = create(NULLSTONE_WALK, NULLSTONE_RUN);

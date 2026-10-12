@@ -47,6 +47,11 @@
     "nscapebeyond:block/nullstone/nullstone_run11"
   ] },
 
+  "block.gift.collect": { "sounds": [ "nscapebeyond:block/gift/gift_collect" ] },
+  "block.golden_gift.collect": { "sounds": [ "nscapebeyond:block/golden_gift/golden_gift_collect" ] },
+  "block.tripmine.activate": { "sounds": [ "nscapebeyond:block/tripmine/tripmine_activate" ] },
+  "block.tripmine.detonate": { "sounds": [ "nscapebeyond:block/tripmine/tripmine_detonate" ] },
+
   "shield_bash": { "sounds": [
     "nscapebeyond:item/shield/bash_1",
     "nscapebeyond:item/shield/bash_2",

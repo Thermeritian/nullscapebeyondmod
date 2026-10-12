@@ -40,6 +40,15 @@ public final class ModBlocks {
             props -> new SpawnBlock(props, ModBlockSounds.NULLSTONE),
             BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(1.5F, 6.0F));
 
+    public static final DeferredBlock<LevelObjectBlock> LEVEL_OBJET = BLOCKS.registerBlock("level_objet",
+            LevelObjectBlock::new,
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.NONE)
+                    .strength(-1.0F, 3600000.0F)
+                    .noCollission()
+                    .noLootTable()
+                    .lightLevel(LevelObjectBlock::lightFor));
+
     public static final DeferredItem<BlockItem> TILE_ITEM = BLOCK_ITEMS.registerSimpleBlockItem(TILE);
     public static final DeferredItem<BlockItem> TILE_SLAB_ITEM = BLOCK_ITEMS.registerSimpleBlockItem(TILE_SLAB);
     public static final DeferredItem<BlockItem> TILE_STAIRS_ITEM = BLOCK_ITEMS.registerSimpleBlockItem(TILE_STAIRS);
@@ -47,6 +56,8 @@ public final class ModBlocks {
     public static final DeferredItem<BlockItem> NULLSTONE_SLAB_ITEM = BLOCK_ITEMS.registerSimpleBlockItem(NULLSTONE_SLAB);
     public static final DeferredItem<BlockItem> NULLSTONE_STAIRS_ITEM = BLOCK_ITEMS.registerSimpleBlockItem(NULLSTONE_STAIRS);
     public static final DeferredItem<BlockItem> SPAWN_ITEM = BLOCK_ITEMS.registerSimpleBlockItem(SPAWN);
+    public static final DeferredItem<BlockItem> LEVEL_OBJET_ITEM = BLOCK_ITEMS.registerSimpleBlockItem(LEVEL_OBJET);
+
 
     private ModBlocks() {}
 }
