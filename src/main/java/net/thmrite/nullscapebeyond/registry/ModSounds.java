@@ -40,6 +40,11 @@ public class ModSounds {
     // WATER JOLT
     public static final DeferredHolder<SoundEvent, SoundEvent> WATER_JOLT_HIT = register("entity.water_jolt.hit");
 
+    //BEACON
+    public static final DeferredHolder<SoundEvent, SoundEvent> BEACON_ENTER = register("entity.beacon.enter");
+    public static final DeferredHolder<SoundEvent, SoundEvent> BEACON_IDLE = register("entity.beacon.idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> BEACON_SPAWN = register("entity.beacon.spawn");
+
 
     private static DeferredHolder<SoundEvent, SoundEvent> register(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(

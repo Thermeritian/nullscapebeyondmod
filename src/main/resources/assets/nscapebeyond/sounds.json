@@ -61,6 +61,16 @@
     "nscapebeyond:item/shield/bash_4"
   ] },
 
+  "entity.beacon.enter": { "sounds": [
+    { "name": "nscapebeyond:entity/beacon/beacon_enter", "attenuation_distance": 32 }
+  ] },
+  "entity.beacon.idle": { "sounds": [
+    { "name": "nscapebeyond:entity/beacon/beacon_idle", "attenuation_distance": 64 }
+  ] },
+  "entity.beacon.spawn": { "sounds": [
+    { "name": "nscapebeyond:entity/beacon/beacon_spawn", "attenuation_distance": 96 }
+  ] },
+
   "entity.mart.merge": { "sounds": ["nscapebeyond:entity/mart/mart_merge"] },
   "entity.mart.death": { "sounds": ["nscapebeyond:entity/mart/mart_death"] },
   "entity.mart.shoot": { "sounds": [

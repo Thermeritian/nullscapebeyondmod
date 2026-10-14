@@ -7,6 +7,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
+import net.thmrite.nullscapebeyond.entity.BeaconEntity;
 import net.thmrite.nullscapebeyond.entity.ChargerPlatformEntity;
 import net.thmrite.nullscapebeyond.entity.MartEntity;
 import net.thmrite.nullscapebeyond.entity.WaterJoltEntity;
@@ -15,7 +16,18 @@ public final class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES =
             DeferredRegister.create(Registries.ENTITY_TYPE, NullscapeBeyond.MODID);
 
-    // Hitbox size only matters for tracking/culling; the platform has no collision. Match it to your model.
+    //Beacon
+    public static final DeferredHolder<EntityType<?>, EntityType<BeaconEntity>> BEACON =
+            ENTITIES.register("beacon", () -> EntityType.Builder
+                    .<BeaconEntity>of(BeaconEntity::new, MobCategory.MISC)
+                    .sized(2.0f, 0.2f)
+                    .clientTrackingRange(10)
+                    .updateInterval(2)
+                    .noSave()
+                    .fireImmune()
+                    .build("beacon"));
+
+    // Charger Platform
     public static final DeferredHolder<EntityType<?>, EntityType<ChargerPlatformEntity>> CHARGER_PLATFORM =
             ENTITIES.register("charger_platform", () -> EntityType.Builder
                     .<ChargerPlatformEntity>of(ChargerPlatformEntity::new, MobCategory.MISC)
@@ -26,8 +38,7 @@ public final class ModEntities {
                     .fireImmune()
                     .build("charger_platform"));
 
-    // Base size is for scale 1.0 (empty, unmerged). Water level and merging scale it via the SCALE attribute.
-    // Adjust to match mart.geo.json.
+    // Mart
     public static final DeferredHolder<EntityType<?>, EntityType<MartEntity>> MART =
             ENTITIES.register("mart", () -> EntityType.Builder
                     .<MartEntity>of(MartEntity::new, MobCategory.CREATURE)
@@ -36,7 +47,7 @@ public final class ModEntities {
                     .clientTrackingRange(10)
                     .build("mart"));
 
-    // Tiny hitbox, 1-tick updates so the client follows the bolt smoothly.
+    // Water Jolt
     public static final DeferredHolder<EntityType<?>, EntityType<WaterJoltEntity>> WATER_JOLT =
             ENTITIES.register("water_jolt", () -> EntityType.Builder
                     .<WaterJoltEntity>of(WaterJoltEntity::new, MobCategory.MISC)

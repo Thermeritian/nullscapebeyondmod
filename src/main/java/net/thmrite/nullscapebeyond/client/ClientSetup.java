@@ -13,6 +13,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientBlockExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
+import net.thmrite.nullscapebeyond.client.renderer.BeaconRenderer;
 import net.thmrite.nullscapebeyond.client.renderer.ChargerBootsRenderer;
 import net.thmrite.nullscapebeyond.client.renderer.ChargerPlatformRenderer;
 import net.thmrite.nullscapebeyond.client.renderer.blockentity.LevelObjectRenderer;
@@ -34,6 +35,7 @@ public final class ClientSetup {
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(ModBlockEntities.LEVEL_OBJECT.get(), LevelObjectRenderer::new);
         event.registerEntityRenderer(ModEntities.CHARGER_PLATFORM.get(), ChargerPlatformRenderer::new);
+        event.registerEntityRenderer(ModEntities.BEACON.get(), BeaconRenderer::new);
     }
 
     @SubscribeEvent
