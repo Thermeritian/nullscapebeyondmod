@@ -25,6 +25,15 @@ import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+
 public class BeaconEntity extends Entity implements GeoEntity {
     private static final EntityDataAccessor<Boolean> OPEN =
             SynchedEntityData.defineId(BeaconEntity.class, EntityDataSerializers.BOOLEAN);
@@ -42,6 +51,12 @@ public class BeaconEntity extends Entity implements GeoEntity {
     private RawAnimation clientAnimation;   // client only
     private boolean idleSoundStarted;       // client only
 
+    private static final int LIGHT_LEVEL = 15;     // vanilla maximum
+    private static final int LIGHT_SPACING = 12;   // blocks between light sources
+    private static final int MAX_LIGHTS = 100;     // safety cap for very large models
+
+    private final List<BlockPos> lightPositions = new ArrayList<>();
+
     public BeaconEntity(EntityType<? extends BeaconEntity> type, Level level) {
         super(type, level);
         this.noPhysics = true;
@@ -58,9 +73,48 @@ public class BeaconEntity extends Entity implements GeoEntity {
         if (level().isClientSide || isOpen()) return false;
         entityData.set(OPEN, true);
         entityData.set(OPENED_AT, level().getGameTime());
+        placeLights();
         level().playSound(null, getX(), getY(), getZ(), ModSounds.BEACON_SPAWN.get(),
                 SoundSource.AMBIENT, 1.0F, 1.0F);
         return true;
+    }
+
+    /** Fills the model's volume with invisible light blocks (only into air, only in loaded chunks). */
+    private void placeLights() {
+        if (level().isClientSide || !lightPositions.isEmpty()) return;
+        BlockState light = Blocks.LIGHT.defaultBlockState().setValue(BlockStateProperties.LEVEL, LIGHT_LEVEL);
+        BlockPos base = blockPosition();
+        int n = (int) (BeaconGeometry.radius() / LIGHT_SPACING);
+
+        for (int dx = -n; dx <= n; dx++) {
+            for (int dz = -n; dz <= n; dz++) {
+                for (int dy = (int) Math.floor(BeaconGeometry.minY()); dy <= BeaconGeometry.maxY(); dy += LIGHT_SPACING) {
+                    if (lightPositions.size() >= MAX_LIGHTS) return;
+                    BlockPos p = base.offset(dx * LIGHT_SPACING, dy, dz * LIGHT_SPACING);
+                    if (!level().isInWorldBounds(p) || !level().hasChunkAt(p) || !level().getBlockState(p).isAir()) continue;
+                    level().setBlock(p, light, Block.UPDATE_CLIENTS);
+                    lightPositions.add(p);
+                }
+            }
+        }
+    }
+
+    private void clearLights() {
+        for (BlockPos p : lightPositions) {
+            if (level().hasChunkAt(p) && level().getBlockState(p).is(Blocks.LIGHT)) {
+                level().removeBlock(p, false);
+            }
+        }
+        lightPositions.clear();
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        // Only clean up on real removal (delete/kill), not when the chunk just unloads.
+        if (!level().isClientSide && reason.shouldDestroy()) {
+            clearLights();
+        }
+        super.remove(reason);
     }
 
     @Override
@@ -72,11 +126,17 @@ public class BeaconEntity extends Entity implements GeoEntity {
     @Override
     protected void readAdditionalSaveData(CompoundTag tag) {
         entityData.set(OPEN, tag.getBoolean("Open"));
+
+        lightPositions.clear();
+        for (long packed : tag.getLongArray("Lights")) {
+            lightPositions.add(BlockPos.of(packed));
+        }
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag tag) {
         tag.putBoolean("Open", isOpen());
+        tag.putLongArray("Lights", lightPositions.stream().mapToLong(BlockPos::asLong).toArray());
     }
 
     // ---- no collision, nothing to interact with ----
