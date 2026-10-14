@@ -1,0 +1,53 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 4096,
+				"texture_height": 4096,
+				"visible_bounds_width": 158,
+				"visible_bounds_height": 200,
+				"visible_bounds_offset": [0, 99, 0]
+			},
+			"bones": [
+				{
+					"name": "Beacon",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Hitbox",
+					"parent": "Beacon",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-24, 0, -24], "size": [48, 1307, 48], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "CircularAura",
+					"parent": "Beacon",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-24, 0, -24], "size": [48, 1307, 48], "inflate": 10, "uv": [192, 0]}
+					]
+				},
+				{
+					"name": "Sky1",
+					"parent": "Beacon",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1252, 1339, -1252], "size": [2504, 0, 2504], "uv": [-2504, 1592]}
+					]
+				},
+				{
+					"name": "Sky2",
+					"parent": "Beacon",
+					"pivot": [0, 432, 0],
+					"cubes": [
+						{"origin": [-1252, 2262, -1252], "size": [2504, 0, 2504], "inflate": -900, "uv": [-2504, 1592]}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,124 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"Open": {
+			"animation_length": 0.2083,
+			"bones": {
+				"Beacon": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 0.1, 1]
+						},
+						"0.2083": {
+							"vector": [1, 1, 1],
+							"easing": "easeInCirc"
+						}
+					}
+				},
+				"CircularAura": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, -90, 0]
+						},
+						"0.2083": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 15.5, 1]
+						},
+						"0.1667": {
+							"vector": [1, 0.1, 1]
+						},
+						"0.2083": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"Sky1": {
+					"scale": {
+						"0.0": {
+							"vector": [0.1, 1, 0.1]
+						},
+						"0.0833": {
+							"vector": [0.025, 1, 0.025]
+						},
+						"0.125": {
+							"vector": [0.025, 1, 0.025]
+						},
+						"0.2083": {
+							"vector": [1, 1, 1]
+						}
+					}
+				},
+				"Sky2": {
+					"scale": {
+						"0.0": {
+							"vector": [0.2, 1, 0.2]
+						},
+						"0.1667": {
+							"vector": [0.2, 1, 0.2]
+						},
+						"0.2083": {
+							"vector": [1, 1, 1]
+						}
+					}
+				}
+			}
+		},
+		"Idle": {
+			"loop": true,
+			"animation_length": 25,
+			"bones": {
+				"CircularAura": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"5.0": {
+							"vector": [0, -720, 0],
+							"easing": "linear"
+						},
+						"10.0": {
+							"vector": [0, -1440, 0],
+							"easing": "linear"
+						},
+						"15.0": {
+							"vector": [0, -2160, 0],
+							"easing": "linear"
+						},
+						"20.0": {
+							"vector": [0, -2880, 0],
+							"easing": "linear"
+						},
+						"25.0": {
+							"vector": [0, -3600, 0],
+							"easing": "linear"
+						}
+					}
+				},
+				"Sky1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"25.0": {
+							"vector": [0, 360, 0]
+						}
+					}
+				},
+				"Sky2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"25.0": {
+							"vector": [0, -360, 0]
+						}
+					}
+				}
+			}
+		}
+	}
+}
