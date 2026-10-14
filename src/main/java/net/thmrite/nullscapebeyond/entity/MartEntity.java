@@ -74,10 +74,6 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Objects;
 
-/**
- * Mart (SURVIVAL context): a neutral, hopping water slime that doubles as a walking water container.
- * Tuning constants are all at the top so you can balance without digging through logic.
- */
 public class MartEntity extends TamableAnimal implements GeoEntity {
 
     // ---- Tuning ---------------------------------------------------------------------------
@@ -280,7 +276,6 @@ public class MartEntity extends TamableAnimal implements GeoEntity {
         boolean wild = !isTame();
         boolean client = level().isClientSide;
 
-        // Shift + right click with a bucket -> Mart-in-a-bucket
         if (player.isSecondaryUseActive() && (stack.is(Items.BUCKET) || stack.is(Items.WATER_BUCKET)) && (owner || wild)) {
             if (isMerged()) return InteractionResult.PASS;
             if (!client) {
