@@ -73,7 +73,7 @@ public class BeaconEntity extends Entity implements GeoEntity {
         if (level().isClientSide || isOpen()) return false;
         entityData.set(OPEN, true);
         entityData.set(OPENED_AT, level().getGameTime());
-        placeLights();
+        //placeLights();
         level().playSound(null, getX(), getY(), getZ(), ModSounds.BEACON_SPAWN.get(),
                 SoundSource.AMBIENT, 1.0F, 1.0F);
         return true;
@@ -112,7 +112,7 @@ public class BeaconEntity extends Entity implements GeoEntity {
     public void remove(RemovalReason reason) {
         // Only clean up on real removal (delete/kill), not when the chunk just unloads.
         if (!level().isClientSide && reason.shouldDestroy()) {
-            clearLights();
+            //clearLights();
         }
         super.remove(reason);
     }
@@ -127,16 +127,16 @@ public class BeaconEntity extends Entity implements GeoEntity {
     protected void readAdditionalSaveData(CompoundTag tag) {
         entityData.set(OPEN, tag.getBoolean("Open"));
 
-        lightPositions.clear();
-        for (long packed : tag.getLongArray("Lights")) {
-            lightPositions.add(BlockPos.of(packed));
-        }
+    //        lightPositions.clear();
+    //        for (long packed : tag.getLongArray("Lights")) {
+    //            lightPositions.add(BlockPos.of(packed));
+    //        }
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag tag) {
         tag.putBoolean("Open", isOpen());
-        tag.putLongArray("Lights", lightPositions.stream().mapToLong(BlockPos::asLong).toArray());
+//        tag.putLongArray("Lights", lightPositions.stream().mapToLong(BlockPos::asLong).toArray());
     }
 
     // ---- no collision, nothing to interact with ----
