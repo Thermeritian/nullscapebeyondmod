@@ -10,6 +10,8 @@ public class ClientConfig {
     public static final ModConfigSpec.DoubleValue SOUNDTRACK_VOLUME;
     public static final ModConfigSpec.BooleanValue MENU_SOUNDS;
     public static final ModConfigSpec.BooleanValue CUSTOM_ACCESSORY_TOOLTIP;
+    public static final ModConfigSpec.BooleanValue COLORED_LIGHTING;
+    public static final ModConfigSpec.DoubleValue LIGHT_STRENGTH;
     public static final ModConfigSpec SPEC;
 
     static {
@@ -26,6 +28,12 @@ public class ClientConfig {
         CUSTOM_ACCESSORY_TOOLTIP = BUILDER
                 .comment("Use the mod's custom accessory tooltip instead of the vanilla one")
                 .define("customAccessoryTooltip", true);
+        COLORED_LIGHTING = BUILDER
+                .comment("Enable the mod's dynamic coloured lighting")
+                .define("coloredLighting", true);
+        LIGHT_STRENGTH = BUILDER
+                .comment("How strongly coloured light is applied (1.0 = default)")
+                .defineInRange("lightStrength", 1.0, 0.0, 2.0);
         BUILDER.pop();
 
         BUILDER.push("sound");

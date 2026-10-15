@@ -3,6 +3,7 @@ package net.thmrite.nullscapebeyond;
 import net.thmrite.nullscapebeyond.attribute.ClassAttributes;
 import net.thmrite.nullscapebeyond.attribute.ModAttributes;
 import net.thmrite.nullscapebeyond.client.ModKeybinds;
+import net.thmrite.nullscapebeyond.lighting.ColoredLights;
 import net.thmrite.nullscapebeyond.registry.*;
 import org.slf4j.Logger;
 
@@ -54,6 +55,7 @@ public class NullscapeBeyond {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(ColoredLights::registerVanillaDefaults);
     }
 
     // Add the example block item to the building blocks tab

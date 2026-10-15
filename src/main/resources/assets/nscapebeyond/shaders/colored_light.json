@@ -1,0 +1,17 @@
+{
+  "vertex": "nscapebeyond:colored_light",
+  "fragment": "nscapebeyond:colored_light",
+  "attributes": ["Position"],
+  "samplers": [
+    { "name": "SceneColor" },
+    { "name": "SceneDepth" },
+    { "name": "LightGrid" }
+  ],
+  "uniforms": [
+    { "name": "InvProjMat", "type": "matrix4x4", "count": 16, "values": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0] },
+    { "name": "InvModelViewMat", "type": "matrix4x4", "count": 16, "values": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0] },
+    { "name": "CamInGrid", "type": "float", "count": 3, "values": [0.0, 0.0, 0.0] },
+    { "name": "Strength", "type": "float", "count": 1, "values": [1.0] },
+    { "name": "EncodeRange", "type": "float", "count": 1, "values": [2.0] }
+  ]
+}

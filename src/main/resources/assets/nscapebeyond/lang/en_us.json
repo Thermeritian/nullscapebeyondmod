@@ -17,6 +17,10 @@
   "config.nscapebeyond.sound.menu_sounds": "Custom Menu Sounds",
   "config.nscapebeyond.visual.accessory_tooltip": "Custom Accessory Tooltip",
   "config.nscapebeyond.visual.accessory_tooltip.tooltip": "Show the mod's styled tooltip for accessories instead of the vanilla one.",
+  "config.nscapebeyond.visual.colored_lighting": "Colored Lighting",
+  "config.nscapebeyond.visual.colored_lighting.tooltip": "Dynamic colored light from blocks, block entities and entities.",
+  "config.nscapebeyond.visual.light_strength": "Light Strength: %s%%",
+  "config.nscapebeyond.visual.light_strength.tooltip": "How strongly colored light is applied. 100% is the default.",
 
   "block.nscapebeyond.tile": "Tile",
   "block.nscapebeyond.tile_slab": "Tile Slab",
