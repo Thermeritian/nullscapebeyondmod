@@ -20,7 +20,7 @@ import net.thmrite.nullscapebeyond.NullscapeBeyond;
 public final class LightingClientEvents {
     private LightingClientEvents() {}
 
-    @EventBusSubscriber(modid = NullscapeBeyond.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
     public static final class ModBus {
         @SubscribeEvent
         static void onRegisterShaders(RegisterShadersEvent event) throws IOException {
@@ -32,7 +32,7 @@ public final class LightingClientEvents {
         }
     }
 
-    @EventBusSubscriber(modid = NullscapeBeyond.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
     public static final class GameBus {
         @SubscribeEvent
         static void onClientTick(ClientTickEvent.Post event) {
