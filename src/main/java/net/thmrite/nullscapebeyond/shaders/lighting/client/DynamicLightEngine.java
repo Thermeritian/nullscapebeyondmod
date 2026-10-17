@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.lighting.client;
+package net.thmrite.nullscapebeyond.shaders.lighting.client;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -27,13 +27,13 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.phys.Vec3;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
-import net.thmrite.nullscapebeyond.lighting.ColoredLights;
-import net.thmrite.nullscapebeyond.lighting.LightingSettings;
-import net.thmrite.nullscapebeyond.lighting.api.LightEmission;
-import net.thmrite.nullscapebeyond.lighting.api.LightSource;
-import net.thmrite.nullscapebeyond.lighting.client.LightGridBuilder.Point;
-import net.thmrite.nullscapebeyond.lighting.client.LightGridBuilder.Result;
-import net.thmrite.nullscapebeyond.lighting.client.LightGridBuilder.SectionOpacity;
+import net.thmrite.nullscapebeyond.shaders.lighting.ColoredLights;
+import net.thmrite.nullscapebeyond.shaders.lighting.LightingSettings;
+import net.thmrite.nullscapebeyond.shaders.lighting.api.LightEmission;
+import net.thmrite.nullscapebeyond.shaders.lighting.api.LightSource;
+import net.thmrite.nullscapebeyond.shaders.lighting.client.LightGridBuilder.Point;
+import net.thmrite.nullscapebeyond.shaders.lighting.client.LightGridBuilder.Result;
+import net.thmrite.nullscapebeyond.shaders.lighting.client.LightGridBuilder.SectionOpacity;
 
 /**
  * Client-side brain of the coloured lighting library.

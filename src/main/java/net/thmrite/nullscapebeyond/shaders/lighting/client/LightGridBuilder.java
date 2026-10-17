@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.lighting.client;
+package net.thmrite.nullscapebeyond.shaders.lighting.client;
 
 import java.util.Arrays;
 import java.util.List;

@@ -12,6 +12,7 @@ public class ClientConfig {
     public static final ModConfigSpec.BooleanValue CUSTOM_ACCESSORY_TOOLTIP;
     public static final ModConfigSpec.BooleanValue COLORED_LIGHTING;
     public static final ModConfigSpec.DoubleValue LIGHT_STRENGTH;
+    public static final ModConfigSpec.BooleanValue EMISSIVE_TEXTURES;
     public static final ModConfigSpec SPEC;
 
     static {
@@ -34,6 +35,10 @@ public class ClientConfig {
         LIGHT_STRENGTH = BUILDER
                 .comment("How strongly coloured light is applied (1.0 = default)")
                 .defineInRange("lightStrength", 1.0, 0.0, 2.0);
+        EMISSIVE_TEXTURES = BUILDER
+                .comment("Render the mod's emissive (_e) textures fullbright with the neon effect")
+                .define("emissiveTextures", true);
+
         BUILDER.pop();
 
         BUILDER.push("sound");

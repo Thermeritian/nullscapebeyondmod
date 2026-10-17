@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.lighting;
+package net.thmrite.nullscapebeyond.shaders.lighting;
 
 import net.thmrite.nullscapebeyond.client.ClientConfig;
 

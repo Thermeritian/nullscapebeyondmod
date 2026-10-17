@@ -21,6 +21,8 @@
   "config.nscapebeyond.visual.colored_lighting.tooltip": "Dynamic colored light from blocks, block entities and entities.",
   "config.nscapebeyond.visual.light_strength": "Light Strength: %s%%",
   "config.nscapebeyond.visual.light_strength.tooltip": "How strongly colored light is applied. 100% is the default.",
+  "config.nscapebeyond.visual.emissive_textures": "Emissive Textures",
+  "config.nscapebeyond.visual.emissive_textures.tooltip": "Glowing parts of the mod's blocks and entities ignore lighting and shine with a neon look.",
 
   "block.nscapebeyond.tile": "Tile",
   "block.nscapebeyond.tile_slab": "Tile Slab",

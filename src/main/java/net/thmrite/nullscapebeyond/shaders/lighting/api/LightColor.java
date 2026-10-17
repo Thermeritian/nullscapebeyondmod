@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.lighting.api;
+package net.thmrite.nullscapebeyond.shaders.lighting.api;
 
 import net.minecraft.util.Mth;
 

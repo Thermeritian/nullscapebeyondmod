@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.lighting;
+package net.thmrite.nullscapebeyond.shaders.lighting;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,14 +17,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.thmrite.nullscapebeyond.lighting.api.LightColor;
-import net.thmrite.nullscapebeyond.lighting.api.LightEmission;
+import net.thmrite.nullscapebeyond.shaders.lighting.api.LightColor;
+import net.thmrite.nullscapebeyond.shaders.lighting.api.LightEmission;
 
 /**
  * Public facade / registry of the coloured lighting library. Safe to call from common code
  * (it only stores data; all rendering lives in the client package).
  *
- * Anything you own can instead implement {@link net.thmrite.nullscapebeyond.lighting.api.LightSource}
+ * Anything you own can instead implement {@link net.thmrite.nullscapebeyond.shaders.lighting.api.LightSource}
  * on its BlockEntity / Entity class.
  */
 public final class ColoredLights {

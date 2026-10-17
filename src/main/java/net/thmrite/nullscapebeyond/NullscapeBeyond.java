@@ -2,8 +2,7 @@ package net.thmrite.nullscapebeyond;
 
 import net.thmrite.nullscapebeyond.attribute.ClassAttributes;
 import net.thmrite.nullscapebeyond.attribute.ModAttributes;
-import net.thmrite.nullscapebeyond.client.ModKeybinds;
-import net.thmrite.nullscapebeyond.lighting.ColoredLights;
+import net.thmrite.nullscapebeyond.shaders.lighting.ColoredLights;
 import net.thmrite.nullscapebeyond.registry.*;
 import org.slf4j.Logger;
 
@@ -13,7 +12,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;

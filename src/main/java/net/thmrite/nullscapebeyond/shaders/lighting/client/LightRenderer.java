@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.lighting.client;
+package net.thmrite.nullscapebeyond.shaders.lighting.client;
 
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
@@ -26,8 +26,8 @@ import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
-import net.thmrite.nullscapebeyond.lighting.LightingSettings;
-import net.thmrite.nullscapebeyond.lighting.client.LightGridBuilder.Result;
+import net.thmrite.nullscapebeyond.shaders.lighting.LightingSettings;
+import net.thmrite.nullscapebeyond.shaders.lighting.client.LightGridBuilder.Result;
 
 /**
  * Applies the coloured light as a depth-based post pass over the finished frame. Because it only

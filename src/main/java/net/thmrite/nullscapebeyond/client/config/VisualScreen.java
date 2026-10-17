@@ -1,5 +1,6 @@
 package net.thmrite.nullscapebeyond.client.config;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.Tooltip;
@@ -29,6 +30,17 @@ public class VisualScreen extends ConfigPageScreen {
                         (button, value) -> ClientConfig.COLORED_LIGHTING.set(value)));
 
         this.addRenderableWidget(new LightStrengthSlider(this.width / 2 - 100, rowY(2), 200, 20));
+
+        this.addRenderableWidget(CycleButton.onOffBuilder(ClientConfig.EMISSIVE_TEXTURES.get())
+                .withTooltip(v -> Tooltip.create(
+                        Component.translatable("config.nscapebeyond.visual.emissive_textures.tooltip")))
+                .create(this.width / 2 - 100, rowY(3), 200, 20,
+                        Component.translatable("config.nscapebeyond.visual.emissive_textures"),
+                        (button, value) -> {
+                            ClientConfig.EMISSIVE_TEXTURES.set(value);
+                            // block overlays live in the chunk meshes, so they must be rebuilt
+                            Minecraft.getInstance().levelRenderer.allChanged();
+                        }));
     }
 
     /** 0%..200% slider bound to ClientConfig.LIGHT_STRENGTH (0.0..2.0). */

@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
-import net.thmrite.nullscapebeyond.lighting.client.DynamicLightEngine;
+import net.thmrite.nullscapebeyond.shaders.lighting.client.DynamicLightEngine;
 
 @Mixin(ClientLevel.class)
 public abstract class ClientLevelMixin {
