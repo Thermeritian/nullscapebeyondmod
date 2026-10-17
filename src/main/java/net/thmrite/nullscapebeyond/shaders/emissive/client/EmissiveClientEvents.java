@@ -26,7 +26,7 @@ public final class EmissiveClientEvents {
     static void onRegisterShaders(RegisterShadersEvent event) throws IOException {
         event.registerShader(
                 new ShaderInstance(event.getResourceProvider(),
-                        ResourceLocation.fromNamespaceAndPath(NullscapeBeyond.MODID, "emissive_neon.json"),
+                        ResourceLocation.fromNamespaceAndPath(NullscapeBeyond.MODID, "emissive_neon"),
                         DefaultVertexFormat.NEW_ENTITY),
                 EmissiveRenderTypes::setShader);
     }
