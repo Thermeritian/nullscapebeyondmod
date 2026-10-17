@@ -33,9 +33,12 @@ public final class EmissiveTextures {
     private static Optional<ResourceLocation> resolveFile(ResourceLocation base) {
         String path = base.getPath();
         if (!base.getNamespace().equals(NullscapeBeyond.MODID) || !path.endsWith(".png") || path.endsWith("_e.png")) {
+            System.out.println(" \n Emissive Found Texture" + Optional.empty() + "\n");
             return Optional.empty();
         }
+
         ResourceLocation emissive = base.withPath(path.substring(0, path.length() - 4) + "_e.png");
+        System.out.println(" \n Emissive Found Texture" + Optional.of(emissive) + "\n");
         return Minecraft.getInstance().getResourceManager().getResource(emissive).isPresent()
                 ? Optional.of(emissive) : Optional.empty();
     }

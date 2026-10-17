@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.emissive.client;
+package net.thmrite.nullscapebeyond.shaders.emissive.client;
 
 import net.thmrite.nullscapebeyond.shaders.emissive.EmissiveSettings;
 import org.jetbrains.annotations.Nullable;
