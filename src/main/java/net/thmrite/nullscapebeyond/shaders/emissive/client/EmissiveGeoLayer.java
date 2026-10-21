@@ -1,6 +1,8 @@
 package net.thmrite.nullscapebeyond.shaders.emissive.client;
 
-import net.thmrite.nullscapebeyond.shaders.emissive.EmissiveSettings;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -12,12 +14,12 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.thmrite.nullscapebeyond.shaders.emissive.client.*;
+import net.thmrite.nullscapebeyond.NullscapeBeyond;
+import net.thmrite.nullscapebeyond.shaders.emissive.EmissiveSettings;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
-
 
 /**
  * GeckoLib layer: draws foo_e.png over the normal foo.png render, fullbright and with the neon shader,
@@ -26,6 +28,8 @@ import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
  *   addRenderLayer(new EmissiveGeoLayer<>(this));
  */
 public class EmissiveGeoLayer<T extends GeoAnimatable> extends GeoRenderLayer<T> {
+    private static final Set<Object> WARNED = ConcurrentHashMap.newKeySet();
+
     private final boolean glowShell;
     private final float shellScale;
     private final int shellColor;
@@ -36,6 +40,7 @@ public class EmissiveGeoLayer<T extends GeoAnimatable> extends GeoRenderLayer<T>
 
     public EmissiveGeoLayer(GeoRenderer<T> renderer, boolean glowShell, float shellScale, float shellAlpha) {
         super(renderer);
+        NullscapeBeyond.LOGGER.info("[emissive] EmissiveGeoLayer attached to {}", renderer.getClass().getName());
         this.glowShell = glowShell;
         this.shellScale = shellScale;
         int a = Math.max(30, Math.min(255, (int) (shellAlpha * 255f)));
@@ -46,10 +51,22 @@ public class EmissiveGeoLayer<T extends GeoAnimatable> extends GeoRenderLayer<T>
     public void render(PoseStack poseStack, T animatable, BakedGeoModel bakedModel, @Nullable RenderType renderType,
                        MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, float partialTick,
                        int packedLight, int packedOverlay) {
-        if (!EmissiveSettings.enabled() || !EmissiveRenderTypes.isReady()) return;
+        if (WARNED.add("called")) {
+            NullscapeBeyond.LOGGER.info("[emissive] layer render() reached: enabled={}, shaderReady={}, texture={}",
+                    EmissiveSettings.enabled(), EmissiveRenderTypes.isReady(), this.renderer.getTextureLocation(animatable));
+        }
+        if (!EmissiveSettings.enabled()) return;
+        if (!EmissiveRenderTypes.isReady()) {
+            if (WARNED.add("shader")) NullscapeBeyond.LOGGER.warn("[emissive] neon shader not loaded; emissive layer skipped");
+            return;
+        }
 
-        ResourceLocation emissive = EmissiveTextures.emissiveOf(this.renderer.getTextureLocation(animatable));
-        if (emissive == null) return;
+        ResourceLocation base = this.renderer.getTextureLocation(animatable);
+        ResourceLocation emissive = EmissiveTextures.emissiveOf(base);
+        if (emissive == null) {
+            if (WARNED.add(base)) NullscapeBeyond.LOGGER.warn("[emissive] no _e texture found for {} (expected {}_e.png)", base, base.toString().replace(".png", ""));
+            return;
+        }
 
         RenderType solid = EmissiveRenderTypes.emissive(emissive);
         this.renderer.reRender(bakedModel, poseStack, bufferSource, animatable, solid,

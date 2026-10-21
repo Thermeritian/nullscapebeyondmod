@@ -43,6 +43,7 @@ public final class EmissiveRenderTypes extends RenderType {
                     .setOverlayState(NO_OVERLAY)
                     .setDepthTestState(LEQUAL_DEPTH_TEST)
                     .setWriteMaskState(COLOR_DEPTH_WRITE)
+                    .setLayeringState(VIEW_OFFSET_Z_LAYERING)
                     .createCompositeState(false)));
 
     /** Additive halo pass (use with a slightly inflated model and a low-alpha colour). */
@@ -57,6 +58,7 @@ public final class EmissiveRenderTypes extends RenderType {
                     .setOverlayState(NO_OVERLAY)
                     .setDepthTestState(LEQUAL_DEPTH_TEST)
                     .setWriteMaskState(COLOR_WRITE)
+                    .setLayeringState(VIEW_OFFSET_Z_LAYERING)
                     .createCompositeState(false)));
 
     public static RenderType emissive(ResourceLocation texture) {

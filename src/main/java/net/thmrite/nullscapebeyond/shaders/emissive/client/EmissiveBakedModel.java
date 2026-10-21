@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.jetbrains.annotations.Nullable;
 
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -82,8 +83,9 @@ public class EmissiveBakedModel extends BakedModelWrapper<BakedModel> {
             float lv = (f(v[o + 5]) - s.getV0()) / dv;
             v[o + 4] = bits(es.getU0() + lu * edu);
             v[o + 5] = bits(es.getV0() + lv * edv);
+            v[o + 6] = LightTexture.pack(15, 15); // baked light: block 15 / sky 15 = fullbright
         }
-        return Optional.of(new BakedQuad(v, q.getTintIndex(), d, es, false, true));
+        return Optional.of(new BakedQuad(v, q.getTintIndex(), d, es, false, false));
     }
 
     private static float f(int bits) {

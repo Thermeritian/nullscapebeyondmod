@@ -12,10 +12,10 @@ out vec4 vertexColor;
 out vec2 texCoord0;
 
 void main() {
-    vec4 viewPos = ModelViewMat * vec4(Position, 1.0);
-    gl_Position = ProjMat * viewPos;
+    // Same expression as vanilla's entity shaders, so depth is bit-identical to the base pass.
+    gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
 
-    vertexDistance = length(viewPos.xyz);
+    vertexDistance = length((ModelViewMat * vec4(Position, 1.0)).xyz);
     vertexColor = Color;
     texCoord0 = UV0;
 }

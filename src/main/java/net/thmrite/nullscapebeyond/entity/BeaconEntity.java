@@ -14,7 +14,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.client.hooks.BeaconClientHooks;
+import net.thmrite.nullscapebeyond.registry.ModItems;
 import net.thmrite.nullscapebeyond.registry.ModSounds;
+import net.thmrite.nullscapebeyond.shaders.lighting.ColoredLights;
+import net.thmrite.nullscapebeyond.shaders.lighting.api.LightColor;
+import net.thmrite.nullscapebeyond.shaders.lighting.api.LightEffects;
+import net.thmrite.nullscapebeyond.shaders.lighting.api.LightEmission;
+import net.thmrite.nullscapebeyond.shaders.lighting.api.LightSource;
 import net.thmrite.nullscapebeyond.util.OggDuration;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -34,7 +40,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-public class BeaconEntity extends Entity implements GeoEntity {
+public class BeaconEntity extends Entity implements GeoEntity, LightSource {
     private static final EntityDataAccessor<Boolean> OPEN =
             SynchedEntityData.defineId(BeaconEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Long> OPENED_AT =
@@ -126,17 +132,18 @@ public class BeaconEntity extends Entity implements GeoEntity {
     @Override
     protected void readAdditionalSaveData(CompoundTag tag) {
         entityData.set(OPEN, tag.getBoolean("Open"));
+    }
 
-    //        lightPositions.clear();
-    //        for (long packed : tag.getLongArray("Lights")) {
-    //            lightPositions.add(BlockPos.of(packed));
-    //        }
+
+    @Override
+    public LightEmission getLightEmission() {
+        float flicker = LightEffects.flicker(getId(), level().getGameTime(), 0.1f);
+        return LightEmission.of(LightColor.of(255, 235, 10), 24f, 2.0f * flicker);
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag tag) {
         tag.putBoolean("Open", isOpen());
-//        tag.putLongArray("Lights", lightPositions.stream().mapToLong(BlockPos::asLong).toArray());
     }
 
     // ---- no collision, nothing to interact with ----

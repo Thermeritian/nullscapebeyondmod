@@ -1,0 +1,10 @@
+{
+  "fallback": "nscapebeyond:path_end",
+  "elements": [
+    { "weight": 4, "element": { "element_type": "minecraft:single_pool_element", "location": "nscapebeyond:corridor21x3",   "processors": "minecraft:empty", "projection": "rigid" } },
+    { "weight": 2, "element": { "element_type": "minecraft:single_pool_element", "location": "nscapebeyond:corner_9x3x9",      "processors": "minecraft:empty", "projection": "rigid" } },
+    { "weight": 2, "element": { "element_type": "minecraft:single_pool_element", "location": "nscapebeyond:stair_7x7x7", "processors": "minecraft:empty", "projection": "rigid" } },
+    { "weight": 2, "element": { "element_type": "minecraft:single_pool_element", "location": "nscapebeyond:t_9x7", "processors": "minecraft:empty", "projection": "rigid" } },
+    { "weight": 2, "element": { "element_type": "minecraft:single_pool_element", "location": "nscapebeyond:cross_7x3", "processors": "minecraft:empty", "projection": "rigid" } }
+  ]
+}

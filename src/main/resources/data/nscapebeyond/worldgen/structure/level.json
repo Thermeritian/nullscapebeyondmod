@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:jigsaw",
+  "start_pool": "nscapebeyond:spawn",
+  "size": 12,
+  "max_distance_from_center": 128,
+  "start_height": { "absolute": 64 },
+  "use_expansion_hack": false,
+  "biomes": "#nscapebeyond:has_level",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none"
+}

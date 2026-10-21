@@ -29,6 +29,7 @@ public final class EmissiveClientEvents {
                         ResourceLocation.fromNamespaceAndPath(NullscapeBeyond.MODID, "emissive_neon"),
                         DefaultVertexFormat.NEW_ENTITY),
                 EmissiveRenderTypes::setShader);
+        System.out.println("Emissive Neon shader registered");
     }
 
     @SubscribeEvent
