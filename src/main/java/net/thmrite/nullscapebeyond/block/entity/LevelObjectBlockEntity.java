@@ -12,7 +12,7 @@ import net.minecraft.world.phys.AABB;
 import net.thmrite.nullscapebeyond.block.LevelObjectBlock;
 import net.thmrite.nullscapebeyond.registry.ModBlockEntities;
 
-public class LevelObjectBlockEntity extends BlockEntity {
+public class    LevelObjectBlockEntity extends BlockEntity {
     public enum Phase { IDLE, ARMED, EXPLODING }
 
     private Phase phase = Phase.IDLE;

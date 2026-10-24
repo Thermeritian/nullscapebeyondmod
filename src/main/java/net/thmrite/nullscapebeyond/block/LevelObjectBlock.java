@@ -31,6 +31,8 @@ import net.thmrite.nullscapebeyond.block.entity.LevelObjectBlockEntity.Phase;
 import net.thmrite.nullscapebeyond.event.LevelObjectCollectedEvent;
 import net.thmrite.nullscapebeyond.registry.ModBlockSounds;
 
+import java.util.ArrayDeque;
+
 public class LevelObjectBlock extends Block implements EntityBlock {
     public static final EnumProperty<Mode> MODE = EnumProperty.create("mode", Mode.class);
     public static final BooleanProperty COLLECTED = BooleanProperty.create("collected");
@@ -129,13 +131,35 @@ public class LevelObjectBlock extends Block implements EntityBlock {
         if (state.getValue(MODE) != Mode.TRIPMINE
                 || !(level.getBlockEntity(pos) instanceof LevelObjectBlockEntity be)) return;
         switch (be.getPhase()) {
-            case ARMED -> detonate(level, pos, be);
-            case EXPLODING -> level.removeBlock(pos, false);
+            case ARMED -> detonate(level, pos);
+            case EXPLODING -> {
+                long elapsed = level.getGameTime() - be.getPhaseStart();
+                if (elapsed >= EXPLOSION_TICKS) {
+                    level.removeBlock(pos, false);
+                } else {
+                    // Leftover fuse tick from a mine that was chain-detonated early: wait for the visual to finish.
+                    level.scheduleTick(pos, this, (int) (EXPLOSION_TICKS - elapsed));
+                }
+            }
             default -> {}
         }
     }
 
-    private void detonate(ServerLevel level, BlockPos pos, LevelObjectBlockEntity be) {
+    private void detonate(ServerLevel level, BlockPos start) {
+        ArrayDeque<BlockPos> queue = new ArrayDeque<>();
+        queue.add(start);
+        while (!queue.isEmpty()) {
+            BlockPos pos = queue.poll();
+            BlockState state = level.getBlockState(pos);
+            if (!(state.getBlock() instanceof LevelObjectBlock)
+                    || state.getValue(MODE) != Mode.TRIPMINE
+                    || !(level.getBlockEntity(pos) instanceof LevelObjectBlockEntity be)
+                    || be.getPhase() == Phase.EXPLODING) continue;   // already blown up
+            explode(level, pos, be, queue);
+        }
+    }
+
+    private void explode(ServerLevel level, BlockPos pos, LevelObjectBlockEntity be, ArrayDeque<BlockPos> chain) {
         be.setPhase(Phase.EXPLODING, level.getGameTime());
         level.scheduleTick(pos, this, EXPLOSION_TICKS);
         level.playSound(null, pos, ModBlockSounds.TRIPMINE_DETONATE.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -152,14 +176,16 @@ public class LevelObjectBlock extends Block implements EntityBlock {
             }
         }
 
-        // Collect nearby gifts.
+        // Collect nearby gifts and queue nearby tripmines.
         int r = (int) Math.ceil(EXPLOSION_RADIUS);
         for (BlockPos p : BlockPos.betweenClosed(pos.offset(-r, -r, -r), pos.offset(r, r, r))) {
-            if (Vec3.atCenterOf(p).distanceToSqr(center) > r2) continue;
+            if (p.equals(pos) || Vec3.atCenterOf(p).distanceToSqr(center) > r2) continue;
             BlockState s = level.getBlockState(p);
             if (!(s.getBlock() instanceof LevelObjectBlock) || s.getValue(COLLECTED)) continue;
             Mode m = s.getValue(MODE);
-            if (m == Mode.GIFT || (m == Mode.GOLDEN_GIFT && EXPLOSION_COLLECTS_GOLDEN)) {
+            if (m == Mode.TRIPMINE) {
+                chain.add(p.immutable());
+            } else if (m == Mode.GIFT || (m == Mode.GOLDEN_GIFT && EXPLOSION_COLLECTS_GOLDEN)) {
                 collect(level, p.immutable(), s, null);
             }
         }

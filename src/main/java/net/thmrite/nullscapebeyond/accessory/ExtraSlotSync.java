@@ -33,10 +33,9 @@ public final class ExtraSlotSync {
     public static void onPlayerTick(PlayerTickEvent.Post event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
         Integer have = APPLIED.get(player);
-        if (have != null && player.tickCount % 10 != 0) return;
 
         int want = Mth.clamp((int) Math.floor(ClassAttributes.MAX_EXTRA_SLOTS.of(player)), 0, 16);
-        if (have != null && have == want) return;
+        if (have != null && have == want) return;   // nothing changed: one int compare per tick
 
         AccessoriesCapability cap = AccessoriesCapability.get(player);
         if (cap == null) return;

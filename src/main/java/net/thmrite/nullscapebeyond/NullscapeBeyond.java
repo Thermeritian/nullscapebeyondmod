@@ -53,7 +53,7 @@ public class NullscapeBeyond {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        event.enqueueWork(ColoredLights::registerVanillaDefaults);
+        //event.enqueueWork(ColoredLights::registerVanillaDefaults);
     }
 
     // Add the example block item to the building blocks tab

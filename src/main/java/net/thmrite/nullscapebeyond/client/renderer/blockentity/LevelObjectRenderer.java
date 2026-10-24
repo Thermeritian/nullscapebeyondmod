@@ -65,6 +65,7 @@ public class LevelObjectRenderer implements BlockEntityRenderer<LevelObjectBlock
 
         if (mode == Mode.TRIPMINE && be.getPhase() == Phase.EXPLODING) {
             float elapsed = Math.max(0.0F, t - be.getPhaseStart());
+            if (elapsed >= LevelObjectBlock.EXPLOSION_TICKS) return;   // explosion finished, block about to vanish
             int frame = Math.min(15, (int) (elapsed / EXPLOSION_TICKS_PER_FRAME));
             draw(pose, buffers, EXPLOSION, (float) LevelObjectBlock.EXPLOSION_RADIUS * 2.0F,
                     frame % 4, frame / 4, 4, 4);   // 4x4 sheet, read left to right, top to bottom

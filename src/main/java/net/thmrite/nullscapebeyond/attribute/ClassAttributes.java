@@ -78,7 +78,7 @@ public final class ClassAttributes {
 
 
     // ---- Accessory slots ----------------------------------------------------------------
-    public static final Entry MAX_EXTRA_SLOTS      = reg(ACCESSORIES, "max_extra_slots",  "Max Extra Slots",      2,    0,     16);
+    public static final Entry MAX_EXTRA_SLOTS = reg(ACCESSORIES, "max_extra_slots", "Max Extra Slots", 1, 0, 3);
 
     private static Entry reg(String section, String id, String label, double def, double min, double max) {
         var holder = ATTRIBUTES.register(id, () ->
