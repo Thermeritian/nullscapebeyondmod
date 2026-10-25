@@ -1,6 +1,7 @@
 package net.thmrite.nullscapebeyond.event;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -9,6 +10,9 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.thmrite.nullscapebeyond.server.effects.VoidboundSyncPayload;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
@@ -32,6 +36,17 @@ public class VoidboundEvents {
                 && event.getEntity() instanceof Mob mob) {
             VoidboundDebug.log("SERVER: voidbound added to {} (id {})", mob.getType().toShortString(), mob.getId());
             VoidboundHelper.applyAggression(mob);
+            // vanilla does not tell clients about effects added to mobs, so do it ourselves
+            PacketDistributor.sendToPlayersTrackingEntity(mob, new VoidboundSyncPayload(mob.getId(), true));
+        }
+    }
+
+    /** A player starts seeing an already-voidbound mob (walked into range, joined, chunk loaded). */
+    @SubscribeEvent
+    static void onStartTracking(PlayerEvent.StartTracking event) {
+        if (event.getTarget() instanceof LivingEntity target && VoidboundHelper.hasVoidbound(target)
+                && event.getEntity() instanceof ServerPlayer player) {
+            PacketDistributor.sendToPlayer(player, new VoidboundSyncPayload(target.getId(), true));
         }
     }
 
@@ -39,7 +54,7 @@ public class VoidboundEvents {
     @SubscribeEvent
     static void onJoin(EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide()) return;
-        if (event.getEntity() instanceof Mob mob && mob.hasEffect(ModEffects.VOIDBOUND)) {
+        if (event.getEntity() instanceof Mob mob && VoidboundHelper.hasVoidbound(mob)) {
             VoidboundHelper.applyAggression(mob);
         }
     }

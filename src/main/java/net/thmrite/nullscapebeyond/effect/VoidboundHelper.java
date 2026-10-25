@@ -1,5 +1,9 @@
 package net.thmrite.nullscapebeyond.effect;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -25,9 +29,26 @@ public final class VoidboundHelper {
 
     private VoidboundHelper() {}
 
+    /**
+     * Do NOT use entity.hasEffect(ModEffects.VOIDBOUND): effects are stored in a map keyed by Holder, and the
+     * DeferredHolder is not the same key as the registry Holder the client / saved data use, so it fails there.
+     * Check the effect type instead.
+     */
+    public static boolean hasVoidbound(LivingEntity e) {
+        for (MobEffectInstance instance : e.getActiveEffects()) {
+            if (instance.getEffect().value() instanceof VoidboundEffect) return true;
+        }
+        return false;
+    }
+
+    /** The canonical registry holder: use this (not the DeferredHolder) when creating a MobEffectInstance. */
+    public static Holder<MobEffect> voidboundHolder() {
+        return BuiltInRegistries.MOB_EFFECT.wrapAsHolder(ModEffects.VOIDBOUND.get());
+    }
+
     /** Infestors and voidbound entities are all on the same side. */
     public static boolean isVoidAligned(Entity e) {
-        return e instanceof InfestorEntity || (e instanceof LivingEntity l && l.hasEffect(ModEffects.VOIDBOUND));
+        return e instanceof InfestorEntity || (e instanceof LivingEntity l && hasVoidbound(l));
     }
 
     public static boolean isPet(Entity e) {
@@ -54,6 +75,6 @@ public final class VoidboundHelper {
         }
         mob.targetSelector.addGoal(0, new VoidTargetGoal(mob, false,
                 e -> !isVoidAligned(e) && !(e instanceof ArmorStand),
-                () -> mob.hasEffect(ModEffects.VOIDBOUND)));
+                () -> hasVoidbound(mob)));
     }
 }

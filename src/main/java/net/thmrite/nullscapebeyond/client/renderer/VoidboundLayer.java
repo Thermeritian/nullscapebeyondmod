@@ -14,7 +14,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.thmrite.nullscapebeyond.client.hooks.ClientVoidboundTracker;
 import net.thmrite.nullscapebeyond.debug.VoidboundDebug;
+import net.thmrite.nullscapebeyond.effect.VoidboundHelper;
 import net.thmrite.nullscapebeyond.registry.ModEffects;
 
 /**
@@ -33,7 +35,11 @@ public class VoidboundLayer<T extends LivingEntity, M extends EntityModel<T>> ex
                        float netHeadYaw, float headPitch) {
         String type = entity.getType().toShortString();
 
-        if (!entity.hasEffect(ModEffects.VOIDBOUND)) return; // normal mobs: silent, this runs every frame
+        boolean has = VoidboundHelper.hasVoidbound(entity) || ClientVoidboundTracker.contains(entity.getId());
+        VoidboundDebug.once("layer.called." + type + "." + has + "." + entity.hasEffect(ModEffects.VOIDBOUND),
+                "Layer called for {}: hasVoidbound(type check)={}, hasEffect(DeferredHolder)={}",
+                type, has, entity.hasEffect(ModEffects.VOIDBOUND));
+        if (!has) return; // normal mobs: silent after the first log, this runs every frame
 
         // From here on the entity HAS the effect on the client.
         VoidboundDebug.once("layer.effect." + type,

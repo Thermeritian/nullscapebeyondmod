@@ -51,9 +51,9 @@ public class InfestorEntity extends Monster implements GeoEntity {
     public static final int EXIT_COOLDOWN_TICKS = 20 * 20;
 
     // Change these if the names inside infestor.animation.json differ.
-    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
-    private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
-    private static final RawAnimation LEAP = RawAnimation.begin().then("leap", Animation.LoopType.PLAY_ONCE);
+    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.infestor.idle");
+    private static final RawAnimation WALK = RawAnimation.begin().thenLoop("animation.infestor.walk");
+    private static final RawAnimation LEAP = RawAnimation.begin().then("animation.infestor.leap", Animation.LoopType.PLAY_ONCE);
 
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID =
             SynchedEntityData.defineId(InfestorEntity.class, EntityDataSerializers.BYTE);
@@ -109,7 +109,7 @@ public class InfestorEntity extends Monster implements GeoEntity {
 
     private boolean tryInfest(Mob host) {
         if (level().isClientSide || !isReadyToInfest() || !VoidboundHelper.canCorrupt(host)) return false;
-        boolean applied = host.addEffect(new MobEffectInstance(ModEffects.VOIDBOUND,
+        boolean applied = host.addEffect(new MobEffectInstance(VoidboundHelper.voidboundHolder(),
                 MobEffectInstance.INFINITE_DURATION, 0, false, false, true));
         if (!applied) return false;
 
