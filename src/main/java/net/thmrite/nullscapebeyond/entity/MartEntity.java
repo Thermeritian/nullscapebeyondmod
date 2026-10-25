@@ -59,6 +59,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
+import net.thmrite.nullscapebeyond.entity.ai.MartGoals;
 import net.thmrite.nullscapebeyond.item.MartBucketItem;
 import net.thmrite.nullscapebeyond.registry.ModEntities;
 import net.thmrite.nullscapebeyond.registry.ModSounds;

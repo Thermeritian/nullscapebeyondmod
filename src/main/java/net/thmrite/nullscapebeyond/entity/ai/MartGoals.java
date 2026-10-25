@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.entity;
+package net.thmrite.nullscapebeyond.entity.ai;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -6,6 +6,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
+import net.thmrite.nullscapebeyond.entity.MartEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;

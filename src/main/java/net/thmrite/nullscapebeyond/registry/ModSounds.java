@@ -36,6 +36,15 @@ public class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> MART_DEATH = register("entity.mart.death");
     public static final DeferredHolder<SoundEvent, SoundEvent> MART_SHOOT = register("entity.mart.shoot");   // 3 variants in sounds.json
 
+    //INFESTOR
+    public static final DeferredHolder<SoundEvent, SoundEvent> INFESTOR_HISS = register("entity.infestor.hiss");
+    public static final DeferredHolder<SoundEvent, SoundEvent> INFESTOR_STEP = register("entity.infestor.step");
+    public static final DeferredHolder<SoundEvent, SoundEvent> INFESTOR_DEATH = register("entity.infestor.death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> INFESTOR_CORRUPT = register("entity.infestor.corrupt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> INFESTOR_EXITS = register("entity.infestor.exits");
+    public static final DeferredHolder<SoundEvent, SoundEvent> INFESTOR_LEAP = register("entity.infestor.leap");
+    public static final DeferredHolder<SoundEvent, SoundEvent> VOIDBOUND_IDLE = register("effect.voidbound.idle");
+
     //PROJECTILES
     // WATER JOLT
     public static final DeferredHolder<SoundEvent, SoundEvent> WATER_JOLT_HIT = register("entity.water_jolt.hit");

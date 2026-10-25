@@ -11,15 +11,22 @@ import net.thmrite.nullscapebeyond.item.MartBucketItem;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(NullscapeBeyond.MODID);
 
+    //accessories
+    //class accessories
     public static final DeferredItem<ChargerBoots> CHARGER_BOOTS =
             ITEMS.register("charger_boots", () -> new ChargerBoots(new Item.Properties().stacksTo(1)));
 
+    //items
+    public static final DeferredItem<MartBucketItem> MART_BUCKET =
+            ITEMS.register("mart_bucket", () -> new MartBucketItem(new Item.Properties().stacksTo(1)));
+
+    //spawn eggs
     public static final DeferredItem<DeferredSpawnEggItem> MART_SPAWN_EGG =
             ITEMS.register("mart_spawn_egg", () -> new DeferredSpawnEggItem(
                     ModEntities.MART, 0x3A7BD5, 0x9BE3FF, new Item.Properties()));
+    public static final DeferredItem<Item> INFESTOR_SPAWN_EGG = ITEMS.register("infestor_spawn_egg",
+            () -> new DeferredSpawnEggItem(ModEntities.INFESTOR, 0x1B1033, 0xD9C2FF, new Item.Properties()));
 
-    public static final DeferredItem<MartBucketItem> MART_BUCKET =
-            ITEMS.register("mart_bucket", () -> new MartBucketItem(new Item.Properties().stacksTo(1)));
 
 
 

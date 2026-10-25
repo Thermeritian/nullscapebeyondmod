@@ -82,5 +82,51 @@
     "nscapebeyond:entity/water_jolt/water_jolt_hit_1",
     "nscapebeyond:entity/water_jolt/water_jolt_hit_2",
     "nscapebeyond:entity/water_jolt/water_jolt_hit_3"
-  ] }
+  ] },
+
+  "entity.infestor.hiss": {
+    "sounds": [
+      "nscapebeyond:entity/infestor/infestor_hiss_1",
+      "nscapebeyond:entity/infestor/infestor_hiss_2",
+      "nscapebeyond:entity/infestor/infestor_hiss_3",
+      "nscapebeyond:entity/infestor/infestor_hiss_4"
+    ]
+  },
+  "entity.infestor.step": {
+    "sounds": [
+      "nscapebeyond:entity/infestor/infestor_step_1",
+      "nscapebeyond:entity/infestor/infestor_step_2",
+      "nscapebeyond:entity/infestor/infestor_step_3",
+      "nscapebeyond:entity/infestor/infestor_step_4"
+    ]
+  },
+  "entity.infestor.death": {
+    "sounds": [
+      "nscapebeyond:entity/infestor/infestor_death"
+    ]
+  },
+  "entity.infestor.corrupt": {
+    "sounds": [
+      "nscapebeyond:entity/infestor/infestor_corrupt"
+    ]
+  },
+  "entity.infestor.exits": {
+    "sounds": [
+      "nscapebeyond:entity/infestor/infestor_exits"
+    ]
+  },
+  "entity.infestor.leap": {
+    "sounds": [
+      "nscapebeyond:entity/infestor/infestor_leap"
+    ]
+  },
+  "effect.voidbound.idle": {
+    "sounds": [
+      "nscapebeyond:effect/generic_voidbound_idle_1",
+      "nscapebeyond:effect/generic_voidbound_idle_2",
+      "nscapebeyond:effect/generic_voidbound_idle_3",
+      "nscapebeyond:effect/generic_voidbound_idle_4",
+      "nscapebeyond:effect/generic_voidbound_idle_5"
+    ]
+  }
 }

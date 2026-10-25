@@ -7,10 +7,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
-import net.thmrite.nullscapebeyond.entity.BeaconEntity;
-import net.thmrite.nullscapebeyond.entity.ChargerPlatformEntity;
-import net.thmrite.nullscapebeyond.entity.MartEntity;
-import net.thmrite.nullscapebeyond.entity.WaterJoltEntity;
+import net.thmrite.nullscapebeyond.entity.*;
 
 public final class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES =
@@ -57,6 +54,14 @@ public final class ModEntities {
                     .noSave()
                     .fireImmune()
                     .build("water_jolt"));
+
+    // Infestor
+    public static final DeferredHolder<EntityType<?>, EntityType<InfestorEntity>> INFESTOR =
+            ENTITIES.register("infestor", () -> EntityType.Builder.of(InfestorEntity::new, MobCategory.MONSTER)
+                    .sized(1.4F, 0.9F)      // match your model's size
+                    .eyeHeight(0.65F)
+                    .clientTrackingRange(8)
+                    .build("infestor"));
 
     private ModEntities() {}
 }

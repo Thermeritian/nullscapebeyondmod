@@ -99,11 +99,22 @@
   "tooltip.nscapebeyond.footer": "NullscapeBeyond",
 
 
+
+
   "entity.nscapebeyond.mart": "Mart",
   "entity.nscapebeyond.water_jolt": "Water Jolt",
+  "entity.nscapebeyond.infestor": "Void Infestor",
 
-  "item.nscapebeyond.mart_spawn_egg": "Mart Spawn Egg",
   "item.nscapebeyond.mart_bucket": "Bucket of Mart",
+
+  "item.nscapebeyond.infestor_spawn_egg": "Void Infestor Spawn Egg",
+  "item.nscapebeyond.mart_spawn_egg": "Mart Spawn Egg",
+
+  "effect.nscapebeyond.voidbound": "Voidbound",
+
+
+
+
 
   "message.nscapebeyond.mart.full": "Mart can't hold any more water",
 
