@@ -13,6 +13,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
+import net.thmrite.nullscapebeyond.debug.VoidboundDebug;
 import net.thmrite.nullscapebeyond.effect.VoidboundEffect;
 import net.thmrite.nullscapebeyond.effect.VoidboundHelper;
 import net.thmrite.nullscapebeyond.entity.InfestorEntity;
@@ -29,6 +30,7 @@ public class VoidboundEvents {
         if (event.getEntity().level().isClientSide) return;
         if (event.getEffectInstance().getEffect().value() instanceof VoidboundEffect
                 && event.getEntity() instanceof Mob mob) {
+            VoidboundDebug.log("SERVER: voidbound added to {} (id {})", mob.getType().toShortString(), mob.getId());
             VoidboundHelper.applyAggression(mob);
         }
     }

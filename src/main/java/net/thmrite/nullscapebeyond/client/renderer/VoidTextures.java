@@ -14,8 +14,14 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
+import net.thmrite.nullscapebeyond.debug.VoidboundDebug;
 
-
+/**
+ * Builds, once per source texture, two dynamic textures:
+ *  - base: the original recoloured to a black / dark blue / purple ramp
+ *  - glow: only the brightest pixels, pure white (drawn fullbright and pulsed by VoidboundLayer)
+ * Works on any vanilla or modded entity texture, no shader needed.
+ */
 public final class VoidTextures {
     public record Entry(ResourceLocation base, ResourceLocation glow) {}
 
@@ -54,6 +60,7 @@ public final class VoidTextures {
 
             Entry entry = new Entry(baseId, glowId);
             CACHE.put(source, entry);
+            VoidboundDebug.log("VoidTextures: built {} ({}x{}) -> {} / {}", source, src.getWidth(), src.getHeight(), baseId, glowId);
             return entry;
         } catch (Exception e) {
             NullscapeBeyond.LOGGER.warn("Could not build voidbound texture for {}", source, e);
@@ -86,6 +93,7 @@ public final class VoidTextures {
             }
         }
         float range = Math.max(0.001F, max - min);
+        int glowPixels = 0;
 
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
@@ -97,14 +105,16 @@ public final class VoidTextures {
                     continue;
                 }
                 float l = Mth.clamp((luminance(px) - min) / range, 0.0F, 1.0F);
-                int[] c = ramp(l);
+                int[] c = VoidboundDebug.FORCE_MAGENTA ? new int[]{255, 0, 255} : ramp(l);
                 base.setPixelRGBA(x, y, (a << 24) | (c[2] << 16) | (c[1] << 8) | c[0]);
 
                 float hi = smoothstep(GLOW_START, GLOW_END, l);
                 int ga = Math.round(hi * a);
+                if (ga > 0) glowPixels++;
                 glow.setPixelRGBA(x, y, (ga << 24) | 0x00FFFFFF);
             }
         }
+        VoidboundDebug.log("VoidTextures: luminance min={} max={}, glow pixels={}", min, max, glowPixels);
     }
 
     private static float luminance(int abgr) {

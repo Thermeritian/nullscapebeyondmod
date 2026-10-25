@@ -10,11 +10,12 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.thmrite.nullscapebeyond.debug.VoidboundDebug;
 import net.thmrite.nullscapebeyond.registry.ModEffects;
-
 
 /**
  * Added to every LivingEntityRenderer. While the entity has Voidbound it re-draws the model on top of itself:
@@ -30,10 +31,22 @@ public class VoidboundLayer<T extends LivingEntity, M extends EntityModel<T>> ex
     public void render(PoseStack poseStack, MultiBufferSource buffers, int packedLight, T entity,
                        float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks,
                        float netHeadYaw, float headPitch) {
-        if (entity.isInvisible() || !entity.hasEffect(ModEffects.VOIDBOUND)) return;
+        String type = entity.getType().toShortString();
 
-        VoidTextures.Entry tex = VoidTextures.get(getTextureLocation(entity));
-        if (tex == null) return;
+        if (!entity.hasEffect(ModEffects.VOIDBOUND)) return; // normal mobs: silent, this runs every frame
+
+        // From here on the entity HAS the effect on the client.
+        VoidboundDebug.once("layer.effect." + type,
+                "Layer render: {} (id {}) has voidbound on the CLIENT, invisible={}", type, entity.getId(), entity.isInvisible());
+        if (entity.isInvisible()) return;
+
+        ResourceLocation source = getTextureLocation(entity);
+        VoidTextures.Entry tex = VoidTextures.get(source);
+        if (tex == null) {
+            VoidboundDebug.once("layer.notex." + source, "Layer render: no void texture for {} (source {}), see VoidTextures warnings", type, source);
+            return;
+        }
+        VoidboundDebug.once("layer.draw." + source, "Layer render: drawing {} with base={} glow={}", type, tex.base(), tex.glow());
 
         M model = getParentModel();
         int overlay = LivingEntityRenderer.getOverlayCoords(entity, 0.0F);
