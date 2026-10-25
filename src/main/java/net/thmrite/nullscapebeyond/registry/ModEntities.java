@@ -58,7 +58,7 @@ public final class ModEntities {
     // Infestor
     public static final DeferredHolder<EntityType<?>, EntityType<InfestorEntity>> INFESTOR =
             ENTITIES.register("infestor", () -> EntityType.Builder.of(InfestorEntity::new, MobCategory.MONSTER)
-                    .sized(1.4F, 0.9F)      // match your model's size
+                    .sized(0.9F, 0.6F)      // match your model's size
                     .eyeHeight(0.65F)
                     .clientTrackingRange(8)
                     .build("infestor"));
