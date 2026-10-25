@@ -61,9 +61,9 @@ public class VoidboundLayer<T extends LivingEntity, M extends EntityModel<T>> ex
                 packedLight, overlay, -1);
 
         // pulse: 0.35..1.0, desynchronised per entity
-        float pulse = 0.675F + 0.325F * Mth.sin(ageInTicks * 0.15F + entity.getId() * 1.7F);
-        int v = (int) (255 * pulse);
-        model.renderToBuffer(poseStack, buffers.getBuffer(RenderType.eyes(tex.glow())),
-                LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.color(255, v, v, v));
+//        float pulse = 0.675F + 0.325F * Mth.sin(ageInTicks * 0.15F + entity.getId() * 1.7F);
+//        int v = (int) (255 * pulse);
+//        model.renderToBuffer(poseStack, buffers.getBuffer(RenderType.eyes(tex.glow())),
+//                LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.color(255, v, v, v));
     }
 }
