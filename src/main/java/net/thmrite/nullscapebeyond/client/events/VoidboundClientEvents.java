@@ -15,8 +15,8 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.client.renderer.InfestorRenderer;
-import net.thmrite.nullscapebeyond.client.renderer.VoidTextures;
-import net.thmrite.nullscapebeyond.client.renderer.VoidboundLayer;
+import net.thmrite.nullscapebeyond.client.renderer.effect.VoidTextures;
+import net.thmrite.nullscapebeyond.client.renderer.effect.VoidboundLayer;
 import net.thmrite.nullscapebeyond.debug.VoidboundDebug;
 import net.thmrite.nullscapebeyond.registry.ModEntities;
 

@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.client.renderer;
+package net.thmrite.nullscapebeyond.client.renderer.effect;
 
 import java.io.InputStream;
 import java.util.HashMap;
