@@ -141,7 +141,6 @@
 
 
 
-
   "item.nscapebeyond.propeller_hat": "Propeller Hat",
   "item.nscapebeyond.propeller_hat.desc": "Grants one air jump.",
 
@@ -149,12 +148,14 @@
   "item.nscapebeyond.orb.desc": "Slight enhancement for class stamina regeneration. Doubles experience gain.",
 
   "item.nscapebeyond.ninja_belt": "Ninja Belt",
+  "item.nscapebeyond.ninja_belt.desc": "Ninja Belt with no class accessory equipped.",
   "item.nscapebeyond.shark_tail.desc.charger": "Allows using extra jumps when charging. Allows long jumping out of platform charging.",
   "item.nscapebeyond.shark_tail.desc.diver": "The longer %1$s or %2$s is pressed the further the dive will be.",
   "item.nscapebeyond.shark_tail.desc.glider": "Jumping doesn't cancel gliding and gives a boost. Increases gliding speed slightly.",
   "item.nscapebeyond.shark_tail.desc.wanted": "idk lol",
 
   "item.nscapebeyond.shark_tail": "Shark Tail",
+  "item.nscapebeyond.shark_tail.desc": "Shark Tail with no class accessory equipped.",
   "item.nscapebeyond.shark_tail.desc.charger": "Holding only %2$s makes the air platform slowly rise. Does not rise if both %1$s and %2$s are held.",
   "item.nscapebeyond.shark_tail.desc.diver": "Pressing %1$s or %2$s mid-dive converts horizontal speed into vertical.",
   "item.nscapebeyond.shark_tail.desc.glider": "Holding %2$s while gliding gives you a speed boost and increases gift collection range.",

@@ -14,13 +14,13 @@ import net.neoforged.neoforge.client.extensions.common.IClientBlockExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.client.renderer.BeaconRenderer;
-import net.thmrite.nullscapebeyond.client.renderer.ChargerBootsRenderer;
 import net.thmrite.nullscapebeyond.client.renderer.ChargerPlatformRenderer;
 import net.thmrite.nullscapebeyond.client.renderer.blockentity.LevelObjectRenderer;
 import net.thmrite.nullscapebeyond.registry.ModBlockEntities;
 import net.thmrite.nullscapebeyond.registry.ModBlocks;
 import net.thmrite.nullscapebeyond.registry.ModEntities;
 import net.thmrite.nullscapebeyond.registry.ModItems;
+import net.thmrite.nullscapebeyond.client.renderer.accessory.GeoAccessoryRenderer;
 
 
 @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
@@ -28,7 +28,8 @@ public final class ClientSetup {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() ->
-                AccessoriesRendererRegistry.registerRenderer(ModItems.CHARGER_BOOTS.get(), ChargerBootsRenderer::new));
+                ModItems.geoAccessories().forEach(item ->
+                        AccessoriesRendererRegistry.registerRenderer(item, GeoAccessoryRenderer::new)));
     }
 
     @SubscribeEvent

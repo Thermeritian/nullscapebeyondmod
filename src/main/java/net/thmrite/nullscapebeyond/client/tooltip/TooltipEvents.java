@@ -13,7 +13,6 @@ import net.neoforged.neoforge.client.event.RenderTooltipEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.accessory.TooltipAccessory;
 import net.thmrite.nullscapebeyond.client.ClientConfig;
-import net.thmrite.nullscapebeyond.registry.AccessoryTooltipData;
 
 public final class TooltipEvents {
     /** Game bus: swap the whole vanilla tooltip for our component, and recolour the frame. */

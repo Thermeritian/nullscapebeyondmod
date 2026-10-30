@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.registry;
+package net.thmrite.nullscapebeyond.client.tooltip;
 
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;

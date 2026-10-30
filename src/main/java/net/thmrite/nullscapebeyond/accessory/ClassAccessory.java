@@ -7,17 +7,16 @@ import net.minecraft.world.item.ItemStack;
 
 import javax.tools.Tool;
 
-public abstract class ClassAccessory extends AccessoryItem implements TooltipAccessory {
-    private final String slot;
+public abstract class ClassAccessory extends GeoAccessoryItem {
+    private final String classId;
 
-    protected ClassAccessory(Properties properties, String slot) {
-        super(properties);
-        this.slot = slot;
+    protected ClassAccessory(Properties properties, String slot, String model, String classId) {
+        super(properties, slot, model);
+        this.classId = classId;
     }
 
-    @Override
-    public String tooltipSlot() {
-        return slot;
+    public String classId() {
+        return classId;
     }
 
     @Override

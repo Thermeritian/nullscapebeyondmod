@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.client.renderer;
+package net.thmrite.nullscapebeyond.client.renderer.accessory;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -13,26 +13,30 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.thmrite.nullscapebeyond.accessory.classaccessory.ChargerBoots;
-import net.thmrite.nullscapebeyond.client.renderer.ChargerBootsArmorRenderer;
+import net.thmrite.nullscapebeyond.accessory.GeoAccessoryItem;
 import software.bernie.geckolib.animatable.client.GeoRenderProvider;
 
-public class ChargerBootsRenderer implements AccessoryRenderer {
+/** Accessories renderer shared by every GeckoLib accessory (Charger Boots included). */
+public class GeoAccessoryRenderer implements AccessoryRenderer {
+    /** GeckoLib wants a slot, but AccessoryArmorRenderer shows all armor bones regardless of it. */
+    private static final EquipmentSlot SLOT = EquipmentSlot.CHEST;
+
     @Override
     @SuppressWarnings("unchecked")
     public <M extends LivingEntity> void render(ItemStack stack, SlotReference reference, PoseStack matrices,
                                                 EntityModel<M> model, MultiBufferSource buffers, int light,
                                                 float limbSwing, float limbSwingAmount, float partialTicks,
                                                 float ageInTicks, float netHeadYaw, float headPitch) {
-        if (!(model instanceof HumanoidModel<?> humanoid) || !(stack.getItem() instanceof ChargerBoots boots)) return;
+        if (!(model instanceof HumanoidModel<?> humanoid) || !(stack.getItem() instanceof GeoAccessoryItem item)) return;
 
         LivingEntity wearer = reference.entity();
         HumanoidModel<?> provided = GeoRenderProvider.of(stack)
-                .getGeoArmorRenderer(wearer, stack, EquipmentSlot.FEET, (HumanoidModel<LivingEntity>) humanoid);
-        if (!(provided instanceof ChargerBootsArmorRenderer geo)) return;
+                .getGeoArmorRenderer(wearer, stack, SLOT, (HumanoidModel<LivingEntity>) humanoid);
+        if (!(provided instanceof AccessoryArmorRenderer<?>)) return;
 
-        geo.prepForRender(wearer, stack, EquipmentSlot.FEET, humanoid);
-        VertexConsumer vc = buffers.getBuffer(RenderType.armorCutoutNoCull(geo.getTextureLocation(boots)));
+        AccessoryArmorRenderer<GeoAccessoryItem> geo = (AccessoryArmorRenderer<GeoAccessoryItem>) provided;
+        geo.prepForRender(wearer, stack, SLOT, humanoid);
+        VertexConsumer vc = buffers.getBuffer(RenderType.armorCutoutNoCull(geo.getTextureLocation(item)));
         geo.renderToBuffer(matrices, vc, light, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
     }
 }
