@@ -59,7 +59,6 @@
   "attribute.name.nscapebeyond.ground_turn_speed": "Ground Turn Speed",
 
 
-  "item.nscapebeyond.charger_boots": "Charger Boots",
   "attribute.name.nscapebeyond.class_cooldown": "Class Cooldown",
   "attribute.name.nscapebeyond.class_stamina_max": "Class Stamina",
   "attribute.name.nscapebeyond.class_stamina_regen": "Class Stamina Regen",
@@ -98,8 +97,9 @@
   "tooltip.nscapebeyond.slot.extra": "Extra",
   "tooltip.nscapebeyond.footer": "NullscapeBeyond",
 
+  "effect.nscapebeyond.voidbound": "Voidbound",
 
-
+  "message.nscapebeyond.mart.full": "Mart can't hold any more water",
 
   "entity.nscapebeyond.mart": "Mart",
   "entity.nscapebeyond.water_jolt": "Water Jolt",
@@ -107,32 +107,56 @@
 
   "item.nscapebeyond.mart_bucket": "Bucket of Mart",
 
-  "item.nscapebeyond.infestor_spawn_egg": "Void Infestor Spawn Egg",
   "item.nscapebeyond.mart_spawn_egg": "Mart Spawn Egg",
-
-  "effect.nscapebeyond.voidbound": "Voidbound",
-
+  "item.nscapebeyond.infestor_spawn_egg": "Void Infestor Spawn Egg",
 
 
 
 
-  "message.nscapebeyond.mart.full": "Mart can't hold any more water",
 
+  "item.nscapebeyond.charger_boots": "Charger Boots",
   "item.nscapebeyond.charger_boots.flavor": "graaahhh",
   "item.nscapebeyond.charger_boots.desc": "Hold %1$s to charge. Press %1$s mid air to perform a quick drop.\nHold %2$s to create a platform for airborne charging.\nCauses knockback against entities on impact.",
 
+  "item.nscapebeyond.diver_helmet": "Diver Helmet",
   "item.nscapebeyond.diver_helmet.flavor": "bonk!",
   "item.nscapebeyond.diver_helmet.desc": "Tap %1$s to dive. Causes damage against entities on impact. \nPressing %2$s  does a longer dive. You can jump out of dives.",
 
+  "item.nscapebeyond.wanted_hat": "Wanted Hat",
   "item.nscapebeyond.wanted_hat.flavor": "desperado",
   "item.nscapebeyond.wanted_hat.desc": "Tap %1$s to parry. Parrying has a small window. Holding %1$s after a successful parry grants a vertical boost.\n Hold %2$s to activate a cloak, consumes stamina.",
 
+  "item.nscapebeyond.glider_kit": "Glider Kit",
   "item.nscapebeyond.glider_kit.flavor": "skies' the limit",
   "item.nscapebeyond.glider_kit.desc": "Hold %1$s mid-air to glide. Aim with the camera or directional keys. Hitting an entity while gliding at high speeds does mutual damage. Has a dedicated stamina bar.",
 
+  "item.nscapebeyond.spirit_necklace": "Spirit Necklace",
   "item.nscapebeyond.spirit_necklace.flavor": "a ghost?",
   "item.nscapebeyond.spirit_necklace.desc": "Press %1$s to leave your body behind. Grants enhanced mobility outside your body. Press %1$s again to teleport back. \nPress %2$s to leave a catapulting body, launching you back when pressing %1$s depending on the distance. \nTeleporting grants invincibility frames.",
 
+  "item.nscapebeyond.grappler_loom": "Grappler Loom",
   "item.nscapebeyond.grappler_loom.flavor": "like parkour",
-  "item.nscapebeyond.grappler_loom.desc": "a"
+  "item.nscapebeyond.grappler_loom.desc": "a",
+
+
+
+
+
+  "item.nscapebeyond.propeller_hat": "Propeller Hat",
+  "item.nscapebeyond.propeller_hat.desc": "Grants one air jump.",
+
+  "item.nscapebeyond.orb": "Orb.",
+  "item.nscapebeyond.orb.desc": "Slight enhancement for class stamina regeneration. Doubles experience gain.",
+
+  "item.nscapebeyond.ninja_belt": "Ninja Belt",
+  "item.nscapebeyond.shark_tail.desc.charger": "Allows using extra jumps when charging. Allows long jumping out of platform charging.",
+  "item.nscapebeyond.shark_tail.desc.diver": "The longer %1$s or %2$s is pressed the further the dive will be.",
+  "item.nscapebeyond.shark_tail.desc.glider": "Jumping doesn't cancel gliding and gives a boost. Increases gliding speed slightly.",
+  "item.nscapebeyond.shark_tail.desc.wanted": "idk lol",
+
+  "item.nscapebeyond.shark_tail": "Shark Tail",
+  "item.nscapebeyond.shark_tail.desc.charger": "Holding only %2$s makes the air platform slowly rise. Does not rise if both %1$s and %2$s are held.",
+  "item.nscapebeyond.shark_tail.desc.diver": "Pressing %1$s or %2$s mid-dive converts horizontal speed into vertical.",
+  "item.nscapebeyond.shark_tail.desc.glider": "Holding %2$s while gliding gives you a speed boost and increases gift collection range.",
+  "item.nscapebeyond.shark_tail.desc.wanted": "idk lol"
 }
