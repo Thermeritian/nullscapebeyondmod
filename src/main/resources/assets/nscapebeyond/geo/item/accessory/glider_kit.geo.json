@@ -1,0 +1,112 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "bipedBody",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "armorBody",
+					"parent": "bipedBody",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "Holster",
+					"parent": "armorBody",
+					"pivot": [0, 24, 0],
+					"cubes": [
+						{"origin": [-4, 12, -2], "size": [8, 12, 4], "inflate": 0.5, "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Glider",
+					"parent": "Holster",
+					"pivot": [-3, 19, -1]
+				},
+				{
+					"name": "Center",
+					"parent": "Glider",
+					"pivot": [0, 21.1, 4.2],
+					"cubes": [
+						{"origin": [-5.6, 24.4, 4.2], "size": [11.2, 11.2, 0], "pivot": [0, 30, 4.2], "rotation": [0, 0, -45], "uv": [24, 0]}
+					]
+				},
+				{
+					"name": "NotTip",
+					"parent": "Center",
+					"pivot": [0, 29.93295, 4.30767]
+				},
+				{
+					"name": "LineTop",
+					"parent": "NotTip",
+					"pivot": [0, 30.53295, 4.30767],
+					"cubes": [
+						{"origin": [-6.5, 29.60795, 3.80767], "size": [13, 1, 1], "uv": [36, 26]}
+					]
+				},
+				{
+					"name": "LineMiddle",
+					"parent": "NotTip",
+					"pivot": [0, 17.52884, 4.39355],
+					"cubes": [
+						{"origin": [-0.5, 5.00769, 3.9871], "size": [1, 25.05, 1], "pivot": [0, 13.95769, 4.5871], "rotation": [1.5, 0, 0], "uv": [46, 0]}
+					]
+				},
+				{
+					"name": "LeftParts",
+					"parent": "NotTip",
+					"pivot": [8, 30, 4.2]
+				},
+				{
+					"name": "Left",
+					"parent": "LeftParts",
+					"pivot": [8, 30, 4.2],
+					"cubes": [
+						{"origin": [0, 11, 4.3], "size": [8, 19, 0], "uv": [16, 16]},
+						{"origin": [0, 5.02567, 4.69158], "size": [8, 6, 0], "pivot": [4, 8.02567, 4.69158], "rotation": [7.5, 0, 0], "uv": [16, 35]}
+					]
+				},
+				{
+					"name": "LineLeft",
+					"parent": "LeftParts",
+					"pivot": [4.22467, 18.08484, 4.37899],
+					"cubes": [
+						{"origin": [3.74852, 5.37873, 3.88373], "size": [1, 25.05, 1], "pivot": [3.54852, 17.90373, 4.38373], "rotation": [1.44891, 0.38819, -14.99509], "uv": [46, 0]}
+					]
+				},
+				{
+					"name": "RightParts",
+					"parent": "NotTip",
+					"pivot": [-8, 30, 4.2]
+				},
+				{
+					"name": "Right",
+					"parent": "RightParts",
+					"pivot": [-8, 30, 4.2],
+					"cubes": [
+						{"origin": [-8, 11, 4.3], "size": [8, 19, 0], "uv": [0, 16]},
+						{"origin": [-8, 5.02567, 4.69158], "size": [8, 6, 0], "pivot": [-4, 8.02567, 4.69158], "rotation": [7.5, 0, 0], "uv": [0, 35]}
+					]
+				},
+				{
+					"name": "LineRight",
+					"parent": "RightParts",
+					"pivot": [-4.22467, 18.08484, 4.37899],
+					"cubes": [
+						{"origin": [-4.74852, 5.37873, 3.88373], "size": [1, 25.05, 1], "pivot": [-3.54852, 17.90373, 4.38373], "rotation": [1.44891, -0.38819, 14.99509], "uv": [46, 0], "mirror": true}
+					]
+				}
+			]
+		}
+	]
+}

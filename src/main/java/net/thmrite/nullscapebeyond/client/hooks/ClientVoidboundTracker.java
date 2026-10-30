@@ -10,7 +10,6 @@ import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
-/** Client-side list of entity ids that are voidbound (filled by VoidboundSyncPayload). */
 @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
 public final class ClientVoidboundTracker {
     private static final IntSet IDS = IntSets.synchronize(new IntOpenHashSet());
