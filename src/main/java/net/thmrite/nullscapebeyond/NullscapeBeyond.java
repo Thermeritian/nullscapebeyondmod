@@ -2,7 +2,6 @@ package net.thmrite.nullscapebeyond;
 
 import net.thmrite.nullscapebeyond.attribute.ClassAttributes;
 import net.thmrite.nullscapebeyond.attribute.ModAttributes;
-import net.thmrite.nullscapebeyond.shaders.lighting.ColoredLights;
 import net.thmrite.nullscapebeyond.registry.*;
 import org.slf4j.Logger;
 
