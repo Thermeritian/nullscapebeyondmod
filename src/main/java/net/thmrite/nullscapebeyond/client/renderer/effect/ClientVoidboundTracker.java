@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.client.hooks;
+package net.thmrite.nullscapebeyond.client.renderer.effect;
 
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
@@ -8,7 +8,10 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
+import net.thmrite.nullscapebeyond.effect.VoidboundHelper;
 
 @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
 public final class ClientVoidboundTracker {
@@ -22,6 +25,10 @@ public final class ClientVoidboundTracker {
 
     public static boolean contains(int entityId) {
         return IDS.contains(entityId);
+    }
+
+    public static boolean isVoidbound(Entity entity) {
+        return entity instanceof LivingEntity living && (VoidboundHelper.hasVoidbound(living) || IDS.contains(entity.getId()));
     }
 
     @SubscribeEvent

@@ -16,12 +16,6 @@ import net.minecraft.util.Mth;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.debug.VoidboundDebug;
 
-/**
- * Builds, once per source texture, two dynamic textures:
- *  - base: the original recoloured to a black / dark blue / purple ramp
- *  - glow: only the brightest pixels, pure white (drawn fullbright and pulsed by VoidboundLayer)
- * Works on any vanilla or modded entity texture, no shader needed.
- */
 public final class VoidTextures {
     public record Entry(ResourceLocation base, ResourceLocation glow) {}
 
@@ -35,8 +29,8 @@ public final class VoidTextures {
             {0.70F, 104, 36, 168},
             {1.00F, 190, 150, 255},
     };
-    private static final float GLOW_START = 0.80F;
-    private static final float GLOW_END = 0.95F;
+    /** At most this share of a texture's pixels (the brightest ones) become glowing highlights. */
+    private static final float MAX_GLOW_FRACTION = 0.10F;
 
     private VoidTextures() {}
 
@@ -81,8 +75,10 @@ public final class VoidTextures {
 
     private static void recolor(NativeImage src, NativeImage base, NativeImage glow) {
         int w = src.getWidth(), h = src.getHeight();
+
         // pass 1: luminance range, so dark textures (zombie, spider...) still get the full ramp
         float min = 1.0F, max = 0.0F;
+        int opaque = 0;
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
                 int px = src.getPixelRGBA(x, y);
@@ -90,11 +86,31 @@ public final class VoidTextures {
                 float l = luminance(px);
                 min = Math.min(min, l);
                 max = Math.max(max, l);
+                opaque++;
             }
         }
         float range = Math.max(0.001F, max - min);
-        int glowPixels = 0;
 
+        // pass 2: histogram of the stretched brightness -> find the cut that keeps at most MAX_GLOW_FRACTION
+        // of the pixels as highlights. A mostly-white mob (chicken) therefore never turns into one big glow.
+        int[] hist = new int[256];
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                int px = src.getPixelRGBA(x, y);
+                if ((px >>> 24) == 0) continue;
+                hist[bin((luminance(px) - min) / range)]++;
+            }
+        }
+        int cut = 256; // 256 = nothing glows
+        int cumulative = 0;
+        for (int b = 255; b >= 0; b--) {
+            if (cumulative + hist[b] > MAX_GLOW_FRACTION * opaque) break;
+            cumulative += hist[b];
+            cut = b;
+        }
+
+        // pass 3: write the textures
+        int glowPixels = 0;
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
                 int px = src.getPixelRGBA(x, y); // ABGR
@@ -105,16 +121,26 @@ public final class VoidTextures {
                     continue;
                 }
                 float l = Mth.clamp((luminance(px) - min) / range, 0.0F, 1.0F);
-                int[] c = VoidboundDebug.FORCE_MAGENTA ? new int[]{255, 0, 255} : ramp(l);
-                base.setPixelRGBA(x, y, (a << 24) | (c[2] << 16) | (c[1] << 8) | c[0]);
+                boolean highlight = bin(l) >= cut;
 
-                float hi = smoothstep(GLOW_START, GLOW_END, l);
-                int ga = Math.round(hi * a);
-                if (ga > 0) glowPixels++;
-                glow.setPixelRGBA(x, y, (ga << 24) | 0x00FFFFFF);
+                int[] c = VoidboundDebug.FORCE_MAGENTA ? new int[]{255, 0, 255} : ramp(l);
+                if (highlight) {
+                    // highlight pixels go dark in the base: the glow layer fully defines their colour
+                    c = new int[]{0, 0, 0};
+                    glow.setPixelRGBA(x, y, (a << 24) | 0x00FFFFFF);
+                    glowPixels++;
+                } else {
+                    glow.setPixelRGBA(x, y, 0);
+                }
+                base.setPixelRGBA(x, y, (a << 24) | (c[2] << 16) | (c[1] << 8) | c[0]);
             }
         }
-        VoidboundDebug.log("VoidTextures: luminance min={} max={}, glow pixels={}", min, max, glowPixels);
+        VoidboundDebug.log("VoidTextures: luminance min={} max={}, glow pixels={}/{} (cut bin {})",
+                min, max, glowPixels, opaque, cut);
+    }
+
+    private static int bin(float stretched) {
+        return Mth.clamp((int) (stretched * 255.0F + 0.5F), 0, 255);
     }
 
     private static float luminance(int abgr) {

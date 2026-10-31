@@ -12,14 +12,15 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 
-/**
- * Player-first targeting. If no player is in range, falls back to the nearest entity accepted by {@code secondary}.
- * While chasing something that is not a player, it drops the target as soon as a player shows up.
- */
 public class VoidTargetGoal extends TargetGoal {
     private final Predicate<LivingEntity> secondary;
     private final BooleanSupplier active;
     private final boolean mustSee;
+
+    private float playerBias = 1.0F;
+    private int retargetInterval = 0;
+    private float retargetChance = 0.0F;
+    private BooleanSupplier retargetAllowed = () -> true;
 
     public VoidTargetGoal(Mob mob, boolean mustSee, Predicate<LivingEntity> secondary, BooleanSupplier active) {
         super(mob, mustSee);
@@ -27,6 +28,14 @@ public class VoidTargetGoal extends TargetGoal {
         this.secondary = secondary;
         this.active = active;
         this.setFlags(EnumSet.of(Flag.TARGET));
+    }
+
+    public VoidTargetGoal withRandomRetarget(float playerBias, int interval, float chance, BooleanSupplier allowed) {
+        this.playerBias = playerBias;
+        this.retargetInterval = interval;
+        this.retargetChance = chance;
+        this.retargetAllowed = allowed;
+        return this;
     }
 
     private TargetingConditions conditions() {
@@ -38,14 +47,20 @@ public class VoidTargetGoal extends TargetGoal {
         return mob.level().getNearestPlayer(conditions(), mob);
     }
 
-    private LivingEntity findTarget() {
-        Player player = findPlayer();
-        if (player != null) return player;
+    private LivingEntity findOther() {
         double range = getFollowDistance();
         AABB box = mob.getBoundingBox().inflate(range, 4.0D, range);
         List<LivingEntity> candidates = mob.level().getEntitiesOfClass(LivingEntity.class, box,
                 e -> e != mob && !(e instanceof Player) && secondary.test(e));
         return mob.level().getNearestEntity(candidates, conditions(), mob, mob.getX(), mob.getEyeY(), mob.getZ());
+    }
+
+    private LivingEntity findTarget() {
+        Player player = findPlayer();
+        LivingEntity other = findOther();
+        if (player == null) return other;
+        if (other == null) return player;
+        return (playerBias >= 1.0F || mob.getRandom().nextFloat() < playerBias) ? player : other;
     }
 
     @Override
@@ -59,7 +74,16 @@ public class VoidTargetGoal extends TargetGoal {
     @Override
     public boolean canContinueToUse() {
         LivingEntity current = mob.getTarget();
-        if (current != null && !(current instanceof Player) && mob.tickCount % 10 == 0 && findPlayer() != null) {
+        if (retargetInterval > 0) {
+            if (mob.tickCount % retargetInterval == 0 && retargetAllowed.getAsBoolean()
+                    && mob.getRandom().nextFloat() < retargetChance) {
+                LivingEntity alt = findTarget();
+                if (alt != null && alt != current) {
+                    mob.setTarget(alt);
+                    targetMob = alt;
+                }
+            }
+        } else if (current != null && !(current instanceof Player) && mob.tickCount % 10 == 0 && findPlayer() != null) {
             return false; // re-evaluate, a player is around
         }
         return active.getAsBoolean() && super.canContinueToUse();

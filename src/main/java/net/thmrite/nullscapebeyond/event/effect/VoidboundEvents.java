@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.event;
+package net.thmrite.nullscapebeyond.event.effect;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,7 +21,6 @@ import net.thmrite.nullscapebeyond.debug.VoidboundDebug;
 import net.thmrite.nullscapebeyond.effect.VoidboundEffect;
 import net.thmrite.nullscapebeyond.effect.VoidboundHelper;
 import net.thmrite.nullscapebeyond.entity.InfestorEntity;
-import net.thmrite.nullscapebeyond.registry.ModEffects;
 import net.thmrite.nullscapebeyond.registry.ModEntities;
 import net.thmrite.nullscapebeyond.registry.ModSounds;
 

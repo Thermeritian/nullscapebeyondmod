@@ -13,6 +13,6 @@ public class InfestorRenderer extends GeoEntityRenderer<InfestorEntity> {
         // "infestor" -> geo/entity/infestor.geo.json, animations/entity/infestor.animation.json, textures/entity/infestor.png
         super(context, new DefaultedEntityGeoModel<>(ResourceLocation.fromNamespaceAndPath(NullscapeBeyond.MODID, "infestor")));
         this.shadowRadius = 0.7F;
-        addRenderLayer(new EmissiveGeoLayer<>(this)); // picks up textures/entity/infestor_e.png
+        addRenderLayer(new EmissiveGeoLayer<>(this));
     }
 }

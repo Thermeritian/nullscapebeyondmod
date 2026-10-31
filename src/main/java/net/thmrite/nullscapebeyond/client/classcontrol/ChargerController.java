@@ -63,7 +63,6 @@ public final class ChargerController {
     private static boolean sentPlatform, quickdropping;
     private static final Map<Integer, Integer> knockCooldowns = new HashMap<>();
 
-    /** True while the stamina bar should replace the XP bar. */
     public static boolean isActive() {
         return hasClass && (charging || cooldown > 0 || stamina < maxStamina - 0.01f);
     }
@@ -132,7 +131,6 @@ public final class ChargerController {
         }
     }
 
-    /** After vanilla movement has run: detect wall (bonk) and entity (knock / shield bash) contact. */
     @SubscribeEvent
     public static void onPlayerTickPost(PlayerTickEvent.Post event) {
         if (!(event.getEntity() instanceof LocalPlayer p) || !charging) return;
@@ -144,10 +142,6 @@ public final class ChargerController {
         }
     }
 
-    /**
-     * Runs inside the player's aiStep, right before vanilla moves the player:
-     * no steering or jumping while charging, bonked or frozen, and weak blocks get bypassed.
-     */
     @SubscribeEvent
     public static void onInput(MovementInputUpdateEvent event) {
         if (!charging && !bonked && bashFreeze <= 0) return;
@@ -259,10 +253,6 @@ public final class ChargerController {
         lastCommandedSpeed = speed;
     }
 
-    /**
-     * Height of the top of a water surface the player is at or just above (NaN if none): the surface cell must have
-     * no water above it, and sit between 0.6 below and 0.4 above the feet.
-     */
     private static double waterSurface(LocalPlayer p) {
         Level level = p.level();
         BlockPos feet = BlockPos.containing(p.getX(), p.getY(), p.getZ());
@@ -300,11 +290,6 @@ public final class ChargerController {
 
     // ---- Weak blocks ----------------------------------------------------------------------
 
-    /**
-     * If this tick's movement touches weak blocks (tag charger_passable), resolve the movement against the
-     * remaining (strong) blocks ourselves and let vanilla apply it without collisions, so foliage never stops
-     * or bonks the charge. Only runs when a weak block is actually in the way.
-     */
     private static void passWeakBlocks(LocalPlayer p) {
         Vec3 dm = p.getDeltaMovement();
         Vec3 want = new Vec3(dm.x, p.onGround() ? 0 : dm.y, dm.z); // ignore the ground push while standing
@@ -333,14 +318,12 @@ public final class ChargerController {
         p.horizontalCollision = !Mth.equal(allowed.x, want.x) || !Mth.equal(allowed.z, want.z);
     }
 
-    /** Every block position the box touches (BlockPos has no AABB overload in 1.21.1). */
     private static Iterable<BlockPos> blocksIn(AABB box) {
         return BlockPos.betweenClosed(
                 Mth.floor(box.minX), Mth.floor(box.minY), Mth.floor(box.minZ),
                 Mth.floor(box.maxX), Mth.floor(box.maxY), Mth.floor(box.maxZ));
     }
 
-    /** Vanilla's axis-by-axis collision (Y, then the longer of X/Z first), against the given shapes only. */
     private static Vec3 clip(AABB box, Vec3 v, List<VoxelShape> shapes) {
         double x = v.x, y = v.y, z = v.z;
         if (y != 0.0) {
@@ -362,10 +345,6 @@ public final class ChargerController {
         return new Vec3(x, y, z);
     }
 
-    /**
-     * A real wall: still blocked after hopping up one step height (0.6) and reaching forward.
-     * Stairs, slabs, tiny edges and weak blocks are free at that height, so they are not walls.
-     */
     private static boolean isWall(LocalPlayer p) {
         double rad = heading * Mth.DEG_TO_RAD;
         AABB probe = p.getBoundingBox().move(-Mth.sin((float) rad) * 0.5, 0.6, Mth.cos((float) rad) * 0.5);
@@ -391,7 +370,6 @@ public final class ChargerController {
         applyBonk(p, lastCommandedSpeed);
     }
 
-    /** Stops the charge, pushes the player back (scaled by impact speed) and locks control until landing. */
     private static void applyBonk(LocalPlayer p, float impact) {
         stopCharge(p, false);
         playLocal(p, ModSounds.CHARGER_BONK.get());
@@ -428,11 +406,6 @@ public final class ChargerController {
         }
     }
 
-    /**
-     * Parry-style shield bash: swing the shield hand, random bash sound, white flash (unless photosensitive),
-     * then everyone freezes for a moment. The server applies damage, shield wear and the mob's freeze; when
-     * our own freeze ends, the player takes the bonk recoil.
-     */
     private static void shieldBash(LocalPlayer p, LivingEntity target) {
         send(ChargerEventPayload.Kind.SHIELD_BASH, target.getId(), lastCommandedSpeed);
         p.swing(p.getUsedItemHand()); // also tells the server, which shows it to other players

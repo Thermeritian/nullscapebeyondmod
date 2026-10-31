@@ -9,13 +9,13 @@ import net.minecraft.world.phys.Vec3;
 import net.thmrite.nullscapebeyond.entity.InfestorEntity;
 import net.thmrite.nullscapebeyond.registry.ModSounds;
 
-/** Step back (leap animation) -> launch at the target -> on touch: corrupt or damage (see InfestorEntity#doHurtTarget). */
 public class InfestorLeapGoal extends Goal {
-    /** Keep roughly equal to the length of the "leap" animation, in ticks. */
-    public static final int WINDUP_TICKS = 14;
+    public static final float TELEGRAPH_CHANCE = 0.7F;
+    private static final int SURPRISE_WINDUP_TICKS = 2;
 
     private final InfestorEntity mob;
     private LivingEntity target;
+    private boolean telegraph;
     private boolean airborne;
     private boolean hit;
     private int windup;
@@ -54,11 +54,19 @@ public class InfestorLeapGoal extends Goal {
         airborne = false;
         hit = false;
         airTicks = 0;
-        windup = WINDUP_TICKS;
+        mob.setLeaping(true);
         mob.getNavigation().stop();
         mob.setDeltaMovement(mob.getDeltaMovement().multiply(0, 1, 0));
-        mob.playSound(ModSounds.INFESTOR_LEAP.get(), 1.0F, 1.0F);
-        mob.triggerAnim("main", "leap");
+
+        telegraph = mob.getRandom().nextFloat() < TELEGRAPH_CHANCE;
+        if (telegraph) {
+            // full animation + the blend-in time, so the leap only happens once the animation has finished
+            windup = InfestorAnimations.leapTicks() + InfestorAnimations.TRANSITION_TICKS;
+            mob.playSound(ModSounds.INFESTOR_LEAP.get(), 1.0F, 1.0F);
+            mob.triggerAnim("main", "leap");
+        } else {
+            windup = SURPRISE_WINDUP_TICKS;
+        }
     }
 
     @Override
@@ -92,6 +100,10 @@ public class InfestorLeapGoal extends Goal {
 
     @Override
     public void stop() {
+        if (telegraph && !airborne) {
+            mob.stopTriggeredAnim("main", "leap"); // goal was interrupted mid-telegraph
+        }
+        mob.setLeaping(false);
         nextLeapTick = mob.tickCount + 40;
         target = null;
     }

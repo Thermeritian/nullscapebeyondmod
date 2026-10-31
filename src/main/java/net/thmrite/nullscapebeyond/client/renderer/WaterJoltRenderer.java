@@ -14,15 +14,6 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-/**
- * Loads geo/entity/water_jolt.geo.json (+ animation, + textures/entity/water_jolt.png).
- *
- * The model's front is -Z (Block at -Z, Tail trailing at +Z). GeckoLib 4.x does not apply the Y rotation of
- * non-living entities, so the flight direction (yaw + pitch) is applied here.
- *
- * If the bolt flies backwards or sideways in game, set YAW_OFFSET to 180 (or +-90).
- * If it pitches the wrong way, change PITCH_SIGN to -1.
- */
 public class WaterJoltRenderer extends GeoEntityRenderer<WaterJoltEntity> {
     private static final float YAW_OFFSET = 0f;
     private static final float PITCH_SIGN = 1f;

@@ -5,7 +5,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.thmrite.nullscapebeyond.skybox.SkyboxPayload;
 import net.thmrite.nullscapebeyond.skybox.SkyboxType;
 
-/** Client-side skybox state. Kept free of render classes so it is safe to reference from common code. */
 public final class SkyboxManager {
     private static SkyboxType current;
 
@@ -70,7 +69,6 @@ public final class SkyboxManager {
         return current == null ? null : current.texture();
     }
 
-    /** Advances rotation by the real time elapsed since the previous call. Call once per frame. */
     public static void advance() {
         long now = Util.getNanos();
         float dt = lastNanos == 0 ? 0f : Math.min((now - lastNanos) / 1.0e9f, 0.1f);
@@ -84,7 +82,6 @@ public final class SkyboxManager {
     public static float pitch() { return angles[1]; }
     public static float roll() { return angles[2]; }
 
-    /** Per-channel multiplier (0..1) applied to the skybox color. */
     public static float[] tint() {
         float[] rgb = {1f, 1f, 1f};
         boolean safe = photosensitiveMode();

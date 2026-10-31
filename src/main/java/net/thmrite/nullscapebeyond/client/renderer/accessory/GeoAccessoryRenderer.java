@@ -16,9 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.thmrite.nullscapebeyond.accessory.GeoAccessoryItem;
 import software.bernie.geckolib.animatable.client.GeoRenderProvider;
 
-/** Accessories renderer shared by every GeckoLib accessory (Charger Boots included). */
 public class GeoAccessoryRenderer implements AccessoryRenderer {
-    /** GeckoLib wants a slot, but AccessoryArmorRenderer shows all armor bones regardless of it. */
     private static final EquipmentSlot SLOT = EquipmentSlot.CHEST;
 
     @Override

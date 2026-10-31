@@ -8,10 +8,6 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.particles.SimpleParticleType;
 
-/**
- * Behaves like vanilla's item-break particle (what slimes spit out on landing): a small gravity-affected
- * quad that shows a random 1/4 x 1/4 piece of the sprite (textures/effect/mart_ball.png).
- */
 public class MartDropParticle extends TextureSheetParticle {
     private final float uo;
     private final float vo;

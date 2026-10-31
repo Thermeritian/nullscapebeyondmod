@@ -5,7 +5,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
-import net.thmrite.nullscapebeyond.client.hooks.ClientVoidboundTracker;
+import net.thmrite.nullscapebeyond.client.renderer.effect.ClientVoidboundTracker;
 import net.thmrite.nullscapebeyond.debug.VoidboundDebug;
 import net.thmrite.nullscapebeyond.server.effects.VoidboundSyncPayload;
 

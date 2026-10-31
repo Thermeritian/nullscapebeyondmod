@@ -18,10 +18,7 @@ import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
-/**
- * Draws the equirectangular skybox as an inside-out UV sphere right after the vanilla sky,
- * so it covers the vanilla sky/sun/moon/stars while clouds, weather and terrain still render on top.
- */
+
 @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
 public final class SkyboxRenderer {
     private static final int SEGMENTS = 64;

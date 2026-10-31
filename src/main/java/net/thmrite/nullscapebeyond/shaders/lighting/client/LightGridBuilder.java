@@ -8,19 +8,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 
-/**
- * Builds the light volume. Runs ONLY on the worker thread and never touches the world:
- * it reads immutable {@link SectionOpacity} snapshots prepared on the main thread.
- *
- * The result is a 64x64x64 RGB grid packed as an 8x8 atlas of 64x64 slices (one slice per Y level)
- * so it can be uploaded as a plain 2D texture.
- */
 final class LightGridBuilder {
     static final int GRID = 64;
     static final int TILES = 8;
     static final int ATLAS = GRID * TILES; // 512
     static final int SECTION_SPAN = 5;     // sections per axis covered by the grid (origin snaps to 8 blocks)
-    /** Light radiance stored per channel is value/255 * ENCODE_RANGE. Must match the shader uniform. */
     static final float ENCODE_RANGE = 2.0f;
 
     private static final int CELLS = GRID * GRID * GRID;
@@ -29,7 +21,6 @@ final class LightGridBuilder {
 
     record Result(int ox, int oy, int oz, boolean empty, byte[] atlas) {}
 
-    /** Per-section "does this block stop light" snapshot. Immutable once built. */
     static final class SectionOpacity {
         static final SectionOpacity CLEAR = new SectionOpacity(null, false);
         static final SectionOpacity SOLID = new SectionOpacity(null, true);
@@ -94,11 +85,6 @@ final class LightGridBuilder {
         return s.isOpaque(wx & 15, wy & 15, wz & 15);
     }
 
-    /**
-     * Flood fill limited by a sphere: light reaches a cell only through non-opaque cells (so walls
-     * block it), and its strength falls off with the straight-line distance (so it is round, not diamond).
-     * Opaque cells touching lit air receive light too, so surfaces filter cleanly in the shader.
-     */
     private void propagate(Point p) {
         float lx = (float) (p.x() - ox), ly = (float) (p.y() - oy), lz = (float) (p.z() - oz);
         int sx = (int) Math.floor(lx), sy = (int) Math.floor(ly), sz = (int) Math.floor(lz);

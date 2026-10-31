@@ -35,14 +35,6 @@ import net.thmrite.nullscapebeyond.shaders.lighting.client.LightGridBuilder.Poin
 import net.thmrite.nullscapebeyond.shaders.lighting.client.LightGridBuilder.Result;
 import net.thmrite.nullscapebeyond.shaders.lighting.client.LightGridBuilder.SectionOpacity;
 
-/**
- * Client-side brain of the coloured lighting library.
- *
- * Every tick (main thread): tracks a 64^3 region around the camera, collects light points from
- * blocks (cached per chunk), block entities and entities, and when anything changed hands an
- * immutable snapshot to a worker thread that flood-fills the light volume. The render thread
- * uploads the finished volume ({@link LightRenderer}).
- */
 public final class DynamicLightEngine {
     public static final DynamicLightEngine INSTANCE = new DynamicLightEngine();
 
@@ -79,7 +71,6 @@ public final class DynamicLightEngine {
 
     // ------------------------------------------------------------------ public hooks
 
-    /** Called by the ClientLevel mixin whenever a block changes (opacity and emitters may change). */
     public void onBlockChanged(BlockPos pos) {
         if (!hasOrigin || level == null) return;
         if (pos.getX() < ox - 16 || pos.getX() > ox + GRID + 16
@@ -215,8 +206,6 @@ public final class DynamicLightEngine {
         return built;
     }
 
-    // ------------------------------------------------------------------ light point collection
-
     private int minChunkX() { return Math.floorDiv(ox, 16); }
     private int maxChunkX() { return Math.floorDiv(ox + GRID - 1, 16); }
     private int minChunkZ() { return Math.floorDiv(oz, 16); }
@@ -255,7 +244,6 @@ public final class DynamicLightEngine {
         return cx >= minChunkX() && cx <= maxChunkX() && cz >= minChunkZ() && cz <= maxChunkZ();
     }
 
-    /** Keeps per-chunk lists of registered emitter blocks up to date (budgeted per tick). */
     private void rescanBlockChunks() {
         int budget = CHUNK_SCANS_PER_TICK;
         for (int cx = minChunkX(); cx <= maxChunkX(); cx++) {
@@ -301,7 +289,6 @@ public final class DynamicLightEngine {
         return out;
     }
 
-    /** A source whose every neighbour is the same block or fully opaque can't light anything. */
     private boolean isBuried(BlockPos pos, BlockState st) {
         BlockPos.MutableBlockPos n = new BlockPos.MutableBlockPos();
         for (Direction d : Direction.values()) {

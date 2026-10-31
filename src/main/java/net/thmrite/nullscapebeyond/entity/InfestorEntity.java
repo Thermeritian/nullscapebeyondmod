@@ -33,10 +33,15 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.phys.Vec3;
 import net.thmrite.nullscapebeyond.effect.VoidboundEffect;
 import net.thmrite.nullscapebeyond.effect.VoidboundHelper;
+import net.thmrite.nullscapebeyond.entity.ai.InfestorAnimations;
 import net.thmrite.nullscapebeyond.entity.ai.InfestorLeapGoal;
 import net.thmrite.nullscapebeyond.entity.ai.VoidTargetGoal;
 import net.thmrite.nullscapebeyond.registry.ModEffects;
 import net.thmrite.nullscapebeyond.registry.ModSounds;
+import net.thmrite.nullscapebeyond.effect.visual.VoidLighting;
+import net.thmrite.nullscapebeyond.shaders.lighting.api.LightEmission;
+import net.thmrite.nullscapebeyond.shaders.lighting.api.LightSource;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.Animation;
@@ -47,19 +52,20 @@ import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 
-public class InfestorEntity extends Monster implements GeoEntity {
+public class InfestorEntity extends Monster implements GeoEntity, LightSource {
     public static final int EXIT_COOLDOWN_TICKS = 20 * 20;
 
     // Change these if the names inside infestor.animation.json differ.
-    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.infestor.idle");
-    private static final RawAnimation WALK = RawAnimation.begin().thenLoop("animation.infestor.walk");
-    private static final RawAnimation LEAP = RawAnimation.begin().then("animation.infestor.leap", Animation.LoopType.PLAY_ONCE);
+    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop(InfestorAnimations.IDLE);
+    private static final RawAnimation WALK = RawAnimation.begin().thenLoop(InfestorAnimations.WALK);
+    private static final RawAnimation LEAP = RawAnimation.begin().then(InfestorAnimations.LEAP, Animation.LoopType.PLAY_ONCE);
 
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID =
             SynchedEntityData.defineId(InfestorEntity.class, EntityDataSerializers.BYTE);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private int infestCooldown;
+    private boolean leaping;
 
     public InfestorEntity(EntityType<? extends InfestorEntity> type, Level level) {
         super(type, level);
@@ -89,7 +95,7 @@ public class InfestorEntity extends Monster implements GeoEntity {
         targetSelector.addGoal(2, new VoidTargetGoal(this, true,
                 e -> !VoidboundHelper.isVoidAligned(e)
                         && ((isReadyToInfest() && VoidboundHelper.canCorrupt(e)) || VoidboundHelper.isPet(e)),
-                () -> true));
+                () -> true).withRandomRetarget(0.6F, 20, 0.35F, () -> !isLeaping()));
     }
 
     public boolean isReadyToInfest() {
@@ -98,6 +104,15 @@ public class InfestorEntity extends Monster implements GeoEntity {
 
     public void setInfestCooldown(int ticks) {
         this.infestCooldown = ticks;
+    }
+
+    /** True from the start of a leap (telegraph included) until the goal ends. */
+    public boolean isLeaping() {
+        return leaping;
+    }
+
+    public void setLeaping(boolean leaping) {
+        this.leaping = leaping;
     }
 
     /** Touch / melee: corrupt valid mobs, otherwise (players, pets, cooldown) plain damage. */
@@ -154,8 +169,6 @@ public class InfestorEntity extends Monster implements GeoEntity {
         infestCooldown = tag.getInt("InfestCooldown");
     }
 
-    // ---------------------------------------------------------------- spider traits
-
     @Override
     protected PathNavigation createNavigation(Level level) {
         return new WallClimberNavigation(this, level);
@@ -187,8 +200,6 @@ public class InfestorEntity extends Monster implements GeoEntity {
         return super.canBeAffected(effect);
     }
 
-    // ---------------------------------------------------------------- sounds
-
     @Override
     protected SoundEvent getAmbientSound() {
         return ModSounds.INFESTOR_HISS.get();
@@ -209,11 +220,15 @@ public class InfestorEntity extends Monster implements GeoEntity {
         playSound(ModSounds.INFESTOR_STEP.get(), 0.15F, 1.0F);
     }
 
-    // ---------------------------------------------------------------- GeckoLib
+    @Nullable
+    @Override
+    public LightEmission getLightEmission() {
+        return VoidLighting.infestor(level().getGameTime() + getId() * 7L);
+    }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "main", 3, this::movementPredicate)
+        controllers.add(new AnimationController<>(this, "main", InfestorAnimations.TRANSITION_TICKS, this::movementPredicate)
                 .triggerableAnim("leap", LEAP));
     }
 
