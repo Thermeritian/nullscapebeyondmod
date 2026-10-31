@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.event;
+package net.thmrite.nullscapebeyond.event.entity;
 
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -9,6 +9,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
@@ -17,8 +18,9 @@ import net.thmrite.nullscapebeyond.client.renderer.MartRenderer;
 import net.thmrite.nullscapebeyond.client.renderer.WaterJoltRenderer;
 import net.thmrite.nullscapebeyond.entity.MartEntity;
 import net.thmrite.nullscapebeyond.registry.ModEntities;
+import net.thmrite.nullscapebeyond.registry.ModParticles;
+import net.thmrite.nullscapebeyond.client.particle.MartDropParticle;
 
-/** Mart-related event hooks. If you already have a client/mod event class, move the methods there. */
 public final class MartEvents {
     private MartEvents() {}
 
@@ -44,9 +46,13 @@ public final class MartEvents {
             event.registerEntityRenderer(ModEntities.MART.get(), MartRenderer::new);
             event.registerEntityRenderer(ModEntities.WATER_JOLT.get(), WaterJoltRenderer::new);
         }
+
+        @SubscribeEvent
+        public static void onParticles(RegisterParticleProvidersEvent event) {
+            event.registerSpriteSet(ModParticles.MART_DROP.get(), MartDropParticle.Provider::new);
+        }
     }
 
-    /** Fire-type mobs (tag nscapebeyond:fire_creatures) killed by a Mart or its jolts drop more. */
     @EventBusSubscriber(modid = NullscapeBeyond.MODID)
     public static class GameBus {
         @SubscribeEvent

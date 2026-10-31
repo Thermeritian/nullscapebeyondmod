@@ -57,11 +57,13 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.entity.ai.MartGoals;
 import net.thmrite.nullscapebeyond.item.MartBucketItem;
 import net.thmrite.nullscapebeyond.registry.ModEntities;
+import net.thmrite.nullscapebeyond.registry.ModParticles;
 import net.thmrite.nullscapebeyond.registry.ModSounds;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -75,6 +77,10 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Objects;
 
+/**
+ * Mart (SURVIVAL context): a neutral, hopping water slime that doubles as a walking water container.
+ * Tuning constants are all at the top so you can balance without digging through logic.
+ */
 public class MartEntity extends TamableAnimal implements GeoEntity {
 
     // ---- Tuning ---------------------------------------------------------------------------
@@ -97,6 +103,12 @@ public class MartEntity extends TamableAnimal implements GeoEntity {
     public static final float WATER_SCALE_PER_UNIT = 0.1f;
     public static final float MERGE_SCALE_PER_MEMBER = 0.3f;
     public static final float MERGE_DAMAGE_PER_MEMBER = 1.5f;
+    public static final float SLIDE_SPEED = 0.06f;       // blocks/tick while the owner sneaks (slow glide)
+    public static final float SLIDE_STOP_DISTANCE = 1.8f;
+    public static final float SQUISH_STIFFNESS = 0.2f;   // spring pulling the squish toward its target
+    public static final float SQUISH_DAMPING = 0.65f;    // lower = wobblier water blob
+    public static final float SQUISH_XZ = 0.25f;         // widen by 25% at full squish
+    public static final float SQUISH_Y = 0.4f;           // flatten by 40% at full squish
     public static final double BASE_SPEED = 0.4;        // speed at scale 1.0 (was 0.3)
     public static final double SPEED_PER_SCALE = 0.15;  // extra speed per +1.0 of scale, like slimes (0.2 + 0.1 * size)
 
@@ -115,6 +127,8 @@ public class MartEntity extends TamableAnimal implements GeoEntity {
             SynchedEntityData.defineId(MartEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_MERGE_COUNT =
             SynchedEntityData.defineId(MartEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> DATA_SNEAK_MODE =
+            SynchedEntityData.defineId(MartEntity.class, EntityDataSerializers.BOOLEAN);
 
     // ---- Animations -----------------------------------------------------------------------
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
@@ -127,6 +141,12 @@ public class MartEntity extends TamableAnimal implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private boolean airborne;
     private boolean landing;
+
+    // Squish spring (client + server run it so the renderer can interpolate).
+    public float squish;
+    public float squishO;
+    private float squishVel;
+    private boolean wasOnGround = true;
 
     // ---- Server state ---------------------------------------------------------------------
     private final IntArrayList mergedWater = new IntArrayList(); // water of absorbed members (size == mergeCount - 1)
@@ -172,11 +192,13 @@ public class MartEntity extends TamableAnimal implements GeoEntity {
         super.defineSynchedData(builder);
         builder.define(DATA_WATER, 0);
         builder.define(DATA_MERGE_COUNT, 1);
+        builder.define(DATA_SNEAK_MODE, false);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new MartGoals.FloatGoal(this));
+        this.goalSelector.addGoal(1, new MartGoals.SneakSlideGoal(this));
         this.goalSelector.addGoal(1, new MartGoals.SwallowGoal(this));
         this.goalSelector.addGoal(2, new MartGoals.ShootGoal(this));
         this.goalSelector.addGoal(3, new MartGoals.FirefightGoal(this));
@@ -277,6 +299,7 @@ public class MartEntity extends TamableAnimal implements GeoEntity {
         boolean wild = !isTame();
         boolean client = level().isClientSide;
 
+        // Shift + right click with a bucket -> Mart-in-a-bucket
         if (player.isSecondaryUseActive() && (stack.is(Items.BUCKET) || stack.is(Items.WATER_BUCKET)) && (owner || wild)) {
             if (isMerged()) return InteractionResult.PASS;
             if (!client) {
@@ -562,7 +585,7 @@ public class MartEntity extends TamableAnimal implements GeoEntity {
         faceYaw(yawTo(pos), 0, false, false);
     }
 
-    private float yawTo(Vec3 pos) {
+    public float yawTo(Vec3 pos) {
         return (float) (Mth.atan2(pos.z - getZ(), pos.x - getX()) * (180.0 / Math.PI)) - 90.0f;
     }
 
@@ -586,10 +609,57 @@ public class MartEntity extends TamableAnimal implements GeoEntity {
     // ---------------------------------------------------------------------------------------
     // Tick
     // ---------------------------------------------------------------------------------------
+    // ---- sneak mode + squish + landing particles ----
+    public boolean isSneakMode() {
+        return entityData.get(DATA_SNEAK_MODE);
+    }
+
+    public float getSquish(float partialTick) {
+        return Mth.lerp(partialTick, squishO, squish);
+    }
+
+    /** A tamed Mart mirrors its sneaking owner (only while idle: no target, nothing swallowed). */
+    private void updateSneakMode() {
+        boolean sneak = false;
+        if (isTame() && getTarget() == null && swallowed == null && !isInWater() && !isInLava()) {
+            LivingEntity owner = getOwner();
+            sneak = owner != null && owner.level() == level() && owner.isShiftKeyDown() && distanceToSqr(owner) < 256.0;
+        }
+        if (sneak != isSneakMode()) entityData.set(DATA_SNEAK_MODE, sneak);
+    }
+
+    /** Damped spring: eases into the squish and wobbles a little, like a water blob. */
+    private void tickSquish() {
+        squishO = squish;
+        float target = isSneakMode() ? 1.0f : 0.0f;
+        squishVel += (target - squish) * SQUISH_STIFFNESS;
+        squishVel *= SQUISH_DAMPING;
+        squish = Mth.clamp(squish + squishVel, -0.3f, 1.3f);
+    }
+
+    private void tickLandingEffects() {
+        if (onGround() && !wasOnGround && !isInWater()) {
+            int count = Math.max(4, Math.round(8 * getScale()));
+            for (int i = 0; i < count; i++) {
+                float angle = random.nextFloat() * Mth.TWO_PI;
+                float spread = random.nextFloat() * 0.5f + 0.5f;
+                double ox = Mth.sin(angle) * getBbWidth() * 0.6 * spread;
+                double oz = Mth.cos(angle) * getBbWidth() * 0.6 * spread;
+                level().addParticle(ModParticles.MART_DROP.get(), getX() + ox, getY(), getZ() + oz, 0.0, 0.0, 0.0);
+            }
+        }
+        wasOnGround = onGround();
+    }
+
     @Override
     public void tick() {
+        if (!level().isClientSide) updateSneakMode();
         super.tick();
-        if (level().isClientSide) return;
+        tickSquish();
+        if (level().isClientSide) {
+            tickLandingEffects();
+            return;
+        }
 
         if (mergeCooldown > 0) mergeCooldown--;
         if (shootCooldown > 0) shootCooldown--;

@@ -41,6 +41,49 @@ public final class MartGoals {
         }
     }
 
+    /** Owner is sneaking: no hopping, just glide slowly toward them. */
+    public static class SneakSlideGoal extends Goal {
+        private final MartEntity mart;
+
+        public SneakSlideGoal(MartEntity mart) {
+            this.mart = mart;
+            setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
+        }
+
+        @Override
+        public boolean canUse() {
+            return mart.isSneakMode() && mart.getOwner() != null;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return canUse();
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity owner = mart.getOwner();
+            if (owner == null || !mart.onGround()) return;
+            Vec3 ownerPos = owner.position();
+            mart.faceOnly(ownerPos);
+            double dx = ownerPos.x - mart.getX();
+            double dz = ownerPos.z - mart.getZ();
+            double dist = Math.sqrt(dx * dx + dz * dz);
+            Vec3 motion = mart.getDeltaMovement();
+            if (dist > MartEntity.SLIDE_STOP_DISTANCE && !mart.isDangerAhead(mart.yawTo(ownerPos))) {
+                double s = MartEntity.SLIDE_SPEED;
+                mart.setDeltaMovement(dx / dist * s, motion.y, dz / dist * s);
+            } else {
+                mart.setDeltaMovement(0.0, motion.y, 0.0);
+            }
+        }
+    }
+
     /** Tamed + full of water: drown a small hostile inside the Mart instead of spending water on jolts. */
     public static class SwallowGoal extends Goal {
         private final MartEntity mart;

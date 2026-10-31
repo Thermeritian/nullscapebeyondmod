@@ -1,0 +1,8 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:single",
+      "resource": "nscapebeyond:effect/mart_ball"
+    }
+  ]
+}

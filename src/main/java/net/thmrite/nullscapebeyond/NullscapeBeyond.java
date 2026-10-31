@@ -45,7 +45,7 @@ public class NullscapeBeyond {
         ModEntities.ENTITIES.register(modEventBus);
         ModAttachments.ATTACHMENT_TYPES.register(modEventBus);
         ModEffects.EFFECTS.register(modEventBus);
-
+        ModParticles.PARTICLES.register(modEventBus);
 
         ClassAttributes.ATTRIBUTES.register(modEventBus);
         ModAttributes.register(modEventBus);
