@@ -1,5 +1,6 @@
 package net.thmrite.nullscapebeyond;
 
+import net.minecraft.world.item.CreativeModeTabs;
 import net.thmrite.nullscapebeyond.attribute.ClassAttributes;
 import net.thmrite.nullscapebeyond.attribute.ModAttributes;
 import net.thmrite.nullscapebeyond.registry.*;
@@ -46,6 +47,7 @@ public class NullscapeBeyond {
         ModAttachments.ATTACHMENT_TYPES.register(modEventBus);
         ModEffects.EFFECTS.register(modEventBus);
         ModParticles.PARTICLES.register(modEventBus);
+        ModCreativeTabs.TABS.register(modEventBus);
 
         ClassAttributes.ATTRIBUTES.register(modEventBus);
         ModAttributes.register(modEventBus);
@@ -58,6 +60,7 @@ public class NullscapeBeyond {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
+
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

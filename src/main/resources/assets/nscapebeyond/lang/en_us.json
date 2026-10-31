@@ -105,6 +105,11 @@
   "entity.nscapebeyond.water_jolt": "Water Jolt",
   "entity.nscapebeyond.infestor": "Void Infestor",
 
+  "itemGroup.nscapebeyond.accessories": "Accessories",
+  "itemGroup.nscapebeyond.class_accessories": "Class Accessories",
+  "itemGroup.nscapebeyond.spawn_eggs": "Spawn Eggs",
+  "itemGroup.nscapebeyond.blocks": "Blocks",
+
   "item.nscapebeyond.mart_bucket": "Bucket of Mart",
 
   "item.nscapebeyond.mart_spawn_egg": "Mart Spawn Egg",
