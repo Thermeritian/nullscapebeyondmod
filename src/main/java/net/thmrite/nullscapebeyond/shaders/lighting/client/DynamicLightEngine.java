@@ -27,6 +27,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.phys.Vec3;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
+import net.thmrite.nullscapebeyond.shaders.compat.IrisCompat;
 import net.thmrite.nullscapebeyond.shaders.lighting.ColoredLights;
 import net.thmrite.nullscapebeyond.shaders.lighting.LightingSettings;
 import net.thmrite.nullscapebeyond.shaders.lighting.api.LightEmission;
@@ -64,6 +65,7 @@ public final class DynamicLightEngine {
     private int sectionBudget;
     private boolean snapshotIncomplete;
 
+    private volatile List<Point> glowPoints = List.of();
     private volatile boolean running;
     private volatile int generation;
 
@@ -71,6 +73,7 @@ public final class DynamicLightEngine {
 
     // ------------------------------------------------------------------ public hooks
 
+    /** Called by the ClientLevel mixin whenever a block changes (opacity and emitters may change). */
     public void onBlockChanged(BlockPos pos) {
         if (!hasOrigin || level == null) return;
         if (pos.getX() < ox - 16 || pos.getX() > ox + GRID + 16
@@ -81,6 +84,11 @@ public final class DynamicLightEngine {
         gridDirty = true;
     }
 
+    /** Light points for the shader-pack halo fallback (empty when no pack is active). */
+    List<Point> glowPoints() {
+        return glowPoints;
+    }
+
     @Nullable
     Result pollResult() {
         return result.getAndSet(null);
@@ -88,6 +96,7 @@ public final class DynamicLightEngine {
 
     public void reset() {
         generation++;
+        glowPoints = List.of();
         level = null;
         hasOrigin = false;
         opacityCache.clear();
@@ -136,6 +145,14 @@ public final class DynamicLightEngine {
             points.sort(Comparator.comparingDouble(p -> distSq(p, c)));
             points.subList(max, points.size()).clear();
         }
+
+        // Shader pack active: the coloured-light grid cannot be shown, so only publish the points for the halos.
+        if (IrisCompat.isShaderPackActive()) {
+            glowPoints = points;
+            gridDirty = true;
+            return;
+        }
+        glowPoints = List.of();
 
         long sig = ((long) ox * 31 + oy) * 31 + oz;
         for (Point p : points) {
@@ -206,6 +223,8 @@ public final class DynamicLightEngine {
         return built;
     }
 
+    // ------------------------------------------------------------------ light point collection
+
     private int minChunkX() { return Math.floorDiv(ox, 16); }
     private int maxChunkX() { return Math.floorDiv(ox + GRID - 1, 16); }
     private int minChunkZ() { return Math.floorDiv(oz, 16); }
@@ -244,6 +263,7 @@ public final class DynamicLightEngine {
         return cx >= minChunkX() && cx <= maxChunkX() && cz >= minChunkZ() && cz <= maxChunkZ();
     }
 
+    /** Keeps per-chunk lists of registered emitter blocks up to date (budgeted per tick). */
     private void rescanBlockChunks() {
         int budget = CHUNK_SCANS_PER_TICK;
         for (int cx = minChunkX(); cx <= maxChunkX(); cx++) {
@@ -289,6 +309,7 @@ public final class DynamicLightEngine {
         return out;
     }
 
+    /** A source whose every neighbour is the same block or fully opaque can't light anything. */
     private boolean isBuried(BlockPos pos, BlockState st) {
         BlockPos.MutableBlockPos n = new BlockPos.MutableBlockPos();
         for (Direction d : Direction.values()) {

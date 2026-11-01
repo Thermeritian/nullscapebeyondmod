@@ -13,7 +13,6 @@ import net.thmrite.nullscapebeyond.shaders.lighting.client.DynamicLightEngine;
 @Mixin(ClientLevel.class)
 public abstract class ClientLevelMixin {
 
-    /** Lets the lighting engine know a block changed (it may block light or emit it). */
     @Inject(method = "sendBlockUpdated", at = @At("HEAD"))
     private void nsb$onBlockUpdated(BlockPos pos, BlockState oldState, BlockState newState, int flags, CallbackInfo ci) {
         DynamicLightEngine.INSTANCE.onBlockChanged(pos);

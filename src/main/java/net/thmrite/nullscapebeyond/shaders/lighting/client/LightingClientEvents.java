@@ -16,7 +16,6 @@ import net.neoforged.neoforge.client.event.RegisterShadersEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
-/** Event wiring for the coloured lighting library (client only). */
 public final class LightingClientEvents {
     private LightingClientEvents() {}
 
@@ -43,6 +42,8 @@ public final class LightingClientEvents {
         static void onRenderStage(RenderLevelStageEvent event) {
             if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_WEATHER) {
                 LightRenderer.render(event);
+            } else if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_BLOCK_ENTITIES) {
+                LightGlowRenderer.render(event);
             }
         }
 

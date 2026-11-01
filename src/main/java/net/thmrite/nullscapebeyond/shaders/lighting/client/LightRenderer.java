@@ -1,6 +1,5 @@
 package net.thmrite.nullscapebeyond.shaders.lighting.client;
 
-import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 
 import org.joml.Matrix4f;
@@ -24,16 +23,11 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.thmrite.nullscapebeyond.shaders.compat.IrisCompat;
 import net.thmrite.nullscapebeyond.shaders.lighting.LightingSettings;
 import net.thmrite.nullscapebeyond.shaders.lighting.client.LightGridBuilder.Result;
 
-/**
- * Applies the coloured light as a depth-based post pass over the finished frame. Because it only
- * needs the depth buffer it works the same for terrain (vanilla or Sodium), block entities,
- * entities and particles.
- */
 final class LightRenderer {
     private LightRenderer() {}
 
@@ -55,7 +49,7 @@ final class LightRenderer {
 
         Result fresh = DynamicLightEngine.INSTANCE.pollResult();
         if (fresh != null) upload(fresh);
-        if (gridEmpty || shader == null || shaderPackActive()) return;
+        if (gridEmpty || shader == null || IrisCompat.isShaderPackActive()) return;
 
         Minecraft mc = Minecraft.getInstance();
         RenderTarget main = mc.getMainRenderTarget();
@@ -66,7 +60,6 @@ final class LightRenderer {
             sceneCopy.resize(main.width, main.height, Minecraft.ON_OSX);
         }
 
-        // Snapshot colour + depth so the shader can read them while we write back into the main target.
         GlStateManager._glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, main.frameBufferId);
         GlStateManager._glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, sceneCopy.frameBufferId);
         GL30.glBlitFramebuffer(0, 0, main.width, main.height, 0, 0, sceneCopy.width, sceneCopy.height,
@@ -130,31 +123,5 @@ final class LightRenderer {
         uploadBuffer.put(r.atlas()).flip();
         GlStateManager._bindTexture(gridTexture);
         GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, 0, 0, ATLAS, ATLAS, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, uploadBuffer);
-    }
-
-    // ---- Iris: shader packs do their own lighting, so we stay out of the way ----
-    private static Boolean irisPresent;
-    private static Method irisInUse;
-    private static Object irisApi;
-
-    private static boolean shaderPackActive() {
-        if (irisPresent == null) {
-            irisPresent = ModList.get().isLoaded("iris");
-            if (irisPresent) {
-                try {
-                    Class<?> api = Class.forName("net.irisshaders.iris.api.v0.IrisApi");
-                    irisApi = api.getMethod("getInstance").invoke(null);
-                    irisInUse = api.getMethod("isShaderPackInUse");
-                } catch (Throwable t) {
-                    irisPresent = false;
-                }
-            }
-        }
-        if (!irisPresent) return false;
-        try {
-            return (boolean) irisInUse.invoke(irisApi);
-        } catch (Throwable t) {
-            return false;
-        }
     }
 }

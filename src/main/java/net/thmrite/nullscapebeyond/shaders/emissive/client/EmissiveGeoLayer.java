@@ -3,6 +3,7 @@ package net.thmrite.nullscapebeyond.shaders.emissive.client;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import net.thmrite.nullscapebeyond.shaders.emissive.EmissiveSettings;
 import org.jetbrains.annotations.Nullable;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -15,18 +16,13 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
-import net.thmrite.nullscapebeyond.shaders.emissive.EmissiveSettings;
+import net.thmrite.nullscapebeyond.shaders.compat.IrisCompat;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
-/**
- * GeckoLib layer: draws foo_e.png over the normal foo.png render, fullbright and with the neon shader,
- * plus an optional additive halo shell. Works for GeoEntityRenderer and GeoBlockRenderer alike.
- *
- *   addRenderLayer(new EmissiveGeoLayer<>(this));
- */
+
 public class EmissiveGeoLayer<T extends GeoAnimatable> extends GeoRenderLayer<T> {
     private static final Set<Object> WARNED = ConcurrentHashMap.newKeySet();
 
@@ -72,7 +68,7 @@ public class EmissiveGeoLayer<T extends GeoAnimatable> extends GeoRenderLayer<T>
         this.renderer.reRender(bakedModel, poseStack, bufferSource, animatable, solid,
                 bufferSource.getBuffer(solid), partialTick, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
 
-        if (glowShell) {
+        if (glowShell && !IrisCompat.isShaderPackActive()) {
             // Model origin is the feet (entities) / bottom centre (blocks): inflate around the vertical middle.
             float pivotY = animatable instanceof Entity e ? e.getBbHeight() * 0.5f : 0.5f;
             RenderType halo = EmissiveRenderTypes.glow(emissive);

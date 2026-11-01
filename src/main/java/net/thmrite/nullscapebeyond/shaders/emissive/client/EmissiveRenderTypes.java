@@ -10,11 +10,9 @@ import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
+import net.thmrite.nullscapebeyond.shaders.compat.IrisCompat;
 
-/**
- * Render types that use the neon shader: unlit (fullbright), no lightmap, no hurt-flash overlay.
- * Extends RenderType only to reach its protected render-state constants.
- */
+
 public final class EmissiveRenderTypes extends RenderType {
     private EmissiveRenderTypes() {
         super("nscapebeyond_unused", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, false, () -> {}, () -> {});
@@ -28,10 +26,9 @@ public final class EmissiveRenderTypes extends RenderType {
     }
 
     public static boolean isReady() {
-        return neonShader != null;
+        return IrisCompat.isShaderPackActive() || neonShader != null;
     }
 
-    /** Solid fullbright pass. Transparent texels of the _e texture are discarded. */
     private static final Function<ResourceLocation, RenderType> EMISSIVE = Util.memoize(texture -> RenderType.create(
             "nscapebeyond_emissive", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, true, false,
             RenderType.CompositeState.builder()
@@ -46,7 +43,6 @@ public final class EmissiveRenderTypes extends RenderType {
                     .setLayeringState(VIEW_OFFSET_Z_LAYERING)
                     .createCompositeState(false)));
 
-    /** Additive halo pass (use with a slightly inflated model and a low-alpha colour). */
     private static final Function<ResourceLocation, RenderType> GLOW = Util.memoize(texture -> RenderType.create(
             "nscapebeyond_emissive_glow", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, false, false,
             RenderType.CompositeState.builder()
@@ -62,7 +58,7 @@ public final class EmissiveRenderTypes extends RenderType {
                     .createCompositeState(false)));
 
     public static RenderType emissive(ResourceLocation texture) {
-        return EMISSIVE.apply(texture);
+        return IrisCompat.isShaderPackActive() ? RenderType.eyes(texture) : EMISSIVE.apply(texture);
     }
 
     public static RenderType glow(ResourceLocation texture) {

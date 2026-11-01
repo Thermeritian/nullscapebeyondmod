@@ -12,7 +12,6 @@ public final class ModAttachments {
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES =
             DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, NullscapeBeyond.MODID);
 
-    /** True while a player is being swallowed by a beacon (synced to everyone tracking them, never saved). */
     public static final Supplier<AttachmentType<Boolean>> BEACON_ENTERING = ATTACHMENT_TYPES.register(
             "beacon_entering",
             () -> AttachmentType.builder(() -> false).sync(ByteBufCodecs.BOOL).build());

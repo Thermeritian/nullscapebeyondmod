@@ -12,7 +12,6 @@ public final class BeaconClientHooks {
         Minecraft.getInstance().getSoundManager().play(new IdleSound(beacon));
     }
 
-    /** Looping ambience that lives as long as the beacon is open. */
     private static class IdleSound extends AbstractTickableSoundInstance {
         private final BeaconEntity beacon;
 

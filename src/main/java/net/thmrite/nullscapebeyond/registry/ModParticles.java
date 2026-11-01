@@ -11,7 +11,6 @@ public final class ModParticles {
     public static final DeferredRegister<ParticleType<?>> PARTICLES =
             DeferredRegister.create(Registries.PARTICLE_TYPE, NullscapeBeyond.MODID);
 
-    /** Little water drops thrown up when a Mart lands (same idea as the slime's landing particles). */
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> MART_DROP =
             PARTICLES.register("mart_drop", () -> new SimpleParticleType(false));
 
