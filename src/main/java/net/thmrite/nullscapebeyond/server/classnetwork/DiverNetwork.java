@@ -50,7 +50,7 @@ public final class DiverNetwork {
             POSING.remove(sp.getUUID());
             return;
         }
-        sp.setPose(Pose.SWIMMING); // vanilla recomputes the pose every tick; set it again after that
+        sp.setPose(Pose.SWIMMING);
     }
 
     @SubscribeEvent

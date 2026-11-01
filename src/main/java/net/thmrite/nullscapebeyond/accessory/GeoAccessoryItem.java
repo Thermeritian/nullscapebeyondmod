@@ -17,14 +17,14 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.loading.object.BakedAnimations;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-/**
- * Common base of every accessory with a GeckoLib model worn on the player.
- * Where the model attaches is decided by its armor-named bones (see AccessoryArmorRenderer), not by the slot.
- * Assets (model = the short name given to the constructor, e.g. "orb"):
- *   geo/item/accessory/<model>.geo.json, textures/item/accessory/<model>.png, animations/<model>.animation.json
- */
+import net.minecraft.resources.ResourceLocation;
+import net.thmrite.nullscapebeyond.NullscapeBeyond;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.cache.GeckoLibCache;
+
 public abstract class GeoAccessoryItem extends AccessoryItem implements GeoItem, TooltipAccessory {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private final String slot;
@@ -46,7 +46,6 @@ public abstract class GeoAccessoryItem extends AccessoryItem implements GeoItem,
         return model;
     }
 
-    /** Name of the looping animation to play, or null for none. Must match the name inside the animation json. */
     protected String idleAnimation() {
         return "idle";
     }
@@ -54,10 +53,24 @@ public abstract class GeoAccessoryItem extends AccessoryItem implements GeoItem,
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         String idle = idleAnimation();
-        if (idle != null) {
-            controllers.add(new AnimationController<>(this, "main", 0,
-                    state -> state.setAndContinue(RawAnimation.begin().thenLoop(idle))));
-        }
+        if (idle == null) return;
+        controllers.add(new AnimationController<>(this, "main", 0, state -> {
+            if (!hasAnimation(idle)) return PlayState.STOP;
+            try {
+                return state.setAndContinue(RawAnimation.begin().thenLoop(idle));
+            } catch (RuntimeException e) {
+                return PlayState.STOP;
+            }
+        }));
+    }
+
+    protected boolean hasAnimation(String name) {
+        BakedAnimations animations = GeckoLibCache.getBakedAnimations().get(animationFile());
+        return animations != null && animations.getAnimation(name) != null;
+    }
+
+    protected ResourceLocation animationFile() {
+        return ResourceLocation.fromNamespaceAndPath(NullscapeBeyond.MODID, "animations/" + model + ".animation.json");
     }
 
     @Override
@@ -65,7 +78,6 @@ public abstract class GeoAccessoryItem extends AccessoryItem implements GeoItem,
         return cache;
     }
 
-    /** GeckoLib only accepts armor renderers that come from a GeoRenderProvider. */
     @Override
     public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
         consumer.accept(new GeoRenderProvider() {
