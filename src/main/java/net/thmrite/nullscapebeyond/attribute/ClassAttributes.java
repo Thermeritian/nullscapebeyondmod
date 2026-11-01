@@ -55,12 +55,13 @@ public final class ClassAttributes {
 
     // Diver
     public static final Entry DIVE_SPEED        = reg(DIVER, "dive_speed",         "Dive Speed (b/t)",       0.85, 0.05, 5);
-    public static final Entry DIVE_LIFT         = reg(DIVER, "dive_lift",          "Dive Lift (b/t)",        0.12, 0,    1);
+    public static final Entry DIVE_LIFT         = reg(DIVER, "dive_lift", "Dive Lift (b/t)", 0.3, 0, 1);
     public static final Entry DIVE_DRAG         = reg(DIVER, "dive_drag",          "Dive Drag (x/t)",        0.97, 0.5,  1);
-    public static final Entry DIVE_GRAVITY      = reg(DIVER, "dive_gravity",       "Dive Gravity (b/t)",     0.02, 0,    0.2);
+    public static final Entry DIVE_GRAVITY         = reg(DIVER, "dive_gravity",          "Dive Gravity (b/t)",      0.05, 0, 0.2);
+    public static final Entry DIVE_FALL_MULTIPLIER = reg(DIVER, "dive_fall_multiplier",  "Dive Fall Gravity (x)",   1.8,  1, 5);
     public static final Entry DIVE_END_SPEED    = reg(DIVER, "dive_end_speed",     "Dive End Speed (b/t)",   0.3,  0,    2);
-    public static final Entry DIVE_MAX_UP_ANGLE = reg(DIVER, "dive_max_up_angle",  "Dive Max Up Angle",      20,   0,    90);
     public static final Entry DIVE_JUMP_HEIGHT  = reg(DIVER, "dive_jump_height",   "Dive Jump Height (b/t)", 0.42, 0,    2);
+    public static final Entry DIVE_MAX_UP_ANGLE = reg(DIVER, "dive_max_up_angle", "Dive Max Up Angle", 0, 0, 90);
     public static final Entry DIVE_JUMP_SPEED   = reg(DIVER, "dive_jump_speed",    "Dive Jump Speed (x)",    1.15, 0,    3);
     // Diver (Ninja Belt)
     public static final Entry NINJA_DIVE_SPEED  = reg(NINJA_BELT, "ninja_dive_speed", "Powered Dive Base (b/t)",  1.6, 0.05, 6);

@@ -38,17 +38,6 @@ import net.thmrite.nullscapebeyond.server.classnetwork.ChargerEventPayload;
 import net.thmrite.nullscapebeyond.registry.ModSounds;
 import net.thmrite.nullscapebeyond.registry.ModTags;
 
-/**
- * Client-side Charger logic. Player movement is client-authoritative in vanilla, so the charge,
- * platform, water skipping, quickdrop and bonk run here; the server is only told about events
- * (sound, knock/bash, bonk damage, platform entity).
- *
- * Controls: hold ABILITY (or ALT) on the ground to charge; keep ALT held to get the air platform when the
- * charge carries you off a ledge; press either key in mid-air (not charging) to quickdrop, and keep it held
- * to start charging on landing. At full speed you skim across water without a platform. Weak blocks
- * (tag nscapebeyond:charger_passable, e.g. leaves) never stop a charge. Charging while blocking with a
- * shield turns entity contact into a shield bash.
- */
 @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
 public final class ChargerController {
     // Read-only state for the HUD / debug screen

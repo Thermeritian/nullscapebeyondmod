@@ -35,7 +35,7 @@ public final class DiverController {
     private static Vec3 slideDir = Vec3.ZERO;
     private static float slideSpeed;
     private static int diveTicks, airSlideTicks;
-    private static boolean prevAbility, prevAlt, prevJump, posing;
+    private static boolean prevAbility, prevAlt, prevJump, posing, diveAirborne;
 
     @SubscribeEvent
     public static void onPlayerTickPre(PlayerTickEvent.Pre event) {
@@ -94,10 +94,11 @@ public final class DiverController {
         if (!(event.getEntity() instanceof LocalPlayer p) || !hasClass) return;
 
         if (diving) {
+            if (!p.onGround()) diveAirborne = true;
             double min = ClassAttributes.BONK_MIN_SPEED.of(p);
             if (speed >= min && ((p.horizontalCollision && isWall(p, vel.x, vel.z)) || hitsEntity(p))) {
                 bonk(p, speed, vel.x, vel.z);
-            } else if (diveTicks >= 3 && p.onGround()) {
+            } else if (p.onGround() && (diveAirborne || diveTicks >= 6)) {
                 startSlide(p);
             }
         } else if (sliding && p.horizontalCollision) {
@@ -117,7 +118,6 @@ public final class DiverController {
         }
     }
 
-    /** No steering, jumping (read from the key directly) or sneaking while diving, sliding or bonked. */
     @SubscribeEvent
     public static void onInput(MovementInputUpdateEvent event) {
         if (!diving && !sliding && !bonked) return;
@@ -155,6 +155,7 @@ public final class DiverController {
         sliding = false;
         diveReady = false;
         diveTicks = 0;
+        diveAirborne = false;
         speed = (float) Math.hypot(vel.x, vel.z);
         p.setDeltaMovement(vel);
         playLocal(p, ModSounds.DIVER_DIVE.get());
@@ -163,14 +164,18 @@ public final class DiverController {
 
     private static void tickDive(LocalPlayer p) {
         diveTicks++;
+
         double drag = ClassAttributes.DIVE_DRAG.of(p);
-        vel = new Vec3(vel.x * drag, vel.y * drag - ClassAttributes.DIVE_GRAVITY.of(p), vel.z * drag);
+        double gravity = ClassAttributes.DIVE_GRAVITY.of(p);
+        if (vel.y < 0) gravity *= ClassAttributes.DIVE_FALL_MULTIPLIER.of(p);
+        vel = new Vec3(vel.x * drag, vel.y - gravity, vel.z * drag);
+
         speed = (float) Math.hypot(vel.x, vel.z);
         p.setDeltaMovement(vel);
-        if (speed < ClassAttributes.DIVE_END_SPEED.of(p)) endMotion(); // the dive fizzles out: normal fall from here
+
+        if (speed < ClassAttributes.DIVE_END_SPEED.of(p)) endMotion();
     }
 
-    /** Jump out of a dive or a slide: slight height and speed. */
     private static void jumpOut(LocalPlayer p) {
         double hx = diving ? vel.x : slideDir.x * slideSpeed;
         double hz = diving ? vel.z : slideDir.z * slideSpeed;
@@ -183,7 +188,6 @@ public final class DiverController {
         send(DiverEventPayload.Kind.JUMP_OUT, (float) out);
     }
 
-    /** Shark Tail: horizontal speed becomes vertical speed; ends the dive. */
     private static void sharkConvert(LocalPlayer p) {
         double hs = Math.hypot(vel.x, vel.z);
         double keep = ClassAttributes.SHARK_TAIL_KEEP.of(p);
@@ -227,7 +231,6 @@ public final class DiverController {
 
     // ---- Bonk ------------------------------------------------------------------------------
 
-    /** A wall: still blocked after hopping up one step (stairs, slabs and small edges are not walls). */
     private static boolean isWall(LocalPlayer p, double dx, double dz) {
         double len = Math.hypot(dx, dz);
         if (len < 1.0E-4) return true;
@@ -240,7 +243,6 @@ public final class DiverController {
                 e -> e != p && e.isAlive() && !e.isSpectator()).isEmpty();
     }
 
-    /** Same recoil as the Charger (shared BONK attributes): pushed back by impact speed, no control until landing. */
     private static void bonk(LocalPlayer p, float impact, double dx, double dz) {
         endMotion();
         playLocal(p, ModSounds.CHARGER_BONK.get());
