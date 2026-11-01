@@ -26,10 +26,18 @@ public final class ClassAttributes {
     private static final List<Entry> ENTRIES = new ArrayList<>();
 
     public static final String SHARED = "SHARED";
+
+    public static final String DIVER = "DIVER";
     public static final String CHARGER = "CHARGER";
+
     public static final String BONK = "BONK";
+    public static final String SLIDE = "SLIDE";
     public static final String KNOCK = "KNOCK";
+
+    public static final String NINJA_BELT = "NINJA BELT";
+    public static final String SHARK_TAIL = "SHARK TAIL";
     public static final String SHIELD = "SHIELD";
+
     public static final String ACCESSORIES = "ACCESSORIES"; // not a CLASS attribute
 
     public record Entry(String id, String section, String label, double def,
@@ -45,7 +53,24 @@ public final class ClassAttributes {
     public static final Entry STAMINA_REGEN        = reg(SHARED,  "class_stamina_regen",  "Stamina Regen (/t)",   0.8,  0,     50);
     public static final Entry STAMINA_REGEN_DELAY  = reg(SHARED,  "class_stamina_regen_delay", "Regen Delay (t)", 20,   0,     400);
 
-    // ---- Charger ------------------------------------------------------------------------
+    // Diver
+    public static final Entry DIVE_SPEED        = reg(DIVER, "dive_speed",         "Dive Speed (b/t)",       0.85, 0.05, 5);
+    public static final Entry DIVE_LIFT         = reg(DIVER, "dive_lift",          "Dive Lift (b/t)",        0.12, 0,    1);
+    public static final Entry DIVE_DRAG         = reg(DIVER, "dive_drag",          "Dive Drag (x/t)",        0.97, 0.5,  1);
+    public static final Entry DIVE_GRAVITY      = reg(DIVER, "dive_gravity",       "Dive Gravity (b/t)",     0.02, 0,    0.2);
+    public static final Entry DIVE_END_SPEED    = reg(DIVER, "dive_end_speed",     "Dive End Speed (b/t)",   0.3,  0,    2);
+    public static final Entry DIVE_MAX_UP_ANGLE = reg(DIVER, "dive_max_up_angle",  "Dive Max Up Angle",      20,   0,    90);
+    public static final Entry DIVE_JUMP_HEIGHT  = reg(DIVER, "dive_jump_height",   "Dive Jump Height (b/t)", 0.42, 0,    2);
+    public static final Entry DIVE_JUMP_SPEED   = reg(DIVER, "dive_jump_speed",    "Dive Jump Speed (x)",    1.15, 0,    3);
+    // Diver (Ninja Belt)
+    public static final Entry NINJA_DIVE_SPEED  = reg(NINJA_BELT, "ninja_dive_speed", "Powered Dive Base (b/t)",  1.6, 0.05, 6);
+    public static final Entry NINJA_DIVE_SCALE  = reg(NINJA_BELT, "ninja_dive_scale", "Powered Dive Momentum (x)", 0.8, 0,    5);
+    public static final Entry NINJA_DIVE_MAX    = reg(NINJA_BELT, "ninja_dive_max",   "Powered Dive Max (b/t)",   3.0, 0.1,  8);
+    // Diver (Shark Tail)
+    public static final Entry SHARK_TAIL_RATIO  = reg(SHARK_TAIL, "shark_tail_ratio", "Shark Tail Conversion (x)", 1.0, 0,   3);
+    public static final Entry SHARK_TAIL_KEEP   = reg(SHARK_TAIL, "shark_tail_keep",  "Shark Tail Kept Speed (x)",  0.0, 0,   1);
+
+    // Charger
     public static final Entry CHARGE_SPEED         = reg(CHARGER, "charge_speed",         "Charge Speed (b/t)",   0.8,  0.05,  5);
     public static final Entry CHARGE_ACCELERATION  = reg(CHARGER, "charge_acceleration",  "Charge Accel (0-1)",   0.12, 0.001, 1);
     public static final Entry CHARGE_TURN_SPEED    = reg(CHARGER, "charge_turn_speed",    "Charge Turn (deg/t)",  2.5,  0,     90);
@@ -62,7 +87,13 @@ public final class ClassAttributes {
     public static final Entry BONK_RESISTANCE      = reg(BONK,    "bonk_resistance",      "Bonk Resist (0-1)",    0.0,  0,     1);
     public static final Entry BONK_DAMAGE          = reg(BONK,    "bonk_damage",          "Bonk Damage",          0.0,  0,     40);
 
-    //Knock
+    // Sliding
+    public static final Entry SLIDE_CARRY       = reg(SLIDE, "slide_carry",        "Slide Carry (x)",        0.9,  0,    1.5);
+    public static final Entry SLIDE_FRICTION    = reg(SLIDE, "slide_friction",     "Slide Friction (x/t)",   0.95, 0.5,  1);
+    public static final Entry SLIDE_DECEL       = reg(SLIDE, "slide_decel",        "Slide Decel (b/t)",      0.004, 0,   0.1);
+    public static final Entry SLIDE_END_SPEED   = reg(SLIDE, "slide_end_speed",    "Slide End Speed (b/t)",  0.1,  0,    1);
+
+    //Knocking
     public static final Entry KNOCK_MIN_SPEED      = reg(KNOCK,   "knock_min_speed",      "Knock Min Speed (b/t)", 0.4, 0,     5);
     public static final Entry KNOCK_STRENGTH       = reg(KNOCK,   "knock_strength",       "Knock Strength",       1.2,  0,     10);
     public static final Entry KNOCK_DAMAGE         = reg(KNOCK,   "knock_damage",         "Knock Damage",         0.0,  0,     100);

@@ -24,11 +24,21 @@ public class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> GENERIC_AIRJUMP  = register("generic_extrajump");
     public static final DeferredHolder<SoundEvent, SoundEvent> GENERIC_LAND   = register("generic_land");
 
+
+    // // CLASS // //
+    //DIVER
+    public static final DeferredHolder<SoundEvent, SoundEvent> DIVER_DIVE  = register("diver_dive");
+    public static final DeferredHolder<SoundEvent, SoundEvent> DIVER_JUMP  = register("diver_jump");
+    public static final DeferredHolder<SoundEvent, SoundEvent> DIVER_SLIDE = register("diver_slide");   // looping, see DiverSlideSound
+
+
     //CHARGER
     public static final DeferredHolder<SoundEvent, SoundEvent> CHARGER_CHARGE = register("charger_charge");
     public static final DeferredHolder<SoundEvent, SoundEvent> CHARGER_BRAKE  = register("charger_brake");
     public static final DeferredHolder<SoundEvent, SoundEvent> CHARGER_BONK   = register("charger_bonk");
     public static final DeferredHolder<SoundEvent, SoundEvent> SHIELD_BASH    = register("shield_bash");
+
+
 
     //ENTITIES
     //MART

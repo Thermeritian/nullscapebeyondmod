@@ -15,28 +15,18 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.accessory.classaccessory.ChargerBoots;
 import net.thmrite.nullscapebeyond.attribute.ClassAttributes;
 import net.thmrite.nullscapebeyond.entity.ChargerPlatformEntity;
 import net.thmrite.nullscapebeyond.registry.ModEntities;
 import net.thmrite.nullscapebeyond.registry.ModSounds;
 
-@EventBusSubscriber(modid = NullscapeBeyond.MODID)
 public final class ChargerNetwork {
     private static final Map<Player, Map<Integer, Long>> LAST_KNOCK = new WeakHashMap<>();
     private static final Map<UUID, ChargerPlatformEntity> PLATFORMS = new HashMap<>();
 
-    @SubscribeEvent
-    public static void register(RegisterPayloadHandlersEvent event) {
-        event.registrar("1").playToServer(ChargerEventPayload.TYPE, ChargerEventPayload.CODEC, ChargerNetwork::handle);
-    }
-
-    private static void handle(ChargerEventPayload msg, IPayloadContext ctx) {
+    public static void handle(ChargerEventPayload msg, IPayloadContext ctx) {
         ctx.enqueueWork(() -> {
             if (!(ctx.player() instanceof ServerPlayer sp) || !ChargerBoots.isEquipped(sp)) return;
             switch (msg.kind()) {

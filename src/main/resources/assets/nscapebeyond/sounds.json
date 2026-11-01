@@ -14,6 +14,10 @@
   "generic_extrajump":  { "sounds": [ "nscapebeyond:movement/genericextrajump" ] },
   "generic_land": { "sounds": [ "nscapebeyond:class/charger/genericland" ] },
 
+  "diver_dive":  { "sounds": [ "nscapebeyond:class/diver/diver_dive" ] },
+  "diver_jump":  { "sounds": [ "nscapebeyond:class/diver/diver_jump" ] },
+  "diver_slide": { "sounds": [ "nscapebeyond:class/diver/diver_slide" ] },
+
   "charger_charge":  { "sounds": [ "nscapebeyond:class/charger/charge" ] },
   "charger_brake":  { "sounds": [ "nscapebeyond:class/charger/brake" ] },
   "charger_bonk": { "sounds": [ "nscapebeyond:class/charger/bonk" ] },
