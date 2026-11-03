@@ -37,6 +37,11 @@ public final class DiverController {
     private static int diveTicks, airSlideTicks;
     private static boolean prevAbility, prevAlt, prevJump, posing, diveAirborne;
 
+    public static float stamina, maxStamina = 1f;
+    private static int regenDelay;
+    private static boolean staminaInit;
+    private static float pitch, prevPitch;   // body tilt for rendering, degrees, + = nose up
+
     @SubscribeEvent
     public static void onPlayerTickPre(PlayerTickEvent.Pre event) {
         if (!(event.getEntity() instanceof LocalPlayer p)) return;
@@ -50,6 +55,17 @@ public final class DiverController {
         AccessoriesCapability cap = AccessoriesCapability.get(p);
         hasNinjaBelt = cap != null && cap.isEquipped(ModItems.NINJA_BELT.get());
         hasSharkTail = cap != null && cap.isEquipped(ModItems.SHARK_TAIL.get());
+
+        maxStamina = (float) ClassAttributes.STAMINA_MAX.of(p);
+        if (!staminaInit) {
+            stamina = maxStamina;
+            staminaInit = true;
+        }
+        stamina = Math.min(stamina, maxStamina);
+        if (!diving && !sliding) { // regen starts once the dive / slide is over, after the regen delay
+            if (regenDelay > 0) regenDelay--;
+            else stamina = Math.min(maxStamina, stamina + (float) ClassAttributes.STAMINA_REGEN.of(p));
+        }
 
         boolean ability = ModKeybinds.ABILITY.isDown();
         boolean alt = ModKeybinds.ALT_ABILITY.isDown();
@@ -77,7 +93,8 @@ public final class DiverController {
                 jumpOut(p);
                 return;
             }
-            if (diving && hasSharkTail && sharkReady && diveTicks >= 2 && (abilityPress || altPress)) {
+            if (diving && hasSharkTail && sharkReady && diveTicks >= 2 && (abilityPress || altPress)
+                    && stamina >= ClassAttributes.SHARK_TAIL_STAMINA_COST.of(p)) {
                 sharkConvert(p);
                 return;
             }
@@ -109,6 +126,12 @@ public final class DiverController {
             }
         }
 
+        float targetPitch = diving
+                ? (float) Math.toDegrees(Math.atan2(vel.y, Math.max(1.0E-4, Math.hypot(vel.x, vel.z))))
+                : 0f; // levels out when the dive ends
+        prevPitch = pitch;
+        pitch += (targetPitch - pitch) * 0.5f;
+
         // Swimming pose for the dive and the slide. Vanilla recomputes the pose every tick, so set it after that.
         boolean want = diving || sliding;
         if (want) p.setPose(Pose.SWIMMING);
@@ -136,6 +159,11 @@ public final class DiverController {
     }
 
     private static void startDive(LocalPlayer p, boolean powered) {
+        float cost = (float) (powered ? ClassAttributes.NINJA_DIVE_STAMINA_COST.of(p) : ClassAttributes.DIVE_STAMINA_COST.of(p));
+        if (stamina < cost) return; // too tired to dive
+        stamina -= cost;
+        regenDelay = (int) ClassAttributes.STAMINA_REGEN_DELAY.of(p);
+
         Vec3 dm = p.getDeltaMovement();
         double momentum = Math.hypot(dm.x, dm.z);
 
@@ -189,6 +217,9 @@ public final class DiverController {
     }
 
     private static void sharkConvert(LocalPlayer p) {
+        stamina -= (float) ClassAttributes.SHARK_TAIL_STAMINA_COST.of(p);
+        regenDelay = (int) ClassAttributes.STAMINA_REGEN_DELAY.of(p);
+
         double hs = Math.hypot(vel.x, vel.z);
         double keep = ClassAttributes.SHARK_TAIL_KEEP.of(p);
         p.setDeltaMovement(vel.x * keep, hs * ClassAttributes.SHARK_TAIL_RATIO.of(p), vel.z * keep);
@@ -275,10 +306,21 @@ public final class DiverController {
         speed = 0;
         bonkTicks = diveTicks = airSlideTicks = 0;
         prevAbility = prevAlt = prevJump = false;
+        staminaInit = false;
+        regenDelay = 0;
+        pitch = prevPitch = 0;
         if (posing) {
             posing = false;
             send(DiverEventPayload.Kind.POSE_OFF, 0);
         }
+    }
+
+    public static float visualPitch(float partialTick) {
+        return Mth.lerp(partialTick, prevPitch, pitch);
+    }
+
+    public static boolean isStaminaActive() {
+        return hasClass && (diving || sliding || stamina < maxStamina - 0.01f);
     }
 
     private static void playLocal(LocalPlayer p, SoundEvent sound) {

@@ -63,13 +63,18 @@ public final class ClassAttributes {
     public static final Entry DIVE_JUMP_HEIGHT  = reg(DIVER, "dive_jump_height",   "Dive Jump Height (b/t)", 0.42, 0,    2);
     public static final Entry DIVE_MAX_UP_ANGLE = reg(DIVER, "dive_max_up_angle", "Dive Max Up Angle", 0, 0, 90);
     public static final Entry DIVE_JUMP_SPEED   = reg(DIVER, "dive_jump_speed",    "Dive Jump Speed (x)",    1.15, 0,    3);
+    public static final Entry DIVE_STAMINA_COST = reg(DIVER,       "dive_stamina_cost",       "Dive Stamina",          15, 0, 100);
     // Diver (Ninja Belt)
     public static final Entry NINJA_DIVE_SPEED  = reg(NINJA_BELT, "ninja_dive_speed", "Powered Dive Base (b/t)",  1.6, 0.05, 6);
     public static final Entry NINJA_DIVE_SCALE  = reg(NINJA_BELT, "ninja_dive_scale", "Powered Dive Momentum (x)", 0.8, 0,    5);
     public static final Entry NINJA_DIVE_MAX    = reg(NINJA_BELT, "ninja_dive_max",   "Powered Dive Max (b/t)",   3.0, 0.1,  8);
+    public static final Entry NINJA_DIVE_STAMINA_COST = reg(NINJA_BELT,  "ninja_dive_stamina_cost", "Powered Dive Stamina",  20, 0, 100);
     // Diver (Shark Tail)
     public static final Entry SHARK_TAIL_RATIO  = reg(SHARK_TAIL, "shark_tail_ratio", "Shark Tail Conversion (x)", 1.0, 0,   3);
     public static final Entry SHARK_TAIL_KEEP   = reg(SHARK_TAIL, "shark_tail_keep",  "Shark Tail Kept Speed (x)",  0.0, 0,   1);
+    public static final Entry SHARK_TAIL_STAMINA_COST = reg(SHARK_TAIL,  "shark_tail_stamina_cost", "Shark Tail Stamina",    5, 0, 100);
+
+
 
     // Charger
     public static final Entry CHARGE_SPEED         = reg(CHARGER, "charge_speed",         "Charge Speed (b/t)",   0.8,  0.05,  5);

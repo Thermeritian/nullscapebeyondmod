@@ -11,7 +11,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
-import net.thmrite.nullscapebeyond.client.classcontrol.ChargerController;
+import net.thmrite.nullscapebeyond.client.classcontrol.ClassStamina;
 
 @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
 public final class StaminaBarOverlay {
@@ -33,9 +33,9 @@ public final class StaminaBarOverlay {
         prevBlend = blend;
         prevFill = fill;
         prevWhite = white;
-        blend = Mth.clamp(blend + (ChargerController.isActive() ? FADE_IN : -FADE_OUT), 0f, 1f);
-        fill = Mth.clamp(ChargerController.stamina / Math.max(1f, ChargerController.maxStamina), 0f, 1f);
-        white = Mth.clamp(white + (ChargerController.charging ? TINT_UP : -TINT_DOWN), 0f, 1f);
+        blend = Mth.clamp(blend + (ClassStamina.isActive()  ? FADE_IN : -FADE_OUT), 0f, 1f);
+        fill = Mth.clamp(ClassStamina.value() / Math.max(1f, ClassStamina.max()), 0f, 1f);
+        white = Mth.clamp(white + (ClassStamina.using() ? TINT_UP : -TINT_DOWN), 0f, 1f);
     }
 
     @SubscribeEvent
