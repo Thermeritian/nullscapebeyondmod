@@ -10,6 +10,7 @@ import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.MovementInputUpdateEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
+import net.thmrite.nullscapebeyond.client.classcontrol.*;
 
 @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
 public final class MovementHandler {
@@ -32,6 +33,10 @@ public final class MovementHandler {
                 || player.isFallFlying();
     }
 
+    private static boolean classDrivesMovement() {
+        return ChargerController.drivesMovement() || DiverController.drivesMovement();
+    }
+
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Pre event) {
         if (!(event.getEntity() instanceof LocalPlayer player)) return;
@@ -39,8 +44,10 @@ public final class MovementHandler {
         STATE.update(player);
 
         if (!isSuppressed(player)) {
-            for (MovementController controller : CONTROLLERS) {
-                controller.tick(player, STATE);
+            if (!classDrivesMovement()) {
+                for (MovementController controller : CONTROLLERS) {
+                    controller.tick(player, STATE);
+                }
             }
             for (MovementAbility ability : ABILITIES) {
                 ability.tick(player, STATE);
@@ -52,7 +59,7 @@ public final class MovementHandler {
 
     @SubscribeEvent
     public static void onMovementInput(MovementInputUpdateEvent event) {
-        if (!(event.getEntity() instanceof LocalPlayer player) || isSuppressed(player)) return;
+        if (!(event.getEntity() instanceof LocalPlayer player) || isSuppressed(player) || classDrivesMovement()) return;
 
         for (MovementController controller : CONTROLLERS) {
             controller.onInput(player, STATE, event.getInput());

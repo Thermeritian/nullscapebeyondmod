@@ -17,23 +17,14 @@ public final class ModAttributes {
 
     public static final DeferredHolder<Attribute, Attribute> MAX_AIR_JUMPS =
             register("max_air_jumps", 0.0, 0.0, 16.0);
-
     public static final DeferredHolder<Attribute, Attribute> AIR_JUMP_STRENGTH =
             register("air_jump_strength", 0.42, 0.0, 4.0);
-
-    public static final DeferredHolder<Attribute, Attribute> DASH_STRENGTH =
-            register("dash_strength", 0.0, 0.0, 16.0);
-
-    public static final DeferredHolder<Attribute, Attribute> DASH_COOLDOWN =
-            register("dash_cooldown", 20.0, 0.0, 1200.0);
     public static final DeferredHolder<Attribute, Attribute> AIR_CONTROL =
             register("air_control", 1.0, 0.0, 8.0);
     public static final DeferredHolder<Attribute, Attribute> GROUND_MAX_SPEED =
             register("ground_max_speed", 4.317, 0.0, 200.0);
-
     public static final DeferredHolder<Attribute, Attribute> GROUND_ACCELERATION =
             register("ground_acceleration", 1.0, 0.0, 100.0);
-
     public static final DeferredHolder<Attribute, Attribute> GROUND_TURN_SPEED =
             register("ground_turn_speed", 1.0, 0.0, 100.0);
 

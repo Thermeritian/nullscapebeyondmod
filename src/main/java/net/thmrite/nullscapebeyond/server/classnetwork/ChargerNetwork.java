@@ -48,6 +48,14 @@ public final class ChargerNetwork {
                 case SHIELD_BASH -> {
                     if (sp.isBlocking()) hit(sp, msg, true);
                 }
+                case PLATFORM_Y -> {
+                    ChargerPlatformEntity platform = PLATFORMS.get(sp.getUUID());
+                    if (platform != null && !platform.isRemoved()) {
+                        // The Shark Tail made the platform rise: follow the player (never trust the client with an arbitrary height)
+                        platform.setPos(platform.getX(), Mth.clamp(msg.value(), sp.getY() - 3.0, sp.getY() + 1.0), platform.getZ());
+                    }
+                }
+
             }
         });
     }

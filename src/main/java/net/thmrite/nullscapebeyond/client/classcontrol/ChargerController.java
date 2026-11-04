@@ -37,6 +37,13 @@ import net.thmrite.nullscapebeyond.client.ModKeybinds;
 import net.thmrite.nullscapebeyond.server.classnetwork.ChargerEventPayload;
 import net.thmrite.nullscapebeyond.registry.ModSounds;
 import net.thmrite.nullscapebeyond.registry.ModTags;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.thmrite.nullscapebeyond.attribute.ModAttributes;
+import io.wispforest.accessories.api.AccessoriesCapability;
+import net.minecraft.client.Minecraft;
+import net.thmrite.nullscapebeyond.registry.ModItems;
 
 @EventBusSubscriber(modid = NullscapeBeyond.MODID, value = Dist.CLIENT)
 public final class ChargerController {
@@ -44,6 +51,8 @@ public final class ChargerController {
     public static boolean hasClass, charging, platformActive, waterSkipping, bonked;
     public static float speed, stamina, maxStamina = 1f, heading, lastCommandedSpeed;
     public static int cooldown, bashFreeze;
+    public static boolean hasNinjaBelt, hasSharkTail, platformRising;
+    private static boolean prevJump, jumpPressed, doubleJumpReady = true, altOnTakeoff;
 
     private static boolean staminaInit, prevAbility, prevAlt;
     private static int platformTicks, regenDelay, bonkTicks;
@@ -83,6 +92,21 @@ public final class ChargerController {
         boolean pressed = (ability && !prevAbility) || (alt && !prevAlt);
         prevAbility = ability;
         prevAlt = alt;
+
+        AccessoriesCapability cap = AccessoriesCapability.get(p);
+        hasNinjaBelt = cap != null && cap.isEquipped(ModItems.NINJA_BELT.get());
+        hasSharkTail = cap != null && cap.isEquipped(ModItems.SHARK_TAIL.get());
+
+        if (!hasClass) {
+            resetState();
+            syncAirJump(p);
+            return;
+        }
+
+        boolean jump = Minecraft.getInstance().options.keyJump.isDown();
+        jumpPressed = jump && !prevJump;
+        prevJump = jump;
+
         boolean held = ability || alt;
 
         // Hit-stop after a shield bash: hang in place, then take the recoil.
@@ -139,7 +163,8 @@ public final class ChargerController {
         in.shiftKeyDown = false;
         in.forwardImpulse = 0;
         in.leftImpulse = 0;
-        in.jumping = false;
+        boolean airJumpWindow = hasNinjaBelt && charging && !platformActive && !event.getEntity().onGround();
+        in.jumping = airJumpWindow && jumpPressed;
 
         if (charging && event.getEntity() instanceof LocalPlayer p) passWeakBlocks(p);
     }
@@ -164,6 +189,10 @@ public final class ChargerController {
         groundY = p.getY();
         playLocal(p, ModSounds.CHARGER_CHARGE.get());
         send(ChargerEventPayload.Kind.START, 0, speed);
+
+        altOnTakeoff = ModKeybinds.ALT_ABILITY.isDown();
+        doubleJumpReady = true;
+
     }
 
     private static void tickCharge(LocalPlayer p, boolean held, boolean alt) {
@@ -173,12 +202,10 @@ public final class ChargerController {
             return;
         }
 
-        // Heading chases the camera yaw at a capped turn rate
         float diff = Mth.wrapDegrees(p.getYRot() - heading);
         float maxTurn = (float) ClassAttributes.CHARGE_TURN_SPEED.of(p);
         heading += Mth.clamp(diff, -maxTurn, maxTurn);
 
-        // Speed eases toward the target
         float target = (float) ClassAttributes.CHARGE_SPEED.of(p);
         float accel = (float) Mth.clamp(ClassAttributes.CHARGE_ACCELERATION.of(p), 0.0, 1.0);
         speed += (target - speed) * accel;
@@ -186,17 +213,13 @@ public final class ChargerController {
         double rad = heading * Mth.DEG_TO_RAD;
         double dy = p.getDeltaMovement().y;
 
-        // While on the platform dy is 0, so vanilla never reports onGround even when standing on a real block of
-        // the same height. Probe for solid ground just below the feet instead.
         boolean grounded = p.onGround() || !p.level().noCollision(p, p.getBoundingBox().move(0, -0.05, 0));
 
-        // Water skipping: at (nearly) full speed the water surface acts as ground.
         double surface = grounded ? Double.NaN : waterSurface(p);
         boolean skipping = !Double.isNaN(surface)
                 && speed >= target * (float) ClassAttributes.WATER_SKIP_RATIO.of(p);
-        boolean platformReady = alt && platformTicks > 0;
+        boolean platformReady = alt && platformTicks > 0 && (hasNinjaBelt || altOnTakeoff);
 
-        // Too slow to skim and no platform to fall back on: the charge ends in the water.
         if (p.isInWater() && !skipping && !platformReady) {
             stopCharge(p, true);
             return;
@@ -204,10 +227,12 @@ public final class ChargerController {
 
         platformActive = false;
         waterSkipping = false;
+        platformRising = false;
         if (skipping) {
             waterSkipping = true;
-            groundY = surface;                                  // a platform can take over if speed drops
+            groundY = surface;
             platformTicks = (int) ClassAttributes.PLATFORM_DURATION.of(p);
+            altOnTakeoff = alt;
             if (Math.abs(p.getY() - surface) > 1.0E-3) p.setPos(p.getX(), surface, p.getZ());
             p.setOnGround(true);
             p.resetFallDistance();
@@ -220,16 +245,30 @@ public final class ChargerController {
         } else if (grounded) {
             groundY = p.getY();
             platformTicks = (int) ClassAttributes.PLATFORM_DURATION.of(p);
+            altOnTakeoff = alt;
         } else if (platformReady) {
-            // The platform behaves like ground at the height where the player left it:
-            // snap back up to that height (leaving a ledge drops you a hair), count as grounded so vanilla
-            // step-up works on small edges, and cancel fall damage.
-            if (p.getY() < groundY) p.setPos(p.getX(), groundY, p.getZ());
+            boolean rising = hasSharkTail && alt && !ModKeybinds.ABILITY.isDown();
+            if (rising) {
+                groundY = p.getY();
+                dy = ClassAttributes.SHARK_TAIL_RISE.of(p);
+                send(ChargerEventPayload.Kind.PLATFORM_Y, 0, (float) groundY);
+            } else {
+                if (p.getY() < groundY) p.setPos(p.getX(), groundY, p.getZ());
+                dy = 0;
+            }
             p.setOnGround(true);
             p.resetFallDistance();
-            dy = 0;
             platformTicks--;
             platformActive = true;
+            platformRising = rising;
+        }
+
+        if (hasNinjaBelt && jumpPressed && platformActive) {
+            double out = speed * ClassAttributes.NINJA_LONG_JUMP_SPEED.of(p);
+            p.setDeltaMovement(-Mth.sin((float) rad) * out, ClassAttributes.NINJA_LONG_JUMP_HEIGHT.of(p),
+                    Mth.cos((float) rad) * out);
+            stopCharge(p, false);
+            return;
         }
 
         if (platformActive != sentPlatform) {
@@ -258,6 +297,7 @@ public final class ChargerController {
     private static void stopCharge(LocalPlayer p, boolean brake) {
         charging = false;
         platformActive = false;
+        platformRising = false;
         waterSkipping = false;
         if (sentPlatform) {
             sentPlatform = false;
@@ -355,6 +395,10 @@ public final class ChargerController {
 
     // ---- Bonk, knock, shield bash ------------------------------------------------------------
 
+    public static boolean drivesMovement() {
+        return hasClass && (charging || bonked || bashFreeze > 0);
+    }
+
     private static void bonk(LocalPlayer p) {
         applyBonk(p, lastCommandedSpeed);
     }
@@ -417,6 +461,11 @@ public final class ChargerController {
         sentPlatform = false;
         quickdropping = false;
         knockCooldowns.clear();
+
+        hasNinjaBelt = hasSharkTail = platformRising = false;
+        doubleJumpReady = true;
+        altOnTakeoff = false;
+        prevJump = jumpPressed = false;
     }
 
     private static void playLocal(LocalPlayer p, SoundEvent sound) {
@@ -425,6 +474,20 @@ public final class ChargerController {
 
     private static void send(ChargerEventPayload.Kind kind, int targetId, float spd) {
         PacketDistributor.sendToServer(new ChargerEventPayload(kind, targetId, spd));
+    }
+
+    private static final ResourceLocation NINJA_AIR_JUMP =
+            ResourceLocation.fromNamespaceAndPath(NullscapeBeyond.MODID, "ninja_belt_charge_jump");
+
+    private static void syncAirJump(LocalPlayer p) {
+        AttributeInstance jumps = p.getAttribute(ModAttributes.MAX_AIR_JUMPS);
+        if (jumps == null) return;
+        boolean want = hasNinjaBelt && charging && !platformActive;
+        if (want && !jumps.hasModifier(NINJA_AIR_JUMP)) {
+            jumps.addTransientModifier(new AttributeModifier(NINJA_AIR_JUMP, 1, AttributeModifier.Operation.ADD_VALUE));
+        } else if (!want && jumps.hasModifier(NINJA_AIR_JUMP)) {
+            jumps.removeModifier(NINJA_AIR_JUMP);
+        }
     }
 
     private ChargerController() {}

@@ -74,8 +74,6 @@ public final class ClassAttributes {
     public static final Entry SHARK_TAIL_KEEP   = reg(SHARK_TAIL, "shark_tail_keep",  "Shark Tail Kept Speed (x)",  0.0, 0,   1);
     public static final Entry SHARK_TAIL_STAMINA_COST = reg(SHARK_TAIL,  "shark_tail_stamina_cost", "Shark Tail Stamina",    5, 0, 100);
 
-
-
     // Charger
     public static final Entry CHARGE_SPEED         = reg(CHARGER, "charge_speed",         "Charge Speed (b/t)",   0.8,  0.05,  5);
     public static final Entry CHARGE_ACCELERATION  = reg(CHARGER, "charge_acceleration",  "Charge Accel (0-1)",   0.12, 0.001, 1);
@@ -84,6 +82,11 @@ public final class ClassAttributes {
     public static final Entry PLATFORM_DURATION    = reg(CHARGER, "charge_platform_duration", "Platform Time (t)", 20,   0,     400);
     public static final Entry QUICKDROP_SPEED      = reg(CHARGER, "charge_quickdrop_speed", "Quickdrop (b/t)",    1.2,  0,     5);
     public static final Entry WATER_SKIP_RATIO     = reg(CHARGER, "charge_water_skip_ratio", "Water Skip Speed (0-1)", 0.97, 0,    1);
+    // Charger (Ninja Belt)
+    public static final Entry NINJA_LONG_JUMP_SPEED    = reg(NINJA_BELT, "ninja_long_jump_speed",    "Long Jump Speed (x)",    1.3,  0, 4);
+    public static final Entry NINJA_LONG_JUMP_HEIGHT   = reg(NINJA_BELT, "ninja_long_jump_height",   "Long Jump Height (b/t)", 0.5,  0, 2);
+    // Charger (Shark Tail)
+    public static final Entry SHARK_TAIL_RISE          = reg(SHARK_TAIL, "shark_tail_rise_speed",    "Platform Rise (b/t)",    0.05, 0, 0.5);
 
     //Bonking
     public static final Entry BONK_MIN_SPEED       = reg(BONK,    "bonk_min_speed",       "Bonk Min Speed (b/t)", 0.5,  0,     5);

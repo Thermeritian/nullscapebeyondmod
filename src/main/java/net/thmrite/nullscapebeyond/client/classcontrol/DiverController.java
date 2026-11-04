@@ -292,7 +292,9 @@ public final class DiverController {
         bonkTicks = 0;
     }
 
-    // ---- Helpers ------------------------------------------------------------------------------
+    public static boolean drivesMovement() {
+        return hasClass && (diving || sliding || bonked);
+    }
 
     private static void endMotion() {
         diving = false;
