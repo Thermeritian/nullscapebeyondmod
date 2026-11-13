@@ -150,7 +150,6 @@ public final class ClassAttributes {
         }
     }
 
-    /** Lines for the Movement Debug "CLASS" category (section headers + "Label: value"). */
     public static List<String> debugLines(Player player) {
         List<String> out = new ArrayList<>();
         String last = "";
