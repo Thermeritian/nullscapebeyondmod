@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "nscapebeyond:blocks/nullslate_bricks_cracked",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "nscapebeyond:nullslate_bricks_cracked"
+        }
+      ]
+    }
+  ]
+}

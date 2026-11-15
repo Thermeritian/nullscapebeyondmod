@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "nscapebeyond:nullsoil",
+    "nscapebeyond:azure_grass_block",
+    "nscapebeyond:viridian_grass_block",
+    "nscapebeyond:scarlet_grass_block"
+  ]
+}

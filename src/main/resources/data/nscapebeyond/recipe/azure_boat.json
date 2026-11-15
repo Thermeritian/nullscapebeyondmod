@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:azure_planks"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:azure_boat",
+    "count": 1
+  },
+  "group": "boat"
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "nscapebeyond:nullslate_bricks"
+  },
+  "result": {
+    "id": "nscapebeyond:nullslate_bricks_stairs",
+    "count": 1
+  }
+}

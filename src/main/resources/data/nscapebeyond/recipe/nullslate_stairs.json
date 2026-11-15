@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "nullslate_stairs",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:nullslate"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:nullslate_stairs",
+    "count": 4
+  }
+}

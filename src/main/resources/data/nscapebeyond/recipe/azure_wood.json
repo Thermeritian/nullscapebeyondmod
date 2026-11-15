@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:azure_log"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:azure_wood",
+    "count": 3
+  },
+  "group": "bark"
+}

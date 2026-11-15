@@ -1,0 +1,30 @@
+{
+  "replace": false,
+  "values": [
+    "nscapebeyond:nullslate",
+    "nscapebeyond:nullslate_cobbled",
+    "nscapebeyond:nullslate_bricks",
+    "nscapebeyond:nullslate_bricks_cracked",
+    "nscapebeyond:nullslate_small_bricks",
+    "nscapebeyond:nullslate_polished",
+    "nscapebeyond:nullslate_pillar",
+    "nscapebeyond:nullmarble",
+    "nscapebeyond:nullmarble_bricks",
+    "nscapebeyond:palesandstone",
+    "nscapebeyond:nullslate_stairs",
+    "nscapebeyond:nullslate_bricks_stairs",
+    "nscapebeyond:nullslate_small_bricks_stairs",
+    "nscapebeyond:nullmarble_stairs",
+    "nscapebeyond:nullmarble_bricks_stairs",
+    "nscapebeyond:nullslate_slab",
+    "nscapebeyond:nullslate_bricks_slab",
+    "nscapebeyond:nullslate_small_bricks_slab",
+    "nscapebeyond:nullmarble_slab",
+    "nscapebeyond:nullmarble_bricks_slab",
+    "nscapebeyond:nullslate_wall",
+    "nscapebeyond:nullslate_bricks_wall",
+    "nscapebeyond:nullslate_small_bricks_wall",
+    "nscapebeyond:nullmarble_wall",
+    "nscapebeyond:nullmarble_bricks_wall"
+  ]
+}

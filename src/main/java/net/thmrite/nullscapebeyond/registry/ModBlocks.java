@@ -1,19 +1,132 @@
 package net.thmrite.nullscapebeyond.registry;
 
+import net.minecraft.util.ColorRGBA;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.block.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 public final class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(NullscapeBeyond.MODID);
-    // Separate from ModItems so this file is self-contained; merge into ModItems if you prefer.
     public static final DeferredRegister.Items BLOCK_ITEMS = DeferredRegister.createItems(NullscapeBeyond.MODID);
 
+    //HELPERS
+
+    public static <T extends Block> DeferredBlock<T> reg(String name, Supplier<T> block, Function<T, Item> item,
+                                                         List<Supplier<? extends ItemLike>> tab) {
+        DeferredBlock<T> registered = BLOCKS.register(name, block);
+        if (item != null) {
+            DeferredItem<Item> blockItem = ModItems.ITEMS.register(name, () -> item.apply(registered.get()));
+            if (tab != null) tab.add(blockItem);
+        }
+        return registered;
+    }
+
+    public record StoneVariants(DeferredBlock<StairBlock> stairs, DeferredBlock<SlabBlock> slab, DeferredBlock<WallBlock> wall) {}
+
+    private static StoneVariants variants(String name, Supplier<? extends Block> base) {
+        DeferredBlock<StairBlock> stairs = reg(name + "_stairs",
+                () -> new StairBlock(base.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(base.get())), TERRAIN_ITEMS);
+        DeferredBlock<SlabBlock> slab = reg(name + "_slab",
+                () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(base.get())), TERRAIN_ITEMS);
+        DeferredBlock<WallBlock> wall = reg(name + "_wall",
+                () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(base.get()).forceSolidOn()), TERRAIN_ITEMS);
+        return new StoneVariants(stairs, slab, wall);
+    }
+
+    public static final List<Supplier<? extends ItemLike>> TERRAIN_ITEMS = new ArrayList<>();
+
+    public static <T extends Block> DeferredBlock<T> reg(String name, Supplier<T> block, List<Supplier<? extends ItemLike>> tab) {
+        return reg(name, block, b -> new BlockItem(b, new Item.Properties()), tab);
+    }
+
+    public static <T extends Block> DeferredBlock<T> regNoItem(String name, Supplier<T> block) {
+        return BLOCKS.register(name, block);
+    }
+
+
+    /////////BLOCKS
+    ////TERRAIN
+    public static final DeferredBlock<Block> NULLSOIL = reg("nullsoil",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT).mapColor(MapColor.TERRACOTTA_BROWN)), TERRAIN_ITEMS);
+
+    //GRASS BLOCKS
+    public static final DeferredBlock<NullGrassBlock> AZURE_GRASS_BLOCK = reg("azure_grass_block",
+            () -> new NullGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK).mapColor(MapColor.COLOR_LIGHT_BLUE)), TERRAIN_ITEMS);
+    public static final DeferredBlock<NullGrassBlock> VIRIDIAN_GRASS_BLOCK = reg("viridian_grass_block",
+            () -> new NullGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK).mapColor(MapColor.COLOR_LIGHT_GREEN)), TERRAIN_ITEMS);
+    public static final DeferredBlock<NullGrassBlock> SCARLET_GRASS_BLOCK = reg("scarlet_grass_block",
+            () -> new NullGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK).mapColor(MapColor.COLOR_RED)), TERRAIN_ITEMS);
+
+    //NULLSLATE
+    public static final DeferredBlock<Block> NULLSLATE = reg("nullslate",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).mapColor(MapColor.COLOR_GRAY)), TERRAIN_ITEMS);
+    public static final DeferredBlock<Block> NULLSLATE_COBBLED = reg("nullslate_cobbled",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE).mapColor(MapColor.COLOR_GRAY)), TERRAIN_ITEMS);
+
+    public static final DeferredBlock<Block> NULLMARBLE = reg("nullmarble",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).mapColor(MapColor.QUARTZ)), TERRAIN_ITEMS);
+
+    //NULLMARBLE
+    public static final DeferredBlock<ColoredFallingBlock> PALESAND = reg("palesand",
+            () -> new ColoredFallingBlock(new ColorRGBA(0xE9E2CF), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).mapColor(MapColor.QUARTZ)), TERRAIN_ITEMS);
+    public static final DeferredBlock<Block> PALESANDSTONE = reg("palesandstone",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SANDSTONE).mapColor(MapColor.QUARTZ)), TERRAIN_ITEMS);
+
+    ////NATURAL BLOCKS
+    public static final DeferredBlock<HangingLeavesBlock> AZURE_LEAVES_HANGING = regNoItem("azure_leaves_hanging",
+            () -> new HangingLeavesBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                    .noCollission()
+                    .strength(0.2F)
+                    .sound(SoundType.GRASS)
+                    .noOcclusion()
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY)));
+    public static final DeferredItem<Item> AZURE_LEAVES_HANGING_ITEM = ModItems.ITEMS.register("azure_leaves_hanging",
+            () -> new BlockItem(AZURE_LEAVES_HANGING.get(), new Item.Properties()));
+
+    ////BUILDING BLOKCS
+        ///STONESETS
+            //NULLSLATE
+    public static final DeferredBlock<Block> NULLSLATE_BRICKS = reg("nullslate_bricks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_GRAY)), TERRAIN_ITEMS);
+    public static final DeferredBlock<Block> NULLSLATE_BRICKS_CRACKED = reg("nullslate_bricks_cracked",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CRACKED_STONE_BRICKS).mapColor(MapColor.COLOR_GRAY)), TERRAIN_ITEMS);
+    public static final DeferredBlock<Block> NULLSLATE_SMALL_BRICKS = reg("nullslate_small_bricks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_GRAY)), TERRAIN_ITEMS);
+    public static final DeferredBlock<Block> NULLSLATE_POLISHED = reg("nullslate_polished",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_ANDESITE).mapColor(MapColor.COLOR_GRAY)), TERRAIN_ITEMS);
+    public static final DeferredBlock<RotatedPillarBlock> NULLSLATE_PILLAR = reg("nullslate_pillar",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_GRAY)), TERRAIN_ITEMS);
+    public static final StoneVariants NULLSLATE_VARIANTS = variants("nullslate", NULLSLATE);
+    public static final StoneVariants NULLSLATE_BRICKS_VARIANTS = variants("nullslate_bricks", NULLSLATE_BRICKS);
+    public static final StoneVariants NULLSLATE_SMALL_BRICKS_VARIANTS = variants("nullslate_small_bricks", NULLSLATE_SMALL_BRICKS);
+            //NULLMARBLE
+    public static final DeferredBlock<Block> NULLMARBLE_BRICKS = reg("nullmarble_bricks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.QUARTZ)), TERRAIN_ITEMS);
+    public static final StoneVariants NULLMARBLE_VARIANTS = variants("nullmarble", NULLMARBLE);
+    public static final StoneVariants NULLMARBLE_BRICKS_VARIANTS = variants("nullmarble_bricks", NULLMARBLE_BRICKS);
+
+    ///WOODSETS
+    public static final ModWoodSet AZURE = ModWoodSet.create("azure",
+            MapColor.COLOR_LIGHT_BLUE, MapColor.COLOR_GRAY, ModWoodTypes.AZURE, ModTreeGrowers.AZURE);
+
+
+    ////LEVEL BLOCKS
     public static final DeferredBlock<FootstepBlock> TILE = BLOCKS.registerBlock("tile",
             props -> new FootstepBlock(props, ModBlockSounds.TILE),
             BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).strength(1.5F, 6.0F));
@@ -48,6 +161,8 @@ public final class ModBlocks {
                     .noCollission()
                     .noLootTable()
                     .lightLevel(LevelObjectBlock::lightFor));
+
+
 
     public static final DeferredItem<BlockItem> TILE_ITEM = BLOCK_ITEMS.registerSimpleBlockItem(TILE);
     public static final DeferredItem<BlockItem> TILE_SLAB_ITEM = BLOCK_ITEMS.registerSimpleBlockItem(TILE_SLAB);

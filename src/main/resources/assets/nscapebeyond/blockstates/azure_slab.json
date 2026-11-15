@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "nscapebeyond:block/azure_slab"
+    },
+    "type=top": {
+      "model": "nscapebeyond:block/azure_slab_top"
+    },
+    "type=double": {
+      "model": "nscapebeyond:block/azure_planks"
+    }
+  }
+}

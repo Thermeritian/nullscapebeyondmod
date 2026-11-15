@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "X X",
+    "###",
+    "###"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:chain"
+    },
+    "#": {
+      "item": "nscapebeyond:stripped_azure_log"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:azure_hanging_sign",
+    "count": 6
+  },
+  "group": "hanging_sign"
+}

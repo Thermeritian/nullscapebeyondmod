@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/door_bottom_right",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "top": "nscapebeyond:block/azure_door_top",
+    "bottom": "nscapebeyond:block/azure_door_bottom"
+  }
+}

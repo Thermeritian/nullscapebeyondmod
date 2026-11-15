@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "nullmarble_stairs",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:nullmarble"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:nullmarble_stairs",
+    "count": 4
+  }
+}

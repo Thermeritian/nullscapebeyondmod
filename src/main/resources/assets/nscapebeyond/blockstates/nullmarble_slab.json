@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "nscapebeyond:block/nullmarble_slab"
+    },
+    "type=top": {
+      "model": "nscapebeyond:block/nullmarble_slab_top"
+    },
+    "type=double": {
+      "model": "nscapebeyond:block/nullmarble"
+    }
+  }
+}

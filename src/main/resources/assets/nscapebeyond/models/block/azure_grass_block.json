@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "nscapebeyond:block/nullsoil",
+    "top": "nscapebeyond:block/azure_grass_block_top",
+    "side": "nscapebeyond:block/azure_grass_block_side"
+  }
+}

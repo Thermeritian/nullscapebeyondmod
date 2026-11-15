@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "nullslate_wall",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:nullslate"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:nullslate_wall",
+    "count": 6
+  }
+}

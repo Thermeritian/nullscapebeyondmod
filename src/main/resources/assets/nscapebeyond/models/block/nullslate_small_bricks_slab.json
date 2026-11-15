@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "nscapebeyond:block/nullslate_small_bricks",
+    "top": "nscapebeyond:block/nullslate_small_bricks",
+    "side": "nscapebeyond:block/nullslate_small_bricks"
+  }
+}

@@ -1,6 +1,7 @@
 package net.thmrite.nullscapebeyond;
 
 import net.minecraft.world.item.CreativeModeTabs;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.thmrite.nullscapebeyond.attribute.ClassAttributes;
 import net.thmrite.nullscapebeyond.attribute.ModAttributes;
 import net.thmrite.nullscapebeyond.registry.*;
@@ -32,14 +33,18 @@ public class NullscapeBeyond {
 
     public NullscapeBeyond(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
+        ModWoodTypes.init();
         modEventBus.addListener(this::commonSetup);
 
         NeoForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);
+        modEventBus.addListener(this::addSignBlocks);
 
         ModSounds.SOUNDS.register(modEventBus);
         ModBlockSounds.SOUND_EVENTS.register(modEventBus);
+        ModTreeDecorators.DECORATORS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
+        ModBoats.ENTITY_TYPES.register(modEventBus);
         ModBlocks.BLOCK_ITEMS.register(modEventBus);
         ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
@@ -54,8 +59,13 @@ public class NullscapeBeyond {
 
     }
 
+    private void addSignBlocks(BlockEntityTypeAddBlocksEvent event) {          // net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent
+        ModWoodSet.ALL.forEach(set -> set.addSignBlocks(event));
+    }
+
     private void commonSetup(FMLCommonSetupEvent event) {
         //event.enqueueWork(ColoredLights::registerVanillaDefaults);
+        event.enqueueWork(() -> ModWoodSet.ALL.forEach(ModWoodSet::registerFlammables));
     }
 
     // Add the example block item to the building blocks tab
@@ -74,6 +84,7 @@ public class NullscapeBeyond {
     static class ClientModEvents {
         @SubscribeEvent
         static void onClientSetup(FMLClientSetupEvent event) {
+            event.enqueueWork(() -> ModWoodTypes.ALL.forEach(net.minecraft.client.renderer.Sheets::addWoodType));
         }
     }
 }

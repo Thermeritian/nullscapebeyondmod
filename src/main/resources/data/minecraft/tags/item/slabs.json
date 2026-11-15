@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "nscapebeyond:nullslate_slab",
+    "nscapebeyond:nullslate_bricks_slab",
+    "nscapebeyond:nullslate_small_bricks_slab",
+    "nscapebeyond:nullmarble_slab",
+    "nscapebeyond:nullmarble_bricks_slab"
+  ]
+}

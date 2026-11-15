@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "nscapebeyond:azure_log",
+    "nscapebeyond:stripped_azure_log",
+    "nscapebeyond:azure_wood",
+    "nscapebeyond:stripped_azure_wood"
+  ]
+}

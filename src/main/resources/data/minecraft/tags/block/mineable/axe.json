@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "nscapebeyond:azure_log",
+    "nscapebeyond:stripped_azure_log",
+    "nscapebeyond:azure_wood",
+    "nscapebeyond:stripped_azure_wood",
+    "nscapebeyond:azure_planks",
+    "nscapebeyond:azure_stairs",
+    "nscapebeyond:azure_slab",
+    "nscapebeyond:azure_fence",
+    "nscapebeyond:azure_fence_gate",
+    "nscapebeyond:azure_door",
+    "nscapebeyond:azure_trapdoor",
+    "nscapebeyond:azure_button",
+    "nscapebeyond:azure_pressure_plate",
+    "nscapebeyond:azure_sign",
+    "nscapebeyond:azure_wall_sign",
+    "nscapebeyond:azure_hanging_sign",
+    "nscapebeyond:azure_wall_hanging_sign"
+  ]
+}

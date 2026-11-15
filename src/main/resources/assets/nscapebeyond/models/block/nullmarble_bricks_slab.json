@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "nscapebeyond:block/nullmarble_bricks",
+    "top": "nscapebeyond:block/nullmarble_bricks",
+    "side": "nscapebeyond:block/nullmarble_bricks"
+  }
+}

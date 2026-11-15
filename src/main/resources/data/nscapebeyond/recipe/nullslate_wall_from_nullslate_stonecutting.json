@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "nscapebeyond:nullslate"
+  },
+  "result": {
+    "id": "nscapebeyond:nullslate_wall",
+    "count": 1
+  }
+}

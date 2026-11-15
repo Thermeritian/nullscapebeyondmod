@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "nscapebeyond:block/palesandstone_top",
+    "top": "nscapebeyond:block/palesandstone_top",
+    "side": "nscapebeyond:block/palesandstone_side"
+  }
+}

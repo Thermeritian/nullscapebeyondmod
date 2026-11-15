@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "nscapebeyond:block/azure_planks",
+    "top": "nscapebeyond:block/azure_planks",
+    "side": "nscapebeyond:block/azure_planks"
+  }
+}

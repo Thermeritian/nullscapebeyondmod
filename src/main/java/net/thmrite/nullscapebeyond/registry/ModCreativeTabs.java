@@ -35,6 +35,24 @@ public class ModCreativeTabs {
                         output.accept(ModItems.GLIDER_KIT.get());
                     })
                     .build());
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TOOLS =
+            TABS.register("tools", () -> CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.nscapebeyond.tools"))
+                    .icon(() -> new ItemStack(ModItems.MART_BUCKET.get()))
+                    .displayItems((params, output) -> {
+                        output.accept(ModItems.MART_BUCKET.get());
+                        output.accept(ModBoats.AZURE.boatItem().get());
+                        output.accept(ModBoats.AZURE.chestBoatItem().get());
+                    })
+                    .build());
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> FOOD =
+            TABS.register("Food", () -> CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.nscapebeyond.food"))
+                    .icon(() -> new ItemStack(ModItems.NULLAPPLE.get()))
+                    .displayItems((params, output) -> {
+                        output.accept(ModItems.NULLAPPLE.get());
+                    })
+                    .build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> SPAWN_EGGS =
             TABS.register("spawn_eggs", () -> CreativeModeTab.builder()
@@ -51,6 +69,7 @@ public class ModCreativeTabs {
                     .title(Component.translatable("itemGroup.nscapebeyond.blocks"))
                     .icon(() -> new ItemStack(ModBlocks.TILE.get()))
                     .displayItems((params, output) -> {
+                        //level blocks
                         output.accept(ModBlocks.NULLSTONE.get());
                         output.accept(ModBlocks.NULLSTONE_SLAB.get());
                         output.accept(ModBlocks.NULLSTONE_STAIRS.get());
@@ -58,6 +77,10 @@ public class ModCreativeTabs {
                         output.accept(ModBlocks.TILE_SLAB.get());
                         output.accept(ModBlocks.TILE_STAIRS.get());
                         output.accept(ModBlocks.SPAWN.get());
+                        //terrain
+                        ModBlocks.AZURE.acceptItems(output::accept);
+                        output.accept(ModBlocks.AZURE_LEAVES_HANGING_ITEM.get());
+                        ModBlocks.TERRAIN_ITEMS.forEach(s -> output.accept(s.get()));
                     })
                     .build());
 }

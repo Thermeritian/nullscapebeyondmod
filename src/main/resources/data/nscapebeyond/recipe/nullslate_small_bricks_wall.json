@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "nullslate_small_bricks_wall",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:nullslate_small_bricks"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:nullslate_small_bricks_wall",
+    "count": 6
+  }
+}

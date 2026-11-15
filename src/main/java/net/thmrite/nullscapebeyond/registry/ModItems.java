@@ -1,5 +1,6 @@
 package net.thmrite.nullscapebeyond.registry;
 
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -18,10 +19,6 @@ public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(NullscapeBeyond.MODID);
 
     //accessories
-
-
-
-
     //class accessories
     public static final DeferredItem<ChargerBoots> CHARGER_BOOTS =
             ITEMS.register("charger_boots", () -> new ChargerBoots(new Item.Properties().stacksTo(1)));
@@ -35,8 +32,6 @@ public final class ModItems {
     public static List<ClassAccessory> classAccessories() {
         return List.of(CHARGER_BOOTS.get(), DIVER_HELMET.get(), WANTED_HAT.get(), GLIDER_KIT.get());
     }
-
-
     //normal accessories
     public static final DeferredItem<NormalAccessory> ORB =
             ITEMS.register("orb", () -> new NormalAccessory(new Item.Properties().stacksTo(1), "extra", "orb"));
@@ -47,31 +42,26 @@ public final class ModItems {
     public static final DeferredItem<NormalAccessory> PROPELLER_HAT =
             ITEMS.register("propeller_hat", () -> new NormalAccessory(new Item.Properties().stacksTo(1), "head", "propeller_hat"));
 
-
-
+    //add everything in here
     public static List<GeoAccessoryItem> geoAccessories() {
         return List.of(CHARGER_BOOTS.get(), DIVER_HELMET.get(), WANTED_HAT.get(), GLIDER_KIT.get(),
                 ORB.get(), SHARK_TAIL.get(), NINJA_BELT.get(), PROPELLER_HAT.get());
     }
 
 
-
-
-
-
-
     //items
+    //food
+    public static final DeferredItem<Item> NULLAPPLE = ITEMS.registerSimpleItem("nullapple",
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build()));
+    //tools
     public static final DeferredItem<MartBucketItem> MART_BUCKET =
             ITEMS.register("mart_bucket", () -> new MartBucketItem(new Item.Properties().stacksTo(1)));
-
     //spawn eggs
     public static final DeferredItem<DeferredSpawnEggItem> MART_SPAWN_EGG =
             ITEMS.register("mart_spawn_egg", () -> new DeferredSpawnEggItem(
                     ModEntities.MART, 0x3A7BD5, 0x9BE3FF, new Item.Properties()));
     public static final DeferredItem<Item> INFESTOR_SPAWN_EGG = ITEMS.register("infestor_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.INFESTOR, 0x1B1033, 0xD9C2FF, new Item.Properties()));
-
-
 
 
     private ModItems() {}
