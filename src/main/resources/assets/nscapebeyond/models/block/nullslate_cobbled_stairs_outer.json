@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "nscapebeyond:block/nullslate_cobbled",
+    "top": "nscapebeyond:block/nullslate_cobbled",
+    "side": "nscapebeyond:block/nullslate_cobbled"
+  }
+}

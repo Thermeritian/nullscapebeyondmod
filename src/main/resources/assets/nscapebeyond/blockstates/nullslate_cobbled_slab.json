@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "nscapebeyond:block/nullslate_cobbled_slab"
+    },
+    "type=top": {
+      "model": "nscapebeyond:block/nullslate_cobbled_slab_top"
+    },
+    "type=double": {
+      "model": "nscapebeyond:block/nullslate_cobbled"
+    }
+  }
+}

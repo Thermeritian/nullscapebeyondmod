@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "nscapebeyond:nullslate_stairs",
+    "nscapebeyond:nullslate_cobbled_stairs",
     "nscapebeyond:nullslate_bricks_stairs",
     "nscapebeyond:nullslate_small_bricks_stairs",
     "nscapebeyond:nullmarble_stairs",

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "nullslate_cobbled_stairs",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:nullslate_cobbled"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:nullslate_cobbled_stairs",
+    "count": 4
+  }
+}

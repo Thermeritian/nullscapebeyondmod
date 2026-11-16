@@ -63,6 +63,9 @@
   "block.nscapebeyond.nullmarble_bricks_stairs": "Nullmarble Bricks Stairs",
   "block.nscapebeyond.nullmarble_bricks_slab": "Nullmarble Bricks Slab",
   "block.nscapebeyond.nullmarble_bricks_wall": "Nullmarble Bricks Wall",
+  "block.nscapebeyond.nullslate_cobbled_stairs": "Cobbled Nullslate Stairs",
+  "block.nscapebeyond.nullslate_cobbled_slab": "Cobbled Nullslate Slab",
+  "block.nscapebeyond.nullslate_cobbled_wall": "Cobbled Nullslate Wall",
 
   "block.nscapebeyond.azure_log": "Azure Log",
   "item.nscapebeyond.azure_log": "Azure Log",

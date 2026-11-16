@@ -115,7 +115,8 @@ public final class ModBlocks {
     public static final StoneVariants NULLSLATE_VARIANTS = variants("nullslate", NULLSLATE);
     public static final StoneVariants NULLSLATE_BRICKS_VARIANTS = variants("nullslate_bricks", NULLSLATE_BRICKS);
     public static final StoneVariants NULLSLATE_SMALL_BRICKS_VARIANTS = variants("nullslate_small_bricks", NULLSLATE_SMALL_BRICKS);
-            //NULLMARBLE
+    public static final StoneVariants NULLSLATE_COBBLED_VARIANTS = variants("nullslate_cobbled", NULLSLATE_COBBLED);
+        //NULLMARBLE
     public static final DeferredBlock<Block> NULLMARBLE_BRICKS = reg("nullmarble_bricks",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.QUARTZ)), TERRAIN_ITEMS);
     public static final StoneVariants NULLMARBLE_VARIANTS = variants("nullmarble", NULLMARBLE);

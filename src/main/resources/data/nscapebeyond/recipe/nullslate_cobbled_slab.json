@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "nullslate_cobbled_slab",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:nullslate_cobbled"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:nullslate_cobbled_slab",
+    "count": 6
+  }
+}
