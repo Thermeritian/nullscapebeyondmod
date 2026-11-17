@@ -67,6 +67,7 @@ public class NullscapeBeyond {
     private void commonSetup(FMLCommonSetupEvent event) {
         //event.enqueueWork(ColoredLights::registerVanillaDefaults);
         event.enqueueWork(() -> ModWoodSet.ALL.forEach(ModWoodSet::registerFlammables));
+
     }
 
     // Add the example block item to the building blocks tab

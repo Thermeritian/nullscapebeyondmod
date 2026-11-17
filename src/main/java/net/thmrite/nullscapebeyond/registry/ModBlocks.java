@@ -57,12 +57,13 @@ public final class ModBlocks {
         return BLOCKS.register(name, block);
     }
 
+    //Flora Helper
     public static final List<Supplier<? extends ItemLike>> FLORA_ITEMS = new ArrayList<>();
-
     private static BlockBehaviour.Properties plant(MapColor color) {
         return BlockBehaviour.Properties.of().mapColor(color).noCollission().instabreak()
                 .sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY);
     }
+
 
 
 
@@ -84,11 +85,10 @@ public final class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).mapColor(MapColor.COLOR_GRAY)), TERRAIN_ITEMS);
     public static final DeferredBlock<Block> NULLSLATE_COBBLED = reg("nullslate_cobbled",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE).mapColor(MapColor.COLOR_GRAY)), TERRAIN_ITEMS);
-
+    //NULLMARBLE
     public static final DeferredBlock<Block> NULLMARBLE = reg("nullmarble",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).mapColor(MapColor.QUARTZ)), TERRAIN_ITEMS);
-
-    //NULLMARBLE
+    //PALESAND
     public static final DeferredBlock<ColoredFallingBlock> PALESAND = reg("palesand",
             () -> new ColoredFallingBlock(new ColorRGBA(0xE9E2CF), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).mapColor(MapColor.QUARTZ)), TERRAIN_ITEMS);
     public static final DeferredBlock<Block> PALESANDSTONE = reg("palesandstone",
