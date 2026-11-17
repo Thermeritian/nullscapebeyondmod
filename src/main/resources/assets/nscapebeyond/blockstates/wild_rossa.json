@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0,half=lower": {
+      "model": "nscapebeyond:block/wild_rossa_young"
+    },
+    "age=0,half=upper": {
+      "model": "nscapebeyond:block/wild_rossa_young"
+    },
+    "age=1,half=lower": {
+      "model": "nscapebeyond:block/wild_rossa_mature_bottom"
+    },
+    "age=1,half=upper": {
+      "model": "nscapebeyond:block/wild_rossa_mature_top"
+    }
+  }
+}

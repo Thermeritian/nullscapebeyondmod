@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "nscapebeyond:block/cobalt_mushroom_stem_top",
+    "side": "nscapebeyond:block/cobalt_mushroom_stem"
+  }
+}

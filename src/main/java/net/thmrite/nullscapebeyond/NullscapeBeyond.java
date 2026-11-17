@@ -53,6 +53,7 @@ public class NullscapeBeyond {
         ModEffects.EFFECTS.register(modEventBus);
         ModParticles.PARTICLES.register(modEventBus);
         ModCreativeTabs.TABS.register(modEventBus);
+        ModFeatures.FEATURES.register(modEventBus);
 
         ClassAttributes.ATTRIBUTES.register(modEventBus);
         ModAttributes.register(modEventBus);

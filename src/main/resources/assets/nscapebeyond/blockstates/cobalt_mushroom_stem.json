@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "nscapebeyond:block/cobalt_mushroom_stem"
+    },
+    "axis=z": {
+      "model": "nscapebeyond:block/cobalt_mushroom_stem_horizontal",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "nscapebeyond:block/cobalt_mushroom_stem_horizontal",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

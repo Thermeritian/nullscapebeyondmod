@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nscapebeyond:azure_cerulianites"
+    }
+  ],
+  "result": {
+    "id": "minecraft:cyan_dye",
+    "count": 1
+  },
+  "group": "cyan_dye"
+}

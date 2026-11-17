@@ -57,6 +57,14 @@ public final class ModBlocks {
         return BLOCKS.register(name, block);
     }
 
+    public static final List<Supplier<? extends ItemLike>> FLORA_ITEMS = new ArrayList<>();
+
+    private static BlockBehaviour.Properties plant(MapColor color) {
+        return BlockBehaviour.Properties.of().mapColor(color).noCollission().instabreak()
+                .sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY);
+    }
+
+
 
     /////////BLOCKS
     ////TERRAIN
@@ -98,6 +106,27 @@ public final class ModBlocks {
                     .pushReaction(PushReaction.DESTROY)));
     public static final DeferredItem<Item> AZURE_LEAVES_HANGING_ITEM = ModItems.ITEMS.register("azure_leaves_hanging",
             () -> new BlockItem(AZURE_LEAVES_HANGING.get(), new Item.Properties()));
+    public static final DeferredBlock<MushroomBlock> COBALT_MUSHROOM = reg("cobalt_mushroom",
+            () -> new MushroomBlock(ModFeatures.COBALT_MUSHROOM_HUGE,
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).mapColor(MapColor.COLOR_BLUE)), FLORA_ITEMS);
+    public static final DeferredBlock<Block> COBALT_MUSHROOM_BLOCK = reg("cobalt_mushroom_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK).mapColor(MapColor.COLOR_BLUE)), FLORA_ITEMS);
+    public static final DeferredBlock<RotatedPillarBlock> COBALT_MUSHROOM_STEM = reg("cobalt_mushroom_stem",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUSHROOM_STEM).mapColor(MapColor.COLOR_LIGHT_BLUE)), FLORA_ITEMS);
+    public static final DeferredBlock<HangingRootsBlock> COBALT_MUSHROOM_HANGING_ROOTS = reg("cobalt_mushroom_hanging_roots",
+            () -> new HangingRootsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.HANGING_ROOTS).mapColor(MapColor.COLOR_LIGHT_BLUE)), FLORA_ITEMS);
+    public static final DeferredBlock<NullPlantBlock> AZURE_GRASS = reg("azure_grass",
+            () -> new NullPlantBlock(plant(MapColor.COLOR_LIGHT_BLUE).replaceable()), FLORA_ITEMS);
+    public static final DeferredBlock<NullPlantBlock> AZURE_CERULIANITES = reg("azure_cerulianites",
+            () -> new NullPlantBlock(plant(MapColor.COLOR_CYAN)), FLORA_ITEMS);
+    public static final DeferredBlock<NullPlantBlock> IVORY_FIDDLEHEAD = reg("ivory_fiddlehead",
+            () -> new NullPlantBlock(plant(MapColor.SNOW)), FLORA_ITEMS);
+    public static final DeferredBlock<PinkPetalsBlock> CELESTINE_FLOWERS = reg("celestine_flowers",
+            () -> new PinkPetalsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS).mapColor(MapColor.COLOR_PURPLE)), FLORA_ITEMS);
+        ///CROPS
+        public static final DeferredBlock<WildRossaBlock> WILD_ROSSA = reg("wild_rossa",
+                () -> new WildRossaBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).noCollission()
+                        .randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)), FLORA_ITEMS);
 
     ////BUILDING BLOKCS
         ///STONESETS

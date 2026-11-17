@@ -1,0 +1,22 @@
+{
+  "values": {
+    "nscapebeyond:cobalt_mushroom": {
+      "chance": 0.65
+    },
+    "nscapebeyond:azure_grass": {
+      "chance": 0.3
+    },
+    "nscapebeyond:azure_cerulianites": {
+      "chance": 0.65
+    },
+    "nscapebeyond:ivory_fiddlehead": {
+      "chance": 0.65
+    },
+    "nscapebeyond:celestine_flowers": {
+      "chance": 0.65
+    },
+    "nscapebeyond:rossa_kale": {
+      "chance": 0.65
+    }
+  }
+}

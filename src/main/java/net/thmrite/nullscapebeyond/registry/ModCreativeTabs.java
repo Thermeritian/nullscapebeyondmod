@@ -51,6 +51,7 @@ public class ModCreativeTabs {
                     .icon(() -> new ItemStack(ModItems.NULLAPPLE.get()))
                     .displayItems((params, output) -> {
                         output.accept(ModItems.NULLAPPLE.get());
+                        output.accept(ModItems.ROSSA_KALE.get());
                     })
                     .build());
 
@@ -81,6 +82,7 @@ public class ModCreativeTabs {
                         ModBlocks.AZURE.acceptItems(output::accept);
                         output.accept(ModBlocks.AZURE_LEAVES_HANGING_ITEM.get());
                         ModBlocks.TERRAIN_ITEMS.forEach(s -> output.accept(s.get()));
+                        ModBlocks.FLORA_ITEMS.forEach(s -> output.accept(s.get()));
                     })
                     .build());
 }

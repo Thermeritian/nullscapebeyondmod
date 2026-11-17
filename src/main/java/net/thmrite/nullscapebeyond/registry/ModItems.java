@@ -53,6 +53,9 @@ public final class ModItems {
     //food
     public static final DeferredItem<Item> NULLAPPLE = ITEMS.registerSimpleItem("nullapple",
             new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build()));
+    public static final DeferredItem<Item> ROSSA_KALE = ITEMS.registerSimpleItem("rossa_kale",
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.3F).build()));
+
     //tools
     public static final DeferredItem<MartBucketItem> MART_BUCKET =
             ITEMS.register("mart_bucket", () -> new MartBucketItem(new Item.Properties().stacksTo(1)));

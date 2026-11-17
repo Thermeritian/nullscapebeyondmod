@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:baked_potato"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "item": "minecraft:cooked_rabbit"
+    },
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "nscapebeyond:cobalt_mushroom"
+    }
+  ],
+  "result": {
+    "id": "minecraft:rabbit_stew",
+    "count": 1
+  },
+  "group": "rabbit_stew"
+}

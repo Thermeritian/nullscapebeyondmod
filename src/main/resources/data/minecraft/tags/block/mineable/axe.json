@@ -17,6 +17,8 @@
     "nscapebeyond:azure_sign",
     "nscapebeyond:azure_wall_sign",
     "nscapebeyond:azure_hanging_sign",
-    "nscapebeyond:azure_wall_hanging_sign"
+    "nscapebeyond:azure_wall_hanging_sign",
+    "nscapebeyond:cobalt_mushroom_block",
+    "nscapebeyond:cobalt_mushroom_stem"
   ]
 }

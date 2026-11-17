@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nscapebeyond:celestine_flowers"
+    }
+  ],
+  "result": {
+    "id": "minecraft:purple_dye",
+    "count": 1
+  },
+  "group": "purple_dye"
+}
