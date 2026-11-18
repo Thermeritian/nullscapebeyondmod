@@ -13,6 +13,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.block.*;
+import net.minecraft.world.level.block.CarpetBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public final class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(NullscapeBeyond.MODID);
     public static final DeferredRegister.Items BLOCK_ITEMS = DeferredRegister.createItems(NullscapeBeyond.MODID);
 
-    //HELPERS
+    ////////////HELPERS
 
     public static <T extends Block> DeferredBlock<T> reg(String name, Supplier<T> block, Function<T, Item> item,
                                                          List<Supplier<? extends ItemLike>> tab) {
@@ -34,9 +35,12 @@ public final class ModBlocks {
         }
         return registered;
     }
+    public static <T extends Block> DeferredBlock<T> regNoItem(String name, Supplier<T> block) {
+        return BLOCKS.register(name, block);
+    }
 
+    //Stone Derivatives Helper
     public record StoneVariants(DeferredBlock<StairBlock> stairs, DeferredBlock<SlabBlock> slab, DeferredBlock<WallBlock> wall) {}
-
     private static StoneVariants variants(String name, Supplier<? extends Block> base) {
         DeferredBlock<StairBlock> stairs = reg(name + "_stairs",
                 () -> new StairBlock(base.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(base.get())), TERRAIN_ITEMS);
@@ -47,14 +51,10 @@ public final class ModBlocks {
         return new StoneVariants(stairs, slab, wall);
     }
 
+    //Terrain Blocks Helper
     public static final List<Supplier<? extends ItemLike>> TERRAIN_ITEMS = new ArrayList<>();
-
     public static <T extends Block> DeferredBlock<T> reg(String name, Supplier<T> block, List<Supplier<? extends ItemLike>> tab) {
         return reg(name, block, b -> new BlockItem(b, new Item.Properties()), tab);
-    }
-
-    public static <T extends Block> DeferredBlock<T> regNoItem(String name, Supplier<T> block) {
-        return BLOCKS.register(name, block);
     }
 
     //Flora Helper
@@ -64,10 +64,30 @@ public final class ModBlocks {
                 .sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY);
     }
 
-
-
+    //Flower Pot Helper
+    private static DeferredBlock<FlowerPotBlock> potted(String plantName, Supplier<? extends Block> plant) {
+        return regNoItem("potted_" + plantName,
+                () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, plant,
+                        BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_FERN)));
+    }
+    public static void registerPottedPlants() {
+        FlowerPotBlock pot = (FlowerPotBlock) Blocks.FLOWER_POT;
+        pot.addPlant(IVORY_FIDDLEHEAD.getId(), POTTED_IVORY_FIDDLEHEAD);
+        pot.addPlant(AZURE_CERULIANITES.getId(), POTTED_AZURE_CERULIANITES);
+        pot.addPlant(COBALT_MUSHROOM.getId(), POTTED_COBALT_MUSHROOM);
+        pot.addPlant(AZURE.sapling.getId(), POTTED_AZURE_SAPLING);
+        pot.addPlant(VIRIDIAN.sapling.getId(), POTTED_VIRIDIAN_SAPLING);
+    }
 
     /////////BLOCKS
+
+    ////WOODSETS
+    public static final ModWoodSet AZURE = ModWoodSet.create("azure",
+            MapColor.COLOR_LIGHT_BLUE, MapColor.COLOR_GRAY, ModWoodTypes.AZURE, ModTreeGrowers.AZURE);
+    public static final ModWoodSet VIRIDIAN = ModWoodSet.create("viridian",
+            MapColor.COLOR_LIGHT_GREEN, MapColor.COLOR_GRAY, ModWoodTypes.VIRIDIAN, ModTreeGrowers.VIRIDIAN);
+
+
     ////TERRAIN
     public static final DeferredBlock<Block> NULLSOIL = reg("nullsoil",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT).mapColor(MapColor.TERRACOTTA_BROWN)), TERRAIN_ITEMS);
@@ -123,10 +143,23 @@ public final class ModBlocks {
             () -> new NullPlantBlock(plant(MapColor.SNOW)), FLORA_ITEMS);
     public static final DeferredBlock<PinkPetalsBlock> CELESTINE_FLOWERS = reg("celestine_flowers",
             () -> new PinkPetalsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS).mapColor(MapColor.COLOR_PURPLE)), FLORA_ITEMS);
-        ///CROPS
+
+    public static final DeferredBlock<ViridianLeavesResinBlock> VIRIDIAN_LEAVES_RESIN = reg("viridian_leaves_resin",
+            () -> new ViridianLeavesResinBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)), FLORA_ITEMS);
+    public static final DeferredBlock<ViridianResinHangingBlock> VIRIDIAN_RESIN_HANGING = reg("viridian_resin_hanging",
+            () -> new ViridianResinHangingBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).noCollission()
+                    .strength(0.3F).sound(SoundType.HONEY_BLOCK).noOcclusion().randomTicks().pushReaction(PushReaction.DESTROY)), FLORA_ITEMS);
+    public static final DeferredBlock<CarpetBlock> VIRIDIAN_RESIN_DROPLETS = reg("viridian_resin_droplets",
+            () -> new CarpetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).noCollission().instabreak()
+                    .sound(SoundType.HONEY_BLOCK).noOcclusion().pushReaction(PushReaction.DESTROY)), FLORA_ITEMS);
+
+    ///CROPS
         public static final DeferredBlock<WildRossaBlock> WILD_ROSSA = reg("wild_rossa",
                 () -> new WildRossaBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).noCollission()
-                        .randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)), FLORA_ITEMS);
+                        .randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)), FLORA_ITEMS
+        );
+
+
 
     ////BUILDING BLOKCS
         ///STONESETS
@@ -151,10 +184,12 @@ public final class ModBlocks {
     public static final StoneVariants NULLMARBLE_VARIANTS = variants("nullmarble", NULLMARBLE);
     public static final StoneVariants NULLMARBLE_BRICKS_VARIANTS = variants("nullmarble_bricks", NULLMARBLE_BRICKS);
 
-    ///WOODSETS
-    public static final ModWoodSet AZURE = ModWoodSet.create("azure",
-            MapColor.COLOR_LIGHT_BLUE, MapColor.COLOR_GRAY, ModWoodTypes.AZURE, ModTreeGrowers.AZURE);
-
+    ///POTTED FLORA
+    public static final DeferredBlock<FlowerPotBlock> POTTED_IVORY_FIDDLEHEAD = potted("ivory_fiddlehead", IVORY_FIDDLEHEAD);
+    public static final DeferredBlock<FlowerPotBlock> POTTED_AZURE_CERULIANITES = potted("azure_cerulianites", AZURE_CERULIANITES);
+    public static final DeferredBlock<FlowerPotBlock> POTTED_COBALT_MUSHROOM = potted("cobalt_mushroom", COBALT_MUSHROOM);
+    public static final DeferredBlock<FlowerPotBlock> POTTED_AZURE_SAPLING = potted("azure_sapling", AZURE.sapling);
+    public static final DeferredBlock<FlowerPotBlock> POTTED_VIRIDIAN_SAPLING = potted("viridian_sapling", VIRIDIAN.sapling);
 
     ////LEVEL BLOCKS
     public static final DeferredBlock<FootstepBlock> TILE = BLOCKS.registerBlock("tile",

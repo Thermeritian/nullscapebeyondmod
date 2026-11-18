@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:viridian_wall_sign",
     "nscapebeyond:azure_wall_sign"
   ]
 }

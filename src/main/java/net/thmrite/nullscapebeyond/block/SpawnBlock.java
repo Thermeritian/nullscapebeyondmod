@@ -43,10 +43,6 @@ public class SpawnBlock extends FootstepBlock {
         }
     }
 
-    /**
-     * Any Spawn block whose group could have been affected by a change at {@code center}
-     * is at most 3 blocks away on the same Y level, so we re-evaluate that 7x7 area.
-     */
     private static void refreshAround(Level level, BlockPos center) {
         for (int dx = -3; dx <= 3; dx++) {
             for (int dz = -3; dz <= 3; dz++) {
@@ -62,7 +58,7 @@ public class SpawnBlock extends FootstepBlock {
         }
     }
 
-    /** The symbol forms only if this block's connected group is exactly a filled 3x3 square. */
+    // The simbol should be form in a 3x3 area
     private static Pattern computePattern(LevelAccessor level, BlockPos origin) {
         Set<BlockPos> group = new HashSet<>();
         ArrayDeque<BlockPos> queue = new ArrayDeque<>();
@@ -75,7 +71,7 @@ public class SpawnBlock extends FootstepBlock {
                 BlockPos next = current.relative(dir);
                 if (!group.contains(next) && level.getBlockState(next).getBlock() instanceof SpawnBlock) {
                     if (group.size() >= 9) {
-                        return Pattern.DEFAULT; // already 9 blocks plus another one: too big
+                        return Pattern.DEFAULT;
                     }
                     group.add(next);
                     queue.add(next);
@@ -95,13 +91,12 @@ public class SpawnBlock extends FootstepBlock {
             maxZ = Math.max(maxZ, p.getZ());
         }
         if (maxX - minX != 2 || maxZ - minZ != 2) {
-            return Pattern.DEFAULT; // 9 blocks but not a square (e.g. a 9x1 line)
+            return Pattern.DEFAULT;
         }
-        // Row = north -> south, column = west -> east (matches how a top face is textured).
         return Pattern.of(origin.getZ() - minZ, origin.getX() - minX);
     }
 
-    //3x3 matrix for the spawn block
+    //3x3 matrix
     public enum Pattern implements StringRepresentable {
         DEFAULT("default"),
         C00("00"), C01("01"), C02("02"),

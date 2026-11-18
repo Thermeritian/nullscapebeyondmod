@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:viridian_stairs",
     "nscapebeyond:azure_stairs"
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "nscapebeyond:block/viridian_slab"
+    },
+    "type=top": {
+      "model": "nscapebeyond:block/viridian_slab_top"
+    },
+    "type=double": {
+      "model": "nscapebeyond:block/viridian_planks"
+    }
+  }
+}

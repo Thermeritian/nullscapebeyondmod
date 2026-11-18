@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:chest"
+    },
+    {
+      "item": "nscapebeyond:viridian_boat"
+    }
+  ],
+  "result": {
+    "id": "nscapebeyond:viridian_chest_boat",
+    "count": 1
+  },
+  "group": "chest_boat"
+}

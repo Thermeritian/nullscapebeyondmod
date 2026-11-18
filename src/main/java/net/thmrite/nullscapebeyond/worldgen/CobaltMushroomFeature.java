@@ -11,10 +11,6 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.thmrite.nullscapebeyond.registry.ModBlocks;
 
-/**
- * Tree-like cobalt mushroom: a 1-wide stem (4-6 blocks), a 5x5 cap (corners cut) with a 3x3 layer on top,
- * and small hanging roots under the cap. Used when a cobalt_mushroom grows (bone meal / random growth).
- */
 public class CobaltMushroomFeature extends Feature<NoneFeatureConfiguration> {
     public CobaltMushroomFeature() {
         super(NoneFeatureConfiguration.CODEC);
@@ -62,7 +58,6 @@ public class CobaltMushroomFeature extends Feature<NoneFeatureConfiguration> {
                 if (Math.abs(dx) <= 1 && Math.abs(dz) <= 1) {
                     setBlock(level, capPos.above(), cap);
                 }
-                // small roots hanging under the cap (not where the stem is)
                 if ((dx != 0 || dz != 0) && random.nextFloat() < 0.3F) {
                     BlockPos below = capPos.below();
                     if (level.getBlockState(below).isAir()) {

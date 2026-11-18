@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:viridian_planks"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:viridian_slab",
+    "count": 6
+  },
+  "group": "wooden_slab"
+}

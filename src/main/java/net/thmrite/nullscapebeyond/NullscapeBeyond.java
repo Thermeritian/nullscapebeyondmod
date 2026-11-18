@@ -37,7 +37,6 @@ public class NullscapeBeyond {
         modEventBus.addListener(this::commonSetup);
 
         NeoForge.EVENT_BUS.register(this);
-        modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::addSignBlocks);
 
         ModSounds.SOUNDS.register(modEventBus);
@@ -67,11 +66,7 @@ public class NullscapeBeyond {
     private void commonSetup(FMLCommonSetupEvent event) {
         //event.enqueueWork(ColoredLights::registerVanillaDefaults);
         event.enqueueWork(() -> ModWoodSet.ALL.forEach(ModWoodSet::registerFlammables));
-
-    }
-
-    // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        event.enqueueWork(ModBlocks::registerPottedPlants);
 
     }
 

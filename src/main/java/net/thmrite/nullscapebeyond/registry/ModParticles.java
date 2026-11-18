@@ -13,6 +13,8 @@ public final class ModParticles {
 
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> MART_DROP =
             PARTICLES.register("mart_drop", () -> new SimpleParticleType(false));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> VIRIDIAN_RESIN_DRIP =
+            PARTICLES.register("viridian_resin_drip", () -> new SimpleParticleType(false));
 
     private ModParticles() {}
 }

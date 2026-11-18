@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "nscapebeyond:blocks/viridian_door",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "nscapebeyond:viridian_door",
+          "properties": {
+            "half": "lower"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "nscapebeyond:viridian_door"
+        }
+      ]
+    }
+  ]
+}

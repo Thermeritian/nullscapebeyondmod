@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:viridian_fence_gate",
     "nscapebeyond:azure_fence_gate"
   ]
 }

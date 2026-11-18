@@ -1,7 +1,9 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:viridian_leaves",
     "nscapebeyond:azure_leaves",
-    "nscapebeyond:azure_leaves_hanging"
+    "nscapebeyond:azure_leaves_hanging",
+    "nscapebeyond:viridian_leaves_resin"
   ]
 }

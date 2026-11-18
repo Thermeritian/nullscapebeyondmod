@@ -28,6 +28,8 @@ public final class ModBoats {
     }
 
     public static final BoatSet AZURE = register("azure");
+    public static final BoatSet VIRIDIAN = register("viridian");
+
 
     private static BoatSet register(String name) {
         DeferredHolder<EntityType<?>, EntityType<ModBoat>> boat = ENTITY_TYPES.register(name + "_boat",

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:viridian_planks"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:viridian_boat",
+    "count": 1
+  },
+  "group": "boat"
+}

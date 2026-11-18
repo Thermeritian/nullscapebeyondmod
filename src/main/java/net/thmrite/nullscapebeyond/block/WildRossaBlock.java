@@ -30,12 +30,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.thmrite.nullscapebeyond.registry.ModItems;
 
-/**
- * Two-stage crop.
- * age 0: single "young" block (half = lower).
- * age 1: two-block "mature" plant (lower + upper). Right-clicking the UPPER block harvests rossa_kale and the
- * plant goes back to young. Breaking the upper block also sends it back to young (the loot table gives the kale).
- */
+
 public class WildRossaBlock extends BushBlock {
     public static final MapCodec<WildRossaBlock> CODEC = simpleCodec(WildRossaBlock::new);
     public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 1);
@@ -80,7 +75,6 @@ public class WildRossaBlock extends BushBlock {
         if (!state.canSurvive(level, pos)) {
             return Blocks.AIR.defaultBlockState();
         }
-        // mature lower block lost its upper half (harvested / broken): back to young
         if (dir == Direction.UP && state.getValue(AGE) == 1
                 && !(neighbor.is(this) && neighbor.getValue(HALF) == DoubleBlockHalf.UPPER)) {
             return state.setValue(AGE, 0);
@@ -102,7 +96,6 @@ public class WildRossaBlock extends BushBlock {
         level.setBlock(above, state.setValue(AGE, 1).setValue(HALF, DoubleBlockHalf.UPPER), 3);
     }
 
-    /** Right-click the top block to harvest. */
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (state.getValue(AGE) != 1 || state.getValue(HALF) != DoubleBlockHalf.UPPER) {

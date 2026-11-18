@@ -50,6 +50,9 @@ public final class ModItems {
 
 
     //items
+    //materials
+    public static final DeferredItem<Item> VIRIDIAN_RESIN = ITEMS.registerSimpleItem("viridian_resin");
+
     //food
     public static final DeferredItem<Item> NULLAPPLE = ITEMS.registerSimpleItem("nullapple",
             new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build()));

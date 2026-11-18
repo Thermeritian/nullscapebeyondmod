@@ -11,6 +11,8 @@ public final class ModWoodTypes {
     public static final List<WoodType> ALL = new ArrayList<>();
 
     public static final WoodType AZURE = register("azure");
+    public static final WoodType VIRIDIAN = register("viridian");
+
 
     private static WoodType register(String name) {
         String id = NullscapeBeyond.MODID + ":" + name;

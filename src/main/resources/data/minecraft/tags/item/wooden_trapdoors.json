@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:viridian_trapdoor",
     "nscapebeyond:azure_trapdoor"
   ]
 }

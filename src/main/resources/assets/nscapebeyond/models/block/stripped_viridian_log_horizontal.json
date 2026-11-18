@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "nscapebeyond:block/viridian_log_top_stripped",
+    "side": "nscapebeyond:block/viridian_log_side_stripped"
+  }
+}

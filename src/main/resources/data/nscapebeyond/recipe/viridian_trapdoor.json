@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:viridian_planks"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:viridian_trapdoor",
+    "count": 2
+  },
+  "group": "wooden_trapdoor"
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "tag": "nscapebeyond:viridian_logs"
+    }
+  ],
+  "result": {
+    "id": "nscapebeyond:viridian_planks",
+    "count": 4
+  },
+  "group": "planks"
+}

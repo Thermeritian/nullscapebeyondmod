@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "part=top,ripe=true": {
+      "model": "nscapebeyond:block/viridian_resin_hanging_top"
+    },
+    "part=top,ripe=false": {
+      "model": "nscapebeyond:block/viridian_resin_hanging_top"
+    },
+    "part=middle,ripe=true": {
+      "model": "nscapebeyond:block/viridian_resin_hanging_middle"
+    },
+    "part=middle,ripe=false": {
+      "model": "nscapebeyond:block/viridian_resin_hanging_middle"
+    },
+    "part=bottom,ripe=true": {
+      "model": "nscapebeyond:block/viridian_resin_hanging_bottom"
+    },
+    "part=bottom,ripe=false": {
+      "model": "nscapebeyond:block/viridian_resin_hanging_bottom"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:viridian_pressure_plate",
     "nscapebeyond:azure_pressure_plate"
   ]
 }

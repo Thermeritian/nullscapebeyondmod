@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "nscapebeyond:block/stripped_viridian_wood"
+    },
+    "axis=z": {
+      "model": "nscapebeyond:block/stripped_viridian_wood_horizontal",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "nscapebeyond:block/stripped_viridian_wood_horizontal",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

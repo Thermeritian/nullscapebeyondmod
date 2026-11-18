@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:viridian_slab",
     "nscapebeyond:azure_slab"
   ]
 }

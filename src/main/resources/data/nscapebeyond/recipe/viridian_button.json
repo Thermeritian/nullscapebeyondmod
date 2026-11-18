@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "nscapebeyond:viridian_planks"
+    }
+  ],
+  "result": {
+    "id": "nscapebeyond:viridian_button",
+    "count": 1
+  },
+  "group": "wooden_button"
+}

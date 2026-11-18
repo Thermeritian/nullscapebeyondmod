@@ -11,8 +11,10 @@ import net.thmrite.nullscapebeyond.NullscapeBeyond;
 
 public final class ModTreeGrowers {
     public static final ResourceKey<ConfiguredFeature<?, ?>> AZURE_TREE_FEATURE = featureKey("azure_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> VIRIDIAN_TREE_FEATURE = featureKey("viridian_tree");
 
     public static final TreeGrower AZURE = new TreeGrower("azure", Optional.empty(), Optional.of(AZURE_TREE_FEATURE), Optional.empty());
+    public static final TreeGrower VIRIDIAN = new TreeGrower("viridian", Optional.empty(), Optional.of(VIRIDIAN_TREE_FEATURE), Optional.empty());
 
     private static ResourceKey<ConfiguredFeature<?, ?>> featureKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(NullscapeBeyond.MODID, name));

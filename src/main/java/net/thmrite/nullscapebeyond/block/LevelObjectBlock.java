@@ -37,8 +37,8 @@ public class LevelObjectBlock extends Block implements EntityBlock {
     public static final EnumProperty<Mode> MODE = EnumProperty.create("mode", Mode.class);
     public static final BooleanProperty COLLECTED = BooleanProperty.create("collected");
 
-    public static final int ARM_TICKS = 30;                  // 1.5 s
-    public static final int EXPLOSION_TICKS = 16;            // 16 frames, 1 tick each
+    public static final int ARM_TICKS = 30;
+    public static final int EXPLOSION_TICKS = 16;
     public static final double EXPLOSION_RADIUS = 4.0D;
     public static final float EXPLOSION_DAMAGE = 50.0F;
     public static final boolean EXPLOSION_COLLECTS_GOLDEN = true;
@@ -57,8 +57,6 @@ public class LevelObjectBlock extends Block implements EntityBlock {
         builder.add(MODE, COLLECTED);
     }
 
-    // ---- shape / rendering ----
-
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext ctx) {
         return state.getValue(MODE).shape;
@@ -71,7 +69,7 @@ public class LevelObjectBlock extends Block implements EntityBlock {
 
     @Override
     protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.INVISIBLE; // drawn by the block entity renderer
+        return RenderShape.INVISIBLE;
     }
 
     @Nullable
@@ -80,15 +78,12 @@ public class LevelObjectBlock extends Block implements EntityBlock {
         return new LevelObjectBlockEntity(pos, state);
     }
 
-    // ---- touch detection ----
-
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (level.isClientSide || entity.isSpectator() || state.getValue(COLLECTED)) return;
         Mode mode = state.getValue(MODE);
         if (mode == Mode.NONE) return;
 
-        // Vanilla calls this for the whole cell, so test the real (smaller) hitbox ourselves.
         AABB hitbox = state.getShape(level, pos).bounds().move(pos);
         if (!entity.getBoundingBox().intersects(hitbox)) return;
 
@@ -117,8 +112,6 @@ public class LevelObjectBlock extends Block implements EntityBlock {
         }
     }
 
-    // ---- tripmine ----
-
     private void arm(Level level, BlockPos pos) {
         if (!(level.getBlockEntity(pos) instanceof LevelObjectBlockEntity be) || be.getPhase() != Phase.IDLE) return;
         be.setPhase(Phase.ARMED, level.getGameTime());
@@ -137,7 +130,6 @@ public class LevelObjectBlock extends Block implements EntityBlock {
                 if (elapsed >= EXPLOSION_TICKS) {
                     level.removeBlock(pos, false);
                 } else {
-                    // Leftover fuse tick from a mine that was chain-detonated early: wait for the visual to finish.
                     level.scheduleTick(pos, this, (int) (EXPLOSION_TICKS - elapsed));
                 }
             }
@@ -154,7 +146,7 @@ public class LevelObjectBlock extends Block implements EntityBlock {
             if (!(state.getBlock() instanceof LevelObjectBlock)
                     || state.getValue(MODE) != Mode.TRIPMINE
                     || !(level.getBlockEntity(pos) instanceof LevelObjectBlockEntity be)
-                    || be.getPhase() == Phase.EXPLODING) continue;   // already blown up
+                    || be.getPhase() == Phase.EXPLODING) continue;
             explode(level, pos, be, queue);
         }
     }
@@ -167,7 +159,6 @@ public class LevelObjectBlock extends Block implements EntityBlock {
         Vec3 center = Vec3.atCenterOf(pos);
         double r2 = EXPLOSION_RADIUS * EXPLOSION_RADIUS;
 
-        // Massive damage, no block damage.
         DamageSource source = level.damageSources().explosion(null, null);
         for (Entity e : level.getEntities((Entity) null, new AABB(pos).inflate(EXPLOSION_RADIUS),
                 e -> !e.isSpectator())) {
@@ -176,7 +167,6 @@ public class LevelObjectBlock extends Block implements EntityBlock {
             }
         }
 
-        // Collect nearby gifts and queue nearby tripmines.
         int r = (int) Math.ceil(EXPLOSION_RADIUS);
         for (BlockPos p : BlockPos.betweenClosed(pos.offset(-r, -r, -r), pos.offset(r, r, r))) {
             if (p.equals(pos) || Vec3.atCenterOf(p).distanceToSqr(center) > r2) continue;

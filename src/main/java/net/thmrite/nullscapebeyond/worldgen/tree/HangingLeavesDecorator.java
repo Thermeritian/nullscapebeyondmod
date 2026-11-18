@@ -1,4 +1,4 @@
-package net.thmrite.nullscapebeyond.worldgen;
+package net.thmrite.nullscapebeyond.worldgen.tree;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -11,10 +11,6 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.thmrite.nullscapebeyond.registry.ModTreeDecorators;
 
-/**
- * Hangs strands (e.g. azure_leaves_hanging) below the tree's leaves.
- * JSON: {"type":"nscapebeyond:hanging_leaves","probability":0.2,"max_length":3,"provider":{...}}
- */
 public class HangingLeavesDecorator extends TreeDecorator {
     public static final MapCodec<HangingLeavesDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter(d -> d.probability),

@@ -16,7 +16,6 @@ public final class ModFeatures {
     public static final DeferredHolder<Feature<?>, CobaltMushroomFeature> COBALT_MUSHROOM =
             FEATURES.register("cobalt_mushroom", CobaltMushroomFeature::new);
 
-    /** Configured feature (data/nscapebeyond/worldgen/configured_feature/cobalt_mushroom.json) used when the small mushroom grows. */
     public static final ResourceKey<ConfiguredFeature<?, ?>> COBALT_MUSHROOM_HUGE =
             ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(NullscapeBeyond.MODID, "cobalt_mushroom"));
 }

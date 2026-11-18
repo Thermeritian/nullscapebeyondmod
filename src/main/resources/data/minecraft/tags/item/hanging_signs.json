@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:viridian_hanging_sign",
     "nscapebeyond:azure_hanging_sign"
   ]
 }

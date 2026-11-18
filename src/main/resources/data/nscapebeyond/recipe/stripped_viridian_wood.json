@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:stripped_viridian_log"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:stripped_viridian_wood",
+    "count": 3
+  },
+  "group": "bark"
+}

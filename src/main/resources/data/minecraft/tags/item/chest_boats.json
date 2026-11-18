@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:viridian_chest_boat",
     "nscapebeyond:azure_chest_boat"
   ]
 }

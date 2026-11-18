@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "nscapebeyond:block/viridian_pressure_plate"
+    },
+    "powered=true": {
+      "model": "nscapebeyond:block/viridian_pressure_plate_down"
+    }
+  }
+}

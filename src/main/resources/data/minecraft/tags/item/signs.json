@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:viridian_sign",
     "nscapebeyond:azure_sign"
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:viridian_planks"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:viridian_pressure_plate",
+    "count": 1
+  },
+  "group": "wooden_pressure_plate"
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "nscapebeyond:block/viridian_log"
+    },
+    "axis=z": {
+      "model": "nscapebeyond:block/viridian_log_horizontal",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "nscapebeyond:block/viridian_log_horizontal",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

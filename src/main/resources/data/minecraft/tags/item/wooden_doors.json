@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:viridian_door",
     "nscapebeyond:azure_door"
   ]
 }

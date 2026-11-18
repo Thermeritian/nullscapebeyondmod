@@ -43,6 +43,16 @@ public class ModCreativeTabs {
                         output.accept(ModItems.MART_BUCKET.get());
                         output.accept(ModBoats.AZURE.boatItem().get());
                         output.accept(ModBoats.AZURE.chestBoatItem().get());
+                        output.accept(ModBoats.VIRIDIAN.boatItem().get());
+                        output.accept(ModBoats.VIRIDIAN.chestBoatItem().get());
+                    })
+                    .build());
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MATERIALS =
+            TABS.register("materials", () -> CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.nscapebeyond.materials"))
+                    .icon(() -> new ItemStack(ModItems.MART_BUCKET.get()))
+                    .displayItems((params, output) -> {
+                        output.accept(ModItems.VIRIDIAN_RESIN.get());
                     })
                     .build());
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> FOOD =
@@ -80,9 +90,11 @@ public class ModCreativeTabs {
                         output.accept(ModBlocks.SPAWN.get());
                         //terrain
                         ModBlocks.AZURE.acceptItems(output::accept);
+                        ModBlocks.VIRIDIAN.acceptItems(output::accept);
                         output.accept(ModBlocks.AZURE_LEAVES_HANGING_ITEM.get());
                         ModBlocks.TERRAIN_ITEMS.forEach(s -> output.accept(s.get()));
                         ModBlocks.FLORA_ITEMS.forEach(s -> output.accept(s.get()));
+
                     })
                     .build());
 }
