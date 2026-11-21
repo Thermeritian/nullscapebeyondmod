@@ -1,7 +1,10 @@
 package net.thmrite.nullscapebeyond.registry;
 
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.material.WaterFluid;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -14,6 +17,9 @@ import net.thmrite.nullscapebeyond.accessory.classaccessory.*;
 import net.thmrite.nullscapebeyond.item.*;
 
 import java.util.List;
+
+import static net.thmrite.nullscapebeyond.registry.ModFluids.NULQUA;
+import static net.thmrite.nullscapebeyond.registry.ModFluids.NULQUA_TYPE;
 
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(NullscapeBeyond.MODID);
@@ -53,6 +59,11 @@ public final class ModItems {
     //materials
     public static final DeferredItem<Item> VIRIDIAN_RESIN = ITEMS.registerSimpleItem("viridian_resin");
 
+    public static final DeferredItem<Item> NULQUA_BOTTLE = ModItems.ITEMS.register("nulqua_bottle",
+            () -> new NulquaBottleItem(new Item.Properties().stacksTo(16))
+    );
+
+
     //food
     public static final DeferredItem<Item> NULLAPPLE = ITEMS.registerSimpleItem("nullapple",
             new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build()));
@@ -62,6 +73,8 @@ public final class ModItems {
     //tools
     public static final DeferredItem<MartBucketItem> MART_BUCKET =
             ITEMS.register("mart_bucket", () -> new MartBucketItem(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> NULQUA_BUCKET = ITEMS.register("nulqua_bucket",
+            () -> new BucketItem(ModFluids.NULQUA.get(), new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     //spawn eggs
     public static final DeferredItem<DeferredSpawnEggItem> MART_SPAWN_EGG =
             ITEMS.register("mart_spawn_egg", () -> new DeferredSpawnEggItem(

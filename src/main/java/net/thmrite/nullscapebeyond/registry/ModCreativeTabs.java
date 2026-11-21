@@ -45,6 +45,7 @@ public class ModCreativeTabs {
                         output.accept(ModBoats.AZURE.chestBoatItem().get());
                         output.accept(ModBoats.VIRIDIAN.boatItem().get());
                         output.accept(ModBoats.VIRIDIAN.chestBoatItem().get());
+                        output.accept(ModItems.NULQUA_BUCKET.get());
                     })
                     .build());
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MATERIALS =
@@ -53,6 +54,7 @@ public class ModCreativeTabs {
                     .icon(() -> new ItemStack(ModItems.MART_BUCKET.get()))
                     .displayItems((params, output) -> {
                         output.accept(ModItems.VIRIDIAN_RESIN.get());
+                        output.accept(ModItems.NULQUA_BOTTLE.get());
                     })
                     .build());
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> FOOD =
