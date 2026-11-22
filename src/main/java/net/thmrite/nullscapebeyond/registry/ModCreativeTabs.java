@@ -45,16 +45,16 @@ public class ModCreativeTabs {
                         output.accept(ModBoats.AZURE.chestBoatItem().get());
                         output.accept(ModBoats.VIRIDIAN.boatItem().get());
                         output.accept(ModBoats.VIRIDIAN.chestBoatItem().get());
-                        output.accept(ModItems.NULQUA_BUCKET.get());
+                        output.accept(ModFluids.NULQUA.bucket().get());
                     })
                     .build());
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MATERIALS =
             TABS.register("materials", () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.nscapebeyond.materials"))
-                    .icon(() -> new ItemStack(ModItems.MART_BUCKET.get()))
+                    .icon(() -> new ItemStack(ModFluids.NULQUA.bottle().get()))
                     .displayItems((params, output) -> {
                         output.accept(ModItems.VIRIDIAN_RESIN.get());
-                        output.accept(ModItems.NULQUA_BOTTLE.get());
+                        output.accept(ModFluids.NULQUA.bottle().get());
                     })
                     .build());
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> FOOD =

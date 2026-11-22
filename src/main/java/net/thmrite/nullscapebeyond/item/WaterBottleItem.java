@@ -15,8 +15,8 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-public class NulquaBottleItem extends Item {
-    public NulquaBottleItem(Properties properties) {
+public class WaterBottleItem extends Item {
+    public WaterBottleItem(Properties properties) {
         super(properties);
     }
 
