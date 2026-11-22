@@ -7,6 +7,9 @@ public final class ModFluids {
             .withBottle()
             .register();
 
+    public static final ModFluidsCauldron.Cauldron NULQUA_CAULDRON = ModFluidsCauldron.register("nulqua",
+            () -> NULQUA.bucket().get(), () -> NULQUA.bottle().get());
+
     private ModFluids() {
     }
 

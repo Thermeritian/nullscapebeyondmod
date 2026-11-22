@@ -70,6 +70,7 @@ public class NullscapeBeyond {
         //event.enqueueWork(ColoredLights::registerVanillaDefaults);
         event.enqueueWork(() -> ModWoodSet.ALL.forEach(ModWoodSet::registerFlammables));
         event.enqueueWork(ModBlocks::registerPottedPlants);
+        event.enqueueWork(ModFluidsCauldron::registerInteractions);
 
     }
 
