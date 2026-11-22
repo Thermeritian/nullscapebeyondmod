@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_cauldron_full",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "content": "nscapebeyond:fluid/nulqua/0_0"
+  }
+}
