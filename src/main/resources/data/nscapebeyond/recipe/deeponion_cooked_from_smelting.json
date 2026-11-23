@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "ingredient": {
+    "item": "nscapebeyond:deeponion"
+  },
+  "experience": 0.35,
+  "cookingtime": 200,
+  "result": {
+    "id": "nscapebeyond:deeponion_cooked"
+  }
+}

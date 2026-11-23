@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "nscapebeyond:nullsoil",
+    "nscapebeyond:palesand",
+    "nscapebeyond:azure_grass_block",
+    "nscapebeyond:viridian_grass_block",
+    "nscapebeyond:scarlet_grass_block",
+    {
+      "id": "nscapebeyond:pink_muhly_grass_block",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=1": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=2": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=3": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=4": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=5": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=6": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=7": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=8": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=9": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=10": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=11": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=12": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=13": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=14": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=15": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=16": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=17": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=18": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=19": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=20": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=21": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=22": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=23": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=24": {
+      "model": "nscapebeyond:block/riftweed"
+    },
+    "age=25": {
+      "model": "nscapebeyond:block/riftweed"
+    }
+  }
+}

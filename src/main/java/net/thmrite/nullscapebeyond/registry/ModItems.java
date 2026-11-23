@@ -62,6 +62,8 @@ public final class ModItems {
             new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build()));
     public static final DeferredItem<Item> ROSSA_KALE = ITEMS.registerSimpleItem("rossa_kale",
             new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.3F).build()));
+    public static final DeferredItem<Item> DEEPONION_COOKED = ITEMS.registerSimpleItem("deeponion_cooked",
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationModifier(0.6F).build()));
 
     //tools
     public static final DeferredItem<MartBucketItem> MART_BUCKET =

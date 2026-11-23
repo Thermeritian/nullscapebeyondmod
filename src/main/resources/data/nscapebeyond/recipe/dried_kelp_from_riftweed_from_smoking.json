@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "ingredient": {
+    "item": "nscapebeyond:riftweed"
+  },
+  "experience": 0.1,
+  "cookingtime": 100,
+  "result": {
+    "id": "minecraft:dried_kelp"
+  }
+}

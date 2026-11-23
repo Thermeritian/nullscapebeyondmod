@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "ingredient": {
+    "item": "nscapebeyond:deeponion"
+  },
+  "experience": 0.35,
+  "cookingtime": 100,
+  "result": {
+    "id": "nscapebeyond:deeponion_cooked"
+  }
+}

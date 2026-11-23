@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "nscapebeyond:blocks/albinoleaf",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "nscapebeyond:albinoleaf",
+          "properties": {
+            "quadrant": "nw"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "nscapebeyond:albinoleaf"
+        }
+      ]
+    }
+  ]
+}

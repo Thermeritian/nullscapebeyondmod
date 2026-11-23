@@ -63,6 +63,7 @@ public class ModCreativeTabs {
                     .icon(() -> new ItemStack(ModItems.NULLAPPLE.get()))
                     .displayItems((params, output) -> {
                         output.accept(ModItems.NULLAPPLE.get());
+                        output.accept(ModItems.DEEPONION_COOKED.get());
                         output.accept(ModItems.ROSSA_KALE.get());
                     })
                     .build());

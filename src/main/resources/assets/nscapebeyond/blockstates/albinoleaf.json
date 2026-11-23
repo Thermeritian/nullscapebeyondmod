@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "quadrant=nw": {
+      "model": "nscapebeyond:block/albinoleaf_00"
+    },
+    "quadrant=ne": {
+      "model": "nscapebeyond:block/albinoleaf_10"
+    },
+    "quadrant=sw": {
+      "model": "nscapebeyond:block/albinoleaf_01"
+    },
+    "quadrant=se": {
+      "model": "nscapebeyond:block/albinoleaf_11"
+    }
+  }
+}

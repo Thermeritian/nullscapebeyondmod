@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "ingredient": {
+    "item": "nscapebeyond:deeponion"
+  },
+  "experience": 0.35,
+  "cookingtime": 600,
+  "result": {
+    "id": "nscapebeyond:deeponion_cooked"
+  }
+}

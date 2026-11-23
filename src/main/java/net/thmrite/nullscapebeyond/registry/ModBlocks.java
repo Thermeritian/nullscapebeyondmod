@@ -15,6 +15,10 @@ import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.block.*;
 import net.minecraft.world.level.block.CarpetBlock;
 
+import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.PlaceOnWaterBlockItem;
+import net.minecraft.world.food.FoodProperties;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -114,7 +118,7 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> PALESANDSTONE = reg("palesandstone",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SANDSTONE).mapColor(MapColor.QUARTZ)), TERRAIN_ITEMS);
 
-    ////NATURAL BLOCKS
+    ////NATURAL BLOCKS (TERRAIN)
     public static final DeferredBlock<HangingLeavesBlock> AZURE_LEAVES_HANGING = regNoItem("azure_leaves_hanging",
             () -> new HangingLeavesBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_LIGHT_BLUE)
@@ -143,6 +147,26 @@ public final class ModBlocks {
             () -> new NullPlantBlock(plant(MapColor.SNOW)), FLORA_ITEMS);
     public static final DeferredBlock<PinkPetalsBlock> CELESTINE_FLOWERS = reg("celestine_flowers",
             () -> new PinkPetalsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS).mapColor(MapColor.COLOR_PURPLE)), FLORA_ITEMS);
+
+    ////NATURAL BLOCKS (SEA)
+    public static final DeferredBlock<RiftweedBlock> RIFTWEED = reg("riftweed",
+            () -> new RiftweedBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.KELP)),
+            b -> new ItemNameBlockItem(b, new Item.Properties()), FLORA_ITEMS);
+    public static final DeferredBlock<RiftweedPlantBlock> RIFTWEED_PLANT = regNoItem("riftweed_plant",
+            () -> new RiftweedPlantBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.KELP_PLANT)));
+    public static final DeferredBlock<NilreedBlock> NILREED = reg("nilreed",
+            () -> new NilreedBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SEAGRASS)), FLORA_ITEMS);
+    public static final DeferredBlock<TallNilreedBlock> TALL_NILREED = regNoItem("tall_nilreed",
+            () -> new TallNilreedBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_SEAGRASS)));
+    public static final DeferredBlock<AlbinoleafBlock> ALBINOLEAF = reg("albinoleaf",
+            () -> new AlbinoleafBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LILY_PAD)),
+            b -> new PlaceOnWaterBlockItem(b, new Item.Properties()), FLORA_ITEMS);
+    public static final DeferredBlock<DeepOnionBlock> DEEPONION = reg("deeponion",
+            () -> new DeepOnionBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).noCollission().randomTicks()
+                    .instabreak().sound(SoundType.WET_GRASS).pushReaction(PushReaction.DESTROY)),
+            b -> new ItemNameBlockItem(b, new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.3F).build())),
+            FLORA_ITEMS);
+
 
     public static final DeferredBlock<ViridianLeavesResinBlock> VIRIDIAN_LEAVES_RESIN = reg("viridian_leaves_resin",
             () -> new ViridianLeavesResinBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)), FLORA_ITEMS);

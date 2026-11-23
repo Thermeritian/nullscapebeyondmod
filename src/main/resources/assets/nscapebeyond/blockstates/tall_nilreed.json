@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "nscapebeyond:block/tall_nilreed_bottom"
+    },
+    "half=upper": {
+      "model": "nscapebeyond:block/tall_nilreed_top"
+    }
+  }
+}

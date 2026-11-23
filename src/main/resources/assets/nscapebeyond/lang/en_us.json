@@ -67,6 +67,16 @@
   "block.nscapebeyond.nullslate_cobbled_slab": "Cobbled Nullslate Slab",
   "block.nscapebeyond.nullslate_cobbled_wall": "Cobbled Nullslate Wall",
 
+  "block.nscapebeyond.riftweed": "Riftweed",
+  "item.nscapebeyond.riftweed": "Riftweed",
+  "block.nscapebeyond.riftweed_plant": "Riftweed",
+  "block.nscapebeyond.nilreed": "Nilreed",
+  "block.nscapebeyond.tall_nilreed": "Tall Nilreed",
+  "block.nscapebeyond.albinoleaf": "Albinoleaf",
+  "block.nscapebeyond.deeponion": "Deeponion",
+  "item.nscapebeyond.deeponion": "Deeponion",
+  "item.nscapebeyond.deeponion_cooked": "Cooked Deeponion",
+
   "block.nscapebeyond.azure_log": "Azure Log",
   "item.nscapebeyond.azure_log": "Azure Log",
   "block.nscapebeyond.stripped_azure_log": "Stripped Azure Log",
