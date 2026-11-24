@@ -10,15 +10,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.thmrite.nullscapebeyond.block.entity.NullflameCombustion;
+import net.thmrite.nullscapebeyond.event.blockentity.NullflameFuel;
 import net.thmrite.nullscapebeyond.item.NullflameBottleItem;
 
 
@@ -64,14 +68,18 @@ public abstract class AbstractFurnaceBlockEntityMixin implements NullflameCombus
 
         boolean before = this.nscapebeyond$nullflame;
         if (this.litTime <= 0) {
-            this.nscapebeyond$nullflame = false;
+            this.nscapebeyond$nullflame = false;                        // fire is out
         } else if (fuelWasConsumed) {
-            this.nscapebeyond$nullflame = this.nscapebeyond$fuelItemBefore instanceof NullflameBottleItem;
+            this.nscapebeyond$nullflame = this.nscapebeyond$fuelItemBefore instanceof NullflameFuel;
+        }
+        // one bottle burned = one empty glass bottle back (the item has no crafting remainder, see NullflameBottleItem)
+        if (fuelWasConsumed && this.nscapebeyond$fuelItemBefore instanceof NullflameBottleItem) {
+            Block.popResource(level, pos.above(), new ItemStack(Items.GLASS_BOTTLE));
         }
         if (before != this.nscapebeyond$nullflame) {
             self.setChanged();
             BlockState state = level.getBlockState(pos);
-            level.sendBlockUpdated(pos, state, state, 3);
+            level.sendBlockUpdated(pos, state, state, 3);              // pushes getUpdatePacket to the clients
         }
     }
 
@@ -85,7 +93,10 @@ public abstract class AbstractFurnaceBlockEntityMixin implements NullflameCombus
         this.nscapebeyond$nullflame = tag.getBoolean("NullflameCombustion");
     }
 
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+    // Vanilla furnaces do not sync their block entity; these two (added to the class, overriding BlockEntity's) do.
+    // The return type must be EXACTLY Packet<ClientGamePacketListener>: with a narrower return type the compiler would
+    // need a bridge method, which does not exist in a mixin, and the method would silently not override anything.
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create((BlockEntity) (Object) this);
     }
 

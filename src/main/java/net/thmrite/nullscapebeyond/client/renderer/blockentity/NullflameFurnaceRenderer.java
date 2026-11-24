@@ -46,12 +46,14 @@ public class NullflameFurnaceRenderer implements BlockEntityRenderer<AbstractFur
         VertexConsumer consumer = buffer.getBuffer(RenderType.cutout());
 
         poseStack.pushPose();
+        // build the quad on the NORTH face (z = 0), then rotate it around the block centre to the facing side
         poseStack.translate(0.5, 0.5, 0.5);
         poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - facing.toYRot()));
         poseStack.translate(-0.5, -0.5, -0.5);
         PoseStack.Pose pose = poseStack.last();
         float z = -0.002F;   // a hair in front of the face so it does not z-fight with the vanilla front
         float u0 = sprite.getU0(), u1 = sprite.getU1(), v0 = sprite.getV0(), v1 = sprite.getV1();
+        // counter-clockwise as seen from the front (from the north, +x is on the viewer's left)
         vertex(consumer, pose, 1.0F, 1.0F, z, u0, v0);
         vertex(consumer, pose, 1.0F, 0.0F, z, u0, v1);
         vertex(consumer, pose, 0.0F, 0.0F, z, u1, v1);
