@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "item": "nscapebeyond:blighted_ash"
+  },
+  "experience": 0.3,
+  "cookingtime": 200,
+  "result": {
+    "id": "nscapebeyond:blighted_brick"
+  }
+}

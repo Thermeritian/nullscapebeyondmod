@@ -1,5 +1,6 @@
 package net.thmrite.nullscapebeyond;
 
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.thmrite.nullscapebeyond.attribute.ClassAttributes;
 import net.thmrite.nullscapebeyond.attribute.ModAttributes;
@@ -62,6 +63,8 @@ public class NullscapeBeyond {
 
     private void addSignBlocks(BlockEntityTypeAddBlocksEvent event) {          // net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent
         ModWoodSet.ALL.forEach(set -> set.addSignBlocks(event));
+        event.modify(BlockEntityType.CAMPFIRE, ModBlocks.NULLFLAME_CAMPFIRE.get());
+        event.modify(BlockEntityType.BRUSHABLE_BLOCK, ModBlocks.BLIGHTED_SHALE_SUSPICIOUS.get());
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

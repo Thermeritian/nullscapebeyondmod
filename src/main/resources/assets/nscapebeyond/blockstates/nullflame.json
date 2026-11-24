@@ -1,0 +1,106 @@
+{
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "nscapebeyond:block/nullflame_floor0"
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_floor1"
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "nscapebeyond:block/nullflame_side0"
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_side1"
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_side_alt0"
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_side_alt1"
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "nscapebeyond:block/nullflame_side0",
+          "y": 90
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_side1",
+          "y": 90
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_side_alt0",
+          "y": 90
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_side_alt1",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "nscapebeyond:block/nullflame_side0",
+          "y": 180
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_side1",
+          "y": 180
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_side_alt0",
+          "y": 180
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_side_alt1",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "nscapebeyond:block/nullflame_side0",
+          "y": 270
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_side1",
+          "y": 270
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_side_alt0",
+          "y": 270
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_side_alt1",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "nscapebeyond:block/nullflame_up0"
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_up1"
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_up_alt0"
+        },
+        {
+          "model": "nscapebeyond:block/nullflame_up_alt1"
+        }
+      ]
+    }
+  ]
+}

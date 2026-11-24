@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "nscapebeyond:block/nullflame_wall_torch"
+    },
+    "facing=south": {
+      "model": "nscapebeyond:block/nullflame_wall_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "nscapebeyond:block/nullflame_wall_torch",
+      "y": 180
+    },
+    "facing=north": {
+      "model": "nscapebeyond:block/nullflame_wall_torch",
+      "y": 270
+    }
+  }
+}

@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:blighted_shale_bricks",
+    "nscapebeyond:blighted_shale_bricks_stairs",
+    "nscapebeyond:blighted_shale_bricks_slab",
+    "nscapebeyond:blighted_shale_bricks_wall",
     "nscapebeyond:nullslate",
     "nscapebeyond:nullslate_cobbled",
     "nscapebeyond:nullslate_bricks",
@@ -28,6 +32,7 @@
     "nscapebeyond:nullslate_bricks_wall",
     "nscapebeyond:nullslate_small_bricks_wall",
     "nscapebeyond:nullmarble_wall",
-    "nscapebeyond:nullmarble_bricks_wall"
+    "nscapebeyond:nullmarble_bricks_wall",
+    "nscapebeyond:nullflame_lantern"
   ]
 }

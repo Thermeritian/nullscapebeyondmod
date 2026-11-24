@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:blighted_shale_bricks_stairs",
     "nscapebeyond:nullslate_stairs",
     "nscapebeyond:nullslate_cobbled_stairs",
     "nscapebeyond:nullslate_bricks_stairs",

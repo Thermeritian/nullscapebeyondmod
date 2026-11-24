@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "nscapebeyond:stillclay_shard"
+    }
+  ],
+  "result": {
+    "id": "nscapebeyond:flint_and_stillclay",
+    "count": 1
+  }
+}

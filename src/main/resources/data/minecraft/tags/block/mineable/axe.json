@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "nscapebeyond:cobalt_mushroom_block",
+    "nscapebeyond:cobalt_mushroom_stem",
     "nscapebeyond:viridian_log",
     "nscapebeyond:stripped_viridian_log",
     "nscapebeyond:viridian_wood",
@@ -35,7 +37,6 @@
     "nscapebeyond:azure_wall_sign",
     "nscapebeyond:azure_hanging_sign",
     "nscapebeyond:azure_wall_hanging_sign",
-    "nscapebeyond:cobalt_mushroom_block",
-    "nscapebeyond:cobalt_mushroom_stem"
+    "nscapebeyond:nullflame_campfire"
   ]
 }

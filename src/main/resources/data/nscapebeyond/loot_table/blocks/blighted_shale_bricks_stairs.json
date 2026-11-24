@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "nscapebeyond:blocks/blighted_shale_bricks_stairs",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "nscapebeyond:blighted_shale_bricks_stairs"
+        }
+      ]
+    }
+  ]
+}

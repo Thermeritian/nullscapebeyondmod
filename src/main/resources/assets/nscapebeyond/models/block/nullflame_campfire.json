@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/template_campfire",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "fire": "nscapebeyond:block/nullflame_campfire_fire",
+    "lit_log": "nscapebeyond:block/nullflame_campfire_log_lit",
+    "log": "minecraft:block/campfire_log"
+  }
+}

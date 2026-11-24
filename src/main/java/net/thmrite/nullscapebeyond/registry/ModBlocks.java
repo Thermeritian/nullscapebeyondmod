@@ -1,11 +1,14 @@
 package net.thmrite.nullscapebeyond.registry;
 
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ColorRGBA;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -15,8 +18,6 @@ import net.thmrite.nullscapebeyond.NullscapeBeyond;
 import net.thmrite.nullscapebeyond.block.*;
 import net.minecraft.world.level.block.CarpetBlock;
 
-import net.minecraft.world.item.ItemNameBlockItem;
-import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.food.FoodProperties;
 
 import java.util.ArrayList;
@@ -118,6 +119,20 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> PALESANDSTONE = reg("palesandstone",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SANDSTONE).mapColor(MapColor.QUARTZ)), TERRAIN_ITEMS);
 
+    //BLIGHT SHALE
+    public static final DeferredBlock<ColoredFallingBlock> BLIGHTED_SHALE = reg("blighted_shale",
+            () -> new ColoredFallingBlock(new ColorRGBA(0x6B5F67), BlockBehaviour.Properties.ofFullCopy(Blocks.GRAVEL).mapColor(MapColor.COLOR_PURPLE)), TERRAIN_ITEMS);
+    public static final DeferredBlock<Block> BLIGHTED_SHALE_BRICKS = reg("blighted_shale_bricks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).mapColor(MapColor.COLOR_PURPLE)), TERRAIN_ITEMS);
+    public static final StoneVariants BLIGHTED_SHALE_BRICKS_VARIANTS = variants("blighted_shale_bricks", BLIGHTED_SHALE_BRICKS);
+    public static final DeferredBlock<SuspiciousBlightedShaleBlock> BLIGHTED_SHALE_SUSPICIOUS = reg("blighted_shale_suspicious",
+            () -> new SuspiciousBlightedShaleBlock(BLIGHTED_SHALE.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.SUSPICIOUS_GRAVEL),
+                    SoundEvents.BRUSH_GRAVEL, SoundEvents.BRUSH_GRAVEL_COMPLETED), TERRAIN_ITEMS);
+
+    //STILLCLAY
+    public static final DeferredBlock<Block> STILLCLAY = reg("stillclay",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CLAY)), TERRAIN_ITEMS);
+
     ////NATURAL BLOCKS (TERRAIN)
     public static final DeferredBlock<HangingLeavesBlock> AZURE_LEAVES_HANGING = regNoItem("azure_leaves_hanging",
             () -> new HangingLeavesBlock(BlockBehaviour.Properties.of()
@@ -183,6 +198,21 @@ public final class ModBlocks {
                         .randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)), FLORA_ITEMS
         );
 
+    //FLAMES
+    public static final DeferredBlock<NullflameBlock> NULLFLAME = regNoItem("nullflame",
+            () -> new NullflameBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SOUL_FIRE).lightLevel(s -> 12)));
+    public static final DeferredBlock<TorchBlock> NULLFLAME_TORCH = regNoItem("nullflame_torch",
+            () -> new TorchBlock(ParticleTypes.SOUL_FIRE_FLAME, BlockBehaviour.Properties.ofFullCopy(Blocks.SOUL_TORCH).lightLevel(s -> 12)));   // placeholder flame particle
+    public static final DeferredBlock<WallTorchBlock> NULLFLAME_WALL_TORCH = regNoItem("nullflame_wall_torch",
+            () -> new WallTorchBlock(ParticleTypes.SOUL_FIRE_FLAME, BlockBehaviour.Properties.ofFullCopy(Blocks.SOUL_WALL_TORCH).lightLevel(s -> 12)
+                    .dropsLike(NULLFLAME_TORCH.get())));
+    public static final DeferredItem<Item> NULLFLAME_TORCH_ITEM = ModItems.ITEMS.register("nullflame_torch",
+            () -> new StandingAndWallBlockItem(NULLFLAME_TORCH.get(), NULLFLAME_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
+    public static final DeferredBlock<LanternBlock> NULLFLAME_LANTERN = reg("nullflame_lantern",
+            () -> new LanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SOUL_LANTERN).lightLevel(s -> 12)), TERRAIN_ITEMS);
+    public static final DeferredBlock<CampfireBlock> NULLFLAME_CAMPFIRE = reg("nullflame_campfire",
+            () -> new CampfireBlock(false, 2, BlockBehaviour.Properties.ofFullCopy(Blocks.SOUL_CAMPFIRE)
+                    .lightLevel(s -> s.getValue(BlockStateProperties.LIT) ? 12 : 0)), TERRAIN_ITEMS);
 
 
     ////BUILDING BLOKCS

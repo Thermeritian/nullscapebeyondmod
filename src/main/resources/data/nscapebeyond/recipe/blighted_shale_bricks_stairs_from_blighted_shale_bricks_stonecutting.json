@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "nscapebeyond:blighted_shale_bricks"
+  },
+  "result": {
+    "id": "nscapebeyond:blighted_shale_bricks_stairs",
+    "count": 1
+  }
+}

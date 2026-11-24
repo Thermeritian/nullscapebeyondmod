@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "blighted_shale_bricks_slab",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "nscapebeyond:blighted_shale_bricks"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:blighted_shale_bricks_slab",
+    "count": 6
+  }
+}

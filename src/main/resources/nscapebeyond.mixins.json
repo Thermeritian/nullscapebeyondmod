@@ -4,7 +4,7 @@
   "package": "net.thmrite.nullscapebeyond.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-
+    "AbstractFurnaceBlockEntityMixin"
   ],
   "client": [
     "ClientLevelMixin"

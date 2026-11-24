@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "nscapebeyond:block/nullflame_lantern"
+    },
+    "hanging=true": {
+      "model": "nscapebeyond:block/nullflame_hanging_lantern"
+    }
+  }
+}

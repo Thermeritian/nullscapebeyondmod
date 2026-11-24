@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "nscapebeyond:block/blighted_shale_suspicious_1"
+  }
+}

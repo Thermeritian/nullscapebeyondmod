@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "B",
+    "S"
+  ],
+  "key": {
+    "B": {
+      "item": "nscapebeyond:nullflame_bottle"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "nscapebeyond:nullflame_torch",
+    "count": 4
+  }
+}

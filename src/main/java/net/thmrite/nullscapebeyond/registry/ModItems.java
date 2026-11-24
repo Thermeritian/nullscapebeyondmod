@@ -55,6 +55,13 @@ public final class ModItems {
     //items
     //materials
     public static final DeferredItem<Item> VIRIDIAN_RESIN = ITEMS.registerSimpleItem("viridian_resin");
+    public static final DeferredItem<Item> BLIGHTED_ASH = ITEMS.registerSimpleItem("blighted_ash");
+    public static final DeferredItem<Item> BLIGHTED_BRICK = ITEMS.registerSimpleItem("blighted_brick");
+    public static final DeferredItem<Item> BLIGHTED_VIAL = ITEMS.registerSimpleItem("blighted_vial");
+    public static final DeferredItem<Item> STILLCLAY_SHARD = ITEMS.registerSimpleItem("stillclay_shard");
+    public static final DeferredItem<Item> NULLFLAME_BOTTLE = ITEMS.register("nullflame_bottle",
+            () -> new NullflameBottleItem(new Item.Properties()));
+    public static final DeferredItem<Item> PALE_SALT = ITEMS.registerSimpleItem("pale_salt");
 
 
     //food
@@ -68,6 +75,8 @@ public final class ModItems {
     //tools
     public static final DeferredItem<MartBucketItem> MART_BUCKET =
             ITEMS.register("mart_bucket", () -> new MartBucketItem(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> FLINT_AND_STILLCLAY = ITEMS.register("flint_and_stillclay",
+            () -> new FlintAndStillclayItem(new Item.Properties().durability(64)));
     //spawn eggs
     public static final DeferredItem<DeferredSpawnEggItem> MART_SPAWN_EGG =
             ITEMS.register("mart_spawn_egg", () -> new DeferredSpawnEggItem(
