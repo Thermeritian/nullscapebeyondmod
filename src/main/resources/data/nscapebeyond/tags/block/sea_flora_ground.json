@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "nscapebeyond:nullsoil",
+    "nscapebeyond:blighted_shale",
+    "nscapebeyond:stillclay",
     "nscapebeyond:palesand",
     "nscapebeyond:azure_grass_block",
     "nscapebeyond:viridian_grass_block",
